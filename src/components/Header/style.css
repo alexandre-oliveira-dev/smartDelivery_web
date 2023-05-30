@@ -8,10 +8,25 @@
 .header{
     width: 80%;
     height: 100%;
-    background-color: #612f74;
+    background-color: #2c1535;
     border-radius: 0 0 30px 30px;
     display: flex;
     align-items: center;
     padding: 0 10px 0 10px;
     justify-content: space-evenly;
+}
+
+.nav-btns button{
+    background-color: transparent;
+    color: #fff;
+    font-size: 17px;
+}
+.header a{
+    color: #fff;
+    margin-left: 10px;
+}
+.header a:first-child{
+    background-color: #612f74;
+    padding: 10px;
+    border-radius: 10px;
 }

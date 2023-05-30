@@ -6,7 +6,7 @@ export default function Header() {
     <header className="box-header">
       <div className="header">
           <div>logoaqui</div>
-          <div>
+          <div className='nav-btns'>
             <button>Inicio</button>
             <button>Quem somos</button>
             <button>Duvidas</button>
