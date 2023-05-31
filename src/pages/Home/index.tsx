@@ -116,6 +116,23 @@ export default function Home() {
             <MdKeyboardDoubleArrowDown color="#612f74" size={80} className="animation"></MdKeyboardDoubleArrowDown>
         </div>
       </section>
+      <section className="section3">
+        <div>
+        <div className="stap-information">
+          <span>1</span>
+          <h2>Crie uma conta para seu restaurante, <a href="#">criar conta</a></h2>
+        </div>
+        <div className="stap-information">
+          <span>2</span>
+          <h2>Faça login na sua conta criada e assine o nosso plano para ter acesso as ferramentas, <a href="#">entrar</a></h2>
+        </div>
+        <div className="stap-information">
+          <span>3</span>
+          <h2>Pronto! 😎, agora so personalizar seu delivery online do seu jeito!</h2>
+        </div>
+        </div>
+        <a href="#" id="btn-comecaragr">Começar agora!</a>
+      </section>
     </div>
   );
 }

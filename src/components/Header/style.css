@@ -24,6 +24,7 @@
 .header a{
     color: #fff;
     margin-left: 10px;
+    text-decoration: none;
 }
 .header a:first-child{
     background-color: #612f74;

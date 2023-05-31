@@ -12,8 +12,8 @@ export default function Header() {
             <button>Duvidas</button>
           </div>
           <div>
-            <a>Entrar</a>
-            <a>Cadastre-se</a>
+            <a href="#">Entrar</a>
+            <a href="#">Cadastre-se</a>
           </div>
       </div>
     </header>

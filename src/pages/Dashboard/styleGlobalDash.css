@@ -1,0 +1,12 @@
+.box-global-dash{
+    display: flex;
+}
+
+.content-dasboard-pages{
+    width: calc(100% - 250px);
+    height: 100vh;
+    margin-left: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

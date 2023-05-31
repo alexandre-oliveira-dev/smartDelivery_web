@@ -1,0 +1,37 @@
+.navbardash {
+    width: 250px;
+    height: 100vh;
+    position: fixed;
+    background-color: #612f74;
+    left: 0;
+    padding: 2rem;
+}
+
+.boxbtnnavdash {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 50px;
+
+}
+
+.boxbtnnavdash button {
+    background-color: transparent;
+    color: #fff;
+    font-size: 20px;
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: aliceblue;
+}
+
+.btn-sair {
+    position: absolute;
+    bottom: 50px;
+    background-color: transparent;
+    color: #fff;
+    font-size: 18px;
+}
