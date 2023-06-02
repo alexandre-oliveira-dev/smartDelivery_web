@@ -32,9 +32,8 @@ export default function Home() {
           </div>
         </div>
         <div className="content-box-section1">
-          <div className="bg-ilustracao">
             <img className="ilustracao" src={img} alt=""></img>
-          </div>
+          
         </div>
         <div className="content-box-section1" style={{ flexDirection: "column", gap: "20px" }}>
           <div className="item-section1">
