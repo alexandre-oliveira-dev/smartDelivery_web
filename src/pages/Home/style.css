@@ -71,7 +71,7 @@
 
 .box-text-info h2 {
     font-size: 40px;
-    color: #612f74;
+    color: #5B72F2;
     font-weight: 400;
 }
 
@@ -79,7 +79,7 @@
     font-size: 30px;
     color: #fff;
     font-weight: 800;
-    background-color: #612f74;
+    background-color: #5B72F2;
     padding: 5px;
     border-radius: 10px;
 }
@@ -134,7 +134,7 @@
     display: block;
     width: 2px;
     height: 20px;
-    background-color: #612f74;
+    background-color: #5B72F2;
     position: absolute;
     bottom: -20px;
 }
@@ -150,7 +150,7 @@
 }
 
 .stap-information span {
-    background-color: #612f74;
+    background-color: #5B72F2;
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -161,9 +161,9 @@
     position: relative;
 }
 
-#btn-comecaragr{
+#btn-comecaragr {
     text-decoration: none;
-    background-color: #612f74;
+    background-color: #5B72F2;
     padding: 10px;
     border-radius: 10px;
     font-size: 20px;

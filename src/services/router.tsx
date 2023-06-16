@@ -3,6 +3,8 @@ import { Switch, Route } from "react-router-dom";
 import Home from "../pages/Home";
 import Dashboard from "../pages/Dashboard/orders";
 import Faturamento from "../pages/Dashboard/Faturamento";
+import Config from "../pages/Dashboard/Configs";
+import Register from "../pages/Register";
 
 
 export default function RouterApp() {
@@ -10,7 +12,9 @@ export default function RouterApp() {
     <Switch>
       <Route exact path={"/"} component={Home}></Route>
       <Route exact path={"/dashboard/:company"} component={Dashboard}></Route>
+      <Route exact path={"/dashboard/:company/config"} component={Config}></Route>
       <Route exact path={"/dashboard/:company/faturamento"} component={Faturamento}></Route>
+      <Route exact path={"/cadastro"} component={Register}></Route>
     </Switch>
   );
 }

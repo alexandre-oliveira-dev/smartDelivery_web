@@ -15,7 +15,7 @@ export default function Title({align,color,size,text}:Styles){
             fontSize:size,
             width:"80%",
             padding:"10px 0 10px 0",
-            background:"#612f74",
+            background:"#5B72F2",
             borderRadius:"10px"
         }}>
             {text}

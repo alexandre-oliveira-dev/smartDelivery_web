@@ -22,10 +22,10 @@ export default function Home() {
               alignItems: "flex-end",
             }}
           >
-            <h1 style={{ color: "#612f74", fontSize: "60px", fontWeight: "800" }}>Rápido</h1>
-            <h1 style={{ color: "#121212", fontSize: "60px", fontWeight: "600" }}>Objetivo &</h1>
-            <h1 style={{ color: "#612f74", fontSize: "60px", fontWeight: "400" }}>Fácil</h1>
-            <p style={{ color: "#612f74", fontSize: "20px", fontWeight: "400", textAlign: "end" }}>
+            <h1 style={{ color: "#5B72F2", fontSize: "60px", fontWeight: "800" }}>Delivery</h1>
+            <h1 style={{ color: "#121212", fontSize: "60px", fontWeight: "600" }}>Rápido &</h1>
+            <h1 style={{ color: "#5B72F2", fontSize: "60px", fontWeight: "400" }}>Fácil</h1>
+            <p style={{ color: "#5B72F2", fontSize: "20px", fontWeight: "400", textAlign: "end" }}>
               Tenha uma aplicação web para o seu restaurante e facilite suas comandas e aumente seu
               faturamento!
             </p>
@@ -33,13 +33,12 @@ export default function Home() {
         </div>
         <div className="content-box-section1">
             <img className="ilustracao" src={img} alt=""></img>
-          
         </div>
         <div className="content-box-section1" style={{ flexDirection: "column", gap: "20px" }}>
           <div className="item-section1">
             <div
               style={{
-                background: "#612f74",
+                background: "#5B72F2",
                 borderRadius: "50%",
                 width: "40px",
                 height: "40px",
@@ -55,7 +54,7 @@ export default function Home() {
           <div className="item-section1">
             <div
               style={{
-                background: "#612f74",
+                background: "#5B72F2",
                 borderRadius: "50%",
                 width: "40px",
                 height: "40px",
@@ -71,7 +70,7 @@ export default function Home() {
           <div className="item-section1">
             <div
               style={{
-                background: "#612f74",
+                background: "#5B72F2",
                 borderRadius: "50%",
                 width: "40px",
                 height: "40px",
@@ -87,7 +86,7 @@ export default function Home() {
           <div className="item-section1">
             <div
               style={{
-                background: "#612f74",
+                background: "#5B72F2",
                 borderRadius: "50%",
                 width: "40px",
                 height: "40px",
@@ -112,7 +111,7 @@ export default function Home() {
             refeição uma experiência ágil e <strong>deliciosa</strong>.
           </h2>
           <h3>Tá, mas como funciona? 🧐</h3>
-            <MdKeyboardDoubleArrowDown color="#612f74" size={80} className="animation"></MdKeyboardDoubleArrowDown>
+            <MdKeyboardDoubleArrowDown color="#5B72F2" size={80} className="animation"></MdKeyboardDoubleArrowDown>
         </div>
       </section>
       <section className="section3">

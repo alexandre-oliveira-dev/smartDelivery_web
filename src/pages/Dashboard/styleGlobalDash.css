@@ -9,5 +9,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #f9f9f9;
+    background-color: #fff;
+    padding-bottom: 2rem;
 }

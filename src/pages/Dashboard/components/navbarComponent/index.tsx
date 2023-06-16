@@ -11,9 +11,9 @@ type Activebtntype={
 export default function NavBarComponent({btn1,btn2,btn3}:Activebtntype){
 
     const navBarBtns = [
-        {id:1, title:'Meus Pedidos',link:`/dashboard/${'nomerest'}`,icon:'',active:btn1},
-        {id:2, title:'Faturamento',link:`/dashboard/${'nomerest'}/faturamento`,icon:'',active:btn2},
-        {id:3, title:'Configurações',link:`/dashboard/${'nomerest'}/configuracoes`,icon:'',active:btn3}
+        {id:3, title:'Dashboard',link:`/dashboard/${'nomerest'}/faturamento`,icon:'',active:btn2},
+        {id:2, title:'Meus Pedidos',link:`/dashboard/${'nomerest'}`,icon:'',active:btn1},
+        {id:3, title:'Configurações',link:`/dashboard/${'nomerest'}/config`,icon:'',active:btn3}
     ]
 
     return(

@@ -63,6 +63,36 @@ export default function Faturamento() {
       amountOrders: 4,
       amountvalue:2000,
     },
+    {
+      id: 3,
+      date: "07/06/2023",
+      amountOrders: 4,
+      amountvalue:2000,
+    },
+    {
+      id: 3,
+      date: "08/06/2023",
+      amountOrders: 4,
+      amountvalue:2000,
+    },
+    {
+      id: 3,
+      date: "09/06/2023",
+      amountOrders: 4,
+      amountvalue:2000,
+    },
+    {
+      id: 3,
+      date: "10/06/2023",
+      amountOrders: 4,
+      amountvalue:2000,
+    },
+    {
+      id: 3,
+      date: "11/06/2023",
+      amountOrders: 4,
+      amountvalue:2000,
+    },
   
   ];
 
@@ -89,15 +119,14 @@ export default function Faturamento() {
     daysofmonth.push(nowdate.date(dia).format("DD/MM/YYYY"));
   }
 
-console.log(Number(datafat.findIndex(item => item.date === dayjs(new Date()).format('DD/MM/YYYY'))))
   return (
     <>
       <NavBarComponent btn2={true}></NavBarComponent>
       <div className="box-global-dash">
         <div className="content-dasboard-pages">
           <Typography.Title level={1}>Faturamento</Typography.Title>
-          <Row>
-            <Col id="myChart">
+          <Row gutter={20}>
+            <Col>
               <Card>
                 <Typography.Title level={4}>Vendas no mês</Typography.Title>
                 <Bar
@@ -106,7 +135,7 @@ console.log(Number(datafat.findIndex(item => item.date === dayjs(new Date()).for
                     datasets: [
                       {
                         data: [12, 19, 3, 5, 2, 3],
-                        backgroundColor: "#612F74",
+                        backgroundColor: "#5B72F2",
                       },
                     ],
                     yLabels: ["R$"],
@@ -124,14 +153,14 @@ console.log(Number(datafat.findIndex(item => item.date === dayjs(new Date()).for
                     datasets: [
                       {
                         data: datafat.map(item => item.amountvalue),
-                        backgroundColor: "#612F74",
+                        backgroundColor: "#5B72F2",
                       },
                     ],
                     yLabels: ["R$"],
-                    labels: datafat.map(item => item.date).concat(daysofmonth.slice(daysofmonth.findIndex(item => item === datafat[datafat.length -1].date))),
+                    labels: datafat.map(item => item.date).slice(datafat.length > 8 ? datafat.length -8 : 0, datafat.length),
                   }}
                 ></Line>
-              </Card>
+              </Card>   
             </Col>
           </Row>
         </div>
