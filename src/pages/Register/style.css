@@ -6,5 +6,19 @@
     align-items: center;
 }
 .tab{
-    width: 50%;
+    width: max-content;
+}
+
+#finshbtn{
+    width: 150px;
+    height: 35px;
+    background-color: transparent;
+    border: 1px solid #5B72F2 ;
+    border-radius: 10px;
+    color: #5B72F2;
+    transition: 0.3s ease;
+}
+#finshbtn:hover{
+    background-color: #5B72F2;
+    color: #fff;
 }
