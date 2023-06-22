@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import "./style.css";
 import { MdLogout } from "react-icons/md";
 import { api } from "../../../../services/api";
-import { IsLoginContext, LoginContext } from "../../../../context/isLogin.context";
+import { IsLoginContext, LoginContext } from "../../../../context/Login.context";
 
 type Activebtntype = {
   btn1?: boolean;
