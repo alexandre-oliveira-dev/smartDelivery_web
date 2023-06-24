@@ -2,13 +2,14 @@
     width: 100%;
     min-height: 100vh;
     background-color: #FEFEFE;
+    margin-top: 70px;
 }
 
 .section1 {
     width: 100%;
     min-height: 90vh;
     display: flex;
-
+    
 }
 
 .content-box-section1 {
@@ -168,4 +169,9 @@
     border-radius: 10px;
     font-size: 20px;
     color: #fff;
+    width: 100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin-top: 10px;
 }

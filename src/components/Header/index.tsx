@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import "./style.css";
 import { Button, Form, Input, Modal, Typography } from "antd";
 import FormItem from "antd/es/form/FormItem";
@@ -11,11 +11,30 @@ type SinginTypes = {
 
 export default function Header() {
   const [openModal, setOpenModal] = useState(false);
+  const [load, setLoad] = useState(false);
   const [dataForm, setDataform] = useState<SinginTypes>();
   const [errmessage, setErrmessage] = useState("");
 
   const [form] = Form.useForm();
 
+  const params = new URLSearchParams(window.location.search)
+
+
+
+  useEffect(()=>{
+    window.addEventListener('scroll', function() {
+      const scrollPosition = window.scrollY;
+      if(scrollPosition !== 0){
+        document.querySelector('.header')?.setAttribute('style','width:100%;border-radius:0')
+      }else{
+        document.querySelector('.header')?.setAttribute('style','width:80%')
+      }
+    });
+
+    if(params.get('modal')){
+      setOpenModal(true)
+    }
+  },[])
 
   if (dataForm) {
     async function handleLogin(){
@@ -31,17 +50,20 @@ export default function Header() {
         })
         .then((response) => {
           localStorage.setItem("@sessionDelivery", JSON.stringify(response.data));
-  
+          setLoad(false)
           window.location.href = `/dashboard/${response.data?.name_company}`;
         })
         .catch((err) => {
           document.getElementById("err")?.setAttribute("style", "display:flex");
           setErrmessage("Dados inválidos ou não cadastrados!");
           console.log(err);
+          setLoad(false)
+
         });
     } 
     handleLogin()
    }
+
 
   return (
       <header className="box-header">
@@ -63,14 +85,20 @@ export default function Header() {
                 closable={false}
                 style={{ padding: "20px" }}
                 open={openModal}
-                okText="Entrar"
-                onCancel={() => setOpenModal(false)}
+                okText={load ? 'Entrando...' : 'Entrar'}
+                onCancel={() => {
+                  setOpenModal(false)
+                  window.location.href='/'
+                }}
                 onOk={() => {
                   if (!form.getFieldValue("email") && !form.getFieldValue("password")) {
                     setErrmessage("Preencha todos os campos");
                     return;
                   }
-                  form.submit();
+                  if(!load){
+                    form.submit();
+                    setLoad(true)
+                  }
                 }}
               >
                 <Typography.Title level={3}>Fazer login</Typography.Title>

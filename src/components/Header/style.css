@@ -3,6 +3,9 @@
     height: 70px;
     display: flex;
     justify-content: center;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
 }
 
 .header {
@@ -14,6 +17,7 @@
     align-items: center;
     padding: 0 10px 0 10px;
     justify-content: space-evenly;
+    transition: 0.3s ease;
 }
 
 .nav-btns button {
@@ -34,7 +38,21 @@
     border-radius: 10px;
 }
 
-#err{
+#err {
     display: none;
     color: red;
+}
+
+#load {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px unset;
+    animation: load 1s infinite;
+}
+
+@keyframes load {
+    to {
+        rotate: 1turn;
+    }
 }

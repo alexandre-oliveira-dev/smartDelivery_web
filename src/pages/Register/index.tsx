@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./style.css";
 import Header from "../../components/Header";
-import { Alert, Col, Form, Input, Row, Tabs, Typography } from "antd";
+import {  Col, Form, Input, Row, Tabs, Typography } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import FormItem from "antd/es/form/FormItem";
 import { api } from "../../services/api";
+
 
 type RegisterValues = {
   name_company: string;
@@ -20,6 +21,7 @@ export default function Register() {
   const [payment_modes, setPaymentModes] = useState<any>([]);
 
   const [form] = Form.useForm();
+
 
   const initialvalues = {
     name_company: "",
@@ -52,7 +54,7 @@ export default function Register() {
               },
             })
             .then(() => {
-              window.location.href = "/login";
+              window.location.href = "/";
             })
             .catch((err) => {
               alert('ops usuario já e')
