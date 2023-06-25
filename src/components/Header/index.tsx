@@ -88,7 +88,6 @@ export default function Header() {
                 okText={load ? 'Entrando...' : 'Entrar'}
                 onCancel={() => {
                   setOpenModal(false)
-                  window.location.href='/'
                 }}
                 onOk={() => {
                   if (!form.getFieldValue("email") && !form.getFieldValue("password")) {

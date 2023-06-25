@@ -61,39 +61,38 @@ export default function Faturamento() {
       id: 3,
       date: "06/06/2023",
       amountOrders: 4,
-      amountvalue:2000,
+      amountvalue: 2000,
     },
     {
       id: 3,
       date: "07/06/2023",
       amountOrders: 4,
-      amountvalue:2000,
+      amountvalue: 2000,
     },
     {
       id: 3,
       date: "08/06/2023",
       amountOrders: 4,
-      amountvalue:2000,
+      amountvalue: 2000,
     },
     {
       id: 3,
       date: "09/06/2023",
       amountOrders: 4,
-      amountvalue:2000,
+      amountvalue: 2000,
     },
     {
       id: 3,
       date: "10/06/2023",
       amountOrders: 4,
-      amountvalue:2000,
+      amountvalue: 2000,
     },
     {
       id: 3,
       date: "11/06/2023",
       amountOrders: 4,
-      amountvalue:2000,
+      amountvalue: 2000,
     },
-  
   ];
 
   const months = [
@@ -119,6 +118,8 @@ export default function Faturamento() {
     daysofmonth.push(nowdate.date(dia).format("DD/MM/YYYY"));
   }
 
+  const card: React.CSSProperties = {};
+
   return (
     <>
       <NavBarComponent btn2={true}></NavBarComponent>
@@ -127,7 +128,7 @@ export default function Faturamento() {
           <Typography.Title level={1}>Faturamento</Typography.Title>
           <Row gutter={20}>
             <Col>
-              <Card>
+              <Card style={card}>
                 <Typography.Title level={4}>Vendas no mês</Typography.Title>
                 <Bar
                   options={options}
@@ -145,22 +146,50 @@ export default function Faturamento() {
               </Card>
             </Col>
             <Col>
-              <Card>
+              <Card style={card}>
                 <Typography.Title level={4}>Vendas na Semana</Typography.Title>
                 <Line
                   options={options}
                   data={{
                     datasets: [
                       {
-                        data: datafat.map(item => item.amountvalue),
+                        data: datafat.map((item) => item.amountvalue),
                         backgroundColor: "#5B72F2",
                       },
                     ],
                     yLabels: ["R$"],
-                    labels: datafat.map(item => item.date).slice(datafat.length > 8 ? datafat.length -8 : 0, datafat.length),
+                    labels: datafat
+                      .map((item) => item.date)
+                      .slice(datafat.length > 8 ? datafat.length - 8 : 0, datafat.length),
                   }}
                 ></Line>
-              </Card>   
+              </Card>
+            </Col>
+            <Col>
+              <Card style={card}>
+                <Typography.Title level={4}>Total de pedidos</Typography.Title>
+                <Typography.Text>59</Typography.Text>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Card style={card}>
+                <Typography.Title level={4}>Vendas no mês</Typography.Title>
+                <Bar
+                  options={options}
+                  data={{
+                    datasets: [
+                      {
+                        data: [12, 19, 3, 5, 2, 3],
+                        backgroundColor: "#5B72F2",
+                      },
+                    ],
+                    yLabels: ["R$"],
+                    labels: months,
+                  }}
+                ></Bar>
+              </Card>
             </Col>
           </Row>
         </div>

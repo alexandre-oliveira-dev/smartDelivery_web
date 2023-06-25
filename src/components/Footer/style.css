@@ -1,0 +1,17 @@
+.footer{
+    width: 100%;
+    min-height: 300px;
+    background-color: #5B72F2;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+.container-footer-content{
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}

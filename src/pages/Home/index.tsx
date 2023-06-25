@@ -4,6 +4,7 @@ import Header from "../../components/Header";
 import { MdKeyboardDoubleArrowDown } from "react-icons/md";
 import ListOfadvantages from "./components/list-of-advantages.component";
 import { Button } from "antd";
+import Footer from "../../components/Footer";
 
 const img = require("../../assets/ilustration-removebg-preview.png");
 const im2 = require("../../assets/ilu3.png");
@@ -97,6 +98,7 @@ export default function Home() {
           </a>
           </div>
         </section>
+        <Footer></Footer>
       </div>
     </>
   );
