@@ -1,14 +1,17 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import RouterApp from "./services/router";
+import { DashProvider } from "./context/dashboard.context";
 
 function App() {
   return (
-    <div className="App">
-      <BrowserRouter>
+    <DashProvider>
+      <div className="App">
+        <BrowserRouter>
           <RouterApp></RouterApp>
-      </BrowserRouter>
-    </div>
+        </BrowserRouter>
+      </div>
+    </DashProvider>
   );
 }
 export default App;

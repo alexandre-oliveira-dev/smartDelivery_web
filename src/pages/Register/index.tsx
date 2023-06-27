@@ -19,6 +19,7 @@ type RegisterValues = {
 
 export default function Register() {
   const [payment_modes, setPaymentModes] = useState<any>([]);
+  const [load,setLoad] = useState(false)
 
   const [form] = Form.useForm();
 
@@ -32,33 +33,36 @@ export default function Register() {
     password: "",
     address: "",
   };
-
+  
+  console.log(payment_modes)
   return (
     <div>
       <Form
         form={form}
         initialValues={initialvalues}
         onFinish={async (data: RegisterValues) => {
+          setLoad(true)
           form.setFieldValue("payments_methods", [...payment_modes]);
-
-          await api
+         await api
             .post("/create", {
               data: {
                 name_company: data.name_company,
                 address: data.address,
                 cnpj: data.cnpj,
                 email: data.email,
-                payments_methods: data.payments_methods,
+                payments_methods: payment_modes,
                 password: data.password,
                 phone: data.phone,
               },
             })
             .then(() => {
               window.location.href = "/";
+              setLoad(false)
             })
             .catch((err) => {
-              alert('ops usuario já e')
+              alert('ops usuario já existe')
               console.log(err)
+              setLoad(false)
             });
         }}
       >
@@ -114,10 +118,7 @@ export default function Register() {
                             setPaymentModes(
                               payment_modes.filter((item: string) => item !== e.target.value)
                             );
-                            form.setFieldValue(
-                              "payments_methods",
-                              payment_modes.filter((item: string) => item !== e.target.value)
-                            );
+                          
                           }
                         }}
                       ></Input>
@@ -138,10 +139,7 @@ export default function Register() {
                             setPaymentModes(
                               payment_modes.filter((item: string) => item !== e.target.value)
                             );
-                            form.setFieldValue(
-                              "payments_methods",
-                              payment_modes.filter((item: string) => item !== e.target.value)
-                            );
+                          
                           }
                         }}
                       ></Input>
@@ -162,10 +160,7 @@ export default function Register() {
                             setPaymentModes(
                               payment_modes.filter((item: string) => item !== e.target.value)
                             );
-                            form.setFieldValue(
-                              "payments_methods",
-                              payment_modes.filter((item: string) => item !== e.target.value)
-                            );
+                           
                           }
                         }}
                       ></Input>
@@ -206,8 +201,8 @@ export default function Register() {
                   <FormItem name={"address"}>
                     <Input placeholder="ex: av paulista 2049"></Input>
                   </FormItem>
-                  <button id="finshbtn" type="submit">
-                    Finalizar
+                  <button disabled={load} id="finshbtn" type="submit">
+                    {load ? 'Cadastrando...' : 'Finalizar'}
                   </button>
                 </Col>
               </Row>

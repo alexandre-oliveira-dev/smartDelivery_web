@@ -1,16 +1,19 @@
-import React, { useState, useEffect, CSSProperties } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./style.css";
 import "../styleGlobalDash.css";
 import NavBarComponent from "../components/navbarComponent";
 import { Button, Card, Col, Divider, Form, Input, Row, Select, Tag, Typography } from "antd";
 import { api } from "../../../services/api";
+import { Options } from "./options-categoria-menu";
+import { DashContext } from "../../../context/dashboard.context";
 
 type ItemsofMenutypes = {
   item: string;
   descricao: string;
   peoples: string;
-  price: string | number;
-  quantidade: string | number;
+  price: number;
+  quantidade: string;
+  categoria: string;
 };
 
 export default function Config() {
@@ -24,31 +27,33 @@ export default function Config() {
   };
   const [datacardapio, setDatacardapio] = useState<any>([]);
   const [data, setData] = useState<any>([]);
-  const [dataUser, setDataUser] = useState<any>([]);
   const [cor, setCor] = useState<any>();
   const [form] = Form.useForm();
+  const { asUser } = useContext(DashContext);
+  const fieldsValues: ItemsofMenutypes = form.getFieldsValue();
 
   useEffect(() => {
-    setDataUser(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
     setData(datacardapio);
   }, [datacardapio, data]);
 
   async function handleRegisterMenu() {
-    const response = await datacardapio?.map(async (item: any) => {
+    const response = await datacardapio?.map(async (item: ItemsofMenutypes) => {
       await api.post("/createmenu", {
         title: String(item.item),
         price: Number(item.price),
         amount: String(item.quantidade),
-        companiesId: String(dataUser.companyId),
+        companiesId: String(asUser.companyId),
         weight: String(item.peoples),
         categoria: String(item.categoria),
+        description: String(item.descricao),
       });
     });
-    Promise.all(response).then(()=>{
-      setDatacardapio([])
-      console.log('deu certo');
-    })
+    Promise.all(response).then(() => {
+      setDatacardapio([]);
+      console.log("deu certo");
+    });
   }
+
 
   return (
     <>
@@ -68,7 +73,6 @@ export default function Config() {
                   form={form}
                   initialValues={initialValues}
                   onFinish={(item) => {
-                    const fieldsValues: ItemsofMenutypes = form.getFieldsValue();
                     if (
                       !fieldsValues.descricao ||
                       !fieldsValues.item ||
@@ -100,24 +104,13 @@ export default function Config() {
                       </Form.Item>
                       <Form.Item name="categoria">
                         <Select placeholder="categoria">
-                          <option value="porcoes">Porções</option>
-                          <option value="bebidas">Bebidas</option>
-                          <option value="lanches">Lanches</option>
-                          <option value="sobremesas">Sobremesas</option>
-                          <option value="pratos principais">Pratos Principais</option>
-                          <option value="saladas">Saladas</option>
-                          <option value="sopas">Sopas</option>
-                          <option value="sanduíches">Sanduíches</option>
-                          <option value="massas">Massas</option>
-                          <option value="vegetariano">Vegetariano</option>
-                          <option value="vegano">Vegano</option>
-                          <option value="carnes">Carnes</option>
-                          <option value="frutos do mar">Frutos do Mar</option>
-                          <option value="acompanhamentos">Acompanhamentos</option>
-                          <option value="cafés">Cafés</option>
-                          <option value="chás">Chás</option>
-                          <option value="sucos">Sucos</option>
-                          <option value="sorvetes">Sorvetes</option>
+                          {Options.map((item: any) => {
+                            return (
+                              <option key={item.id} value={item.value}>
+                                {item.value}
+                              </option>
+                            );
+                          })}
                         </Select>
                       </Form.Item>
                       <Form.Item name="descricao">
@@ -129,7 +122,13 @@ export default function Config() {
                       </Form.Item>
                     </Row>
                   </Row>
-                  <Input style={{ cursor: "pointer" }} type="submit" value={"adicionar"} />
+                  <Button
+                    style={{ cursor: "pointer" }}
+                    type="default"
+                    onClick={() => form.submit()}
+                  >
+                    Adicionar
+                  </Button>
                 </Form>
               </Col>
             </div>
@@ -143,13 +142,15 @@ export default function Config() {
               }}
             >
               <Col style={{ width: "100%", padding: "2rem 0 0 2rem" }}>
-                {data.length < 1 && (
+                {datacardapio.length < 1 && (
                   <Typography.Title level={3}>Nenhum item adicionado!</Typography.Title>
                 )}
-                {data?.map((item: ItemsofMenutypes, index: number) => {
+                {datacardapio?.map((item: ItemsofMenutypes, index: number) => {
                   return (
                     <>
-                      <Card style={{ width: "70%", height: "auto" }}>
+                      <Card
+                        style={{ width: "70%", height: "auto", boxShadow: "5px 5px 10px silver" }}
+                      >
                         <Row style={{ width: "100%", position: "relative" }}>
                           <Typography.Text>{index + 1}°</Typography.Text>
                           <Button
@@ -167,24 +168,54 @@ export default function Config() {
                           </Button>
                         </Row>
                         <Row key={index}>
-                          <Col style={{ display: "grid" }}>
-                            <Typography.Title level={5}>Nome do item</Typography.Title>
-                            <Typography.Text>{item.item}</Typography.Text>
-                            <Typography.Title level={5}>Descrição</Typography.Title>
-
-                            <Typography.Text style={{ color: "silver" }}>
-                              {item.descricao}
-                            </Typography.Text>
+                          <Col style={{ display: "flex", gap: "20px" }}>
+                            <Col>
+                              <Row style={{ textAlign: "center", gap: "10px" }}>
+                                <Typography.Title level={5}>Nome do item: </Typography.Title>
+                                <Typography.Text>{item.item}</Typography.Text>
+                              </Row>
+                              <Row style={{ textAlign: "center", gap: "10px" }}>
+                                <Typography.Title level={5}>Peso / Qtd do item:</Typography.Title>
+                                <Typography.Text>{item.quantidade}</Typography.Text>
+                              </Row>
+                            </Col>
+                            <Col>
+                              <Row style={{ textAlign: "center", gap: "10px" }}>
+                                <Typography.Title level={5}>Serve: </Typography.Title>
+                                <Typography.Text>{item.peoples} pessoas</Typography.Text>
+                              </Row>
+                              <Row style={{ textAlign: "center", gap: "10px" }}>
+                                <Typography.Title level={5}>Categoria: </Typography.Title>
+                                <Tag style={{ height: "max-content" }} color="blue">
+                                  {item.categoria}
+                                </Tag>
+                              </Row>
+                            </Col>
                           </Col>
                           <Divider></Divider>
-                          <Col style={{ display: "grid" }}>
-                            <Typography.Title level={5}>Preço</Typography.Title>
-                            <Typography.Text>
-                              {Number(item.price).toLocaleString("pt-br", {
-                                style: "currency",
-                                currency: "BRL",
-                              })}
-                            </Typography.Text>
+                          <Col style={{ display: "grid", gap: "20px" }}>
+                            <Col>
+                              <Typography.Title level={5}>Descrição</Typography.Title>
+                              <Typography.Text
+                                editable={{
+                                  onChange(value) {
+                                   
+                                  },
+                                }}
+                                style={{ color: "silver" }}
+                              >
+                                {item.descricao}
+                              </Typography.Text>
+                            </Col>
+                            <Col>
+                              <Typography.Title level={5}>Preço:</Typography.Title>
+                              <Tag style={{ height: "max-content" }} color="green">
+                                {Number(item.price).toLocaleString("pt-br", {
+                                  style: "currency",
+                                  currency: "BRL",
+                                })}
+                              </Tag>
+                            </Col>
                           </Col>
                         </Row>
                       </Card>
@@ -192,7 +223,7 @@ export default function Config() {
                     </>
                   );
                 })}
-                {data.length > 0 && (
+                {datacardapio.length > 0 && (
                   <Button type="primary" onClick={handleRegisterMenu}>
                     Salvar
                   </Button>
