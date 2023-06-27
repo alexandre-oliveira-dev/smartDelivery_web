@@ -21,20 +21,20 @@ export default function Header() {
 
 
 
+  window.addEventListener('scroll', function() {
+    const scrollPosition = window.scrollY;
+    if(scrollPosition !== 0){
+      document.querySelector('.header')?.setAttribute('style','width:100%;border-radius:0')
+    }else{
+      document.querySelector('.header')?.setAttribute('style','width:80%')
+    }
+  });
   useEffect(()=>{
-    window.addEventListener('scroll', function() {
-      const scrollPosition = window.scrollY;
-      if(scrollPosition !== 0){
-        document.querySelector('.header')?.setAttribute('style','width:100%;border-radius:0')
-      }else{
-        document.querySelector('.header')?.setAttribute('style','width:80%')
-      }
-    });
 
     if(params.get('modal')){
       setOpenModal(true)
     }
-  },[])
+  },[params])
 
   if (dataForm) {
     async function handleLogin(){
@@ -71,7 +71,7 @@ export default function Header() {
           <Typography.Title onClick={()=> window.location.href='/'} level={2} style={{color:"#fff"}}>SmartDelivery</Typography.Title>
           <div className="nav-btns">
             <button onClick={()=> window.location.href='/'} >Inicio</button>
-            <button onClick={()=> window.location.href='/'} >Quem somos</button>
+            <button onClick={()=> window.location.href='/sobrenos'} >Quem somos</button>
             <button>Duvidas</button>
           </div>
           <div style={{ display: "flex", alignItems: "center" }}>

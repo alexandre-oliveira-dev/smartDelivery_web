@@ -3,6 +3,7 @@ import "./style.css";
 import "../styleGlobalDash.css";
 import NavBarComponent from "../components/navbarComponent";
 import { Button, Card, Col, Divider, Form, Input, Row, Select, Tag, Typography } from "antd";
+import { api } from "../../../services/api";
 
 type ItemsofMenutypes = {
   item: string;
@@ -13,22 +14,41 @@ type ItemsofMenutypes = {
 };
 
 export default function Config() {
-  const [datacardapio, setDatacardapio] = useState<any>([]);
-  const [data, setData] = useState<any>([]);
-  const [cor, setCor] = useState<any>();
-  const [form] = Form.useForm();
-
   const initialValues = {
     item: "",
     descricao: "",
     peoples: "",
     price: "",
     quantidade: "",
+    categoria: "",
   };
+  const [datacardapio, setDatacardapio] = useState<any>([]);
+  const [data, setData] = useState<any>([]);
+  const [dataUser, setDataUser] = useState<any>([]);
+  const [cor, setCor] = useState<any>();
+  const [form] = Form.useForm();
 
   useEffect(() => {
+    setDataUser(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
     setData(datacardapio);
   }, [datacardapio, data]);
+
+  async function handleRegisterMenu() {
+    const response = await datacardapio?.map(async (item: any) => {
+      await api.post("/createmenu", {
+        title: String(item.item),
+        price: Number(item.price),
+        amount: String(item.quantidade),
+        companiesId: String(dataUser.companyId),
+        weight: String(item.peoples),
+        categoria: String(item.categoria),
+      });
+    });
+    Promise.all(response).then(()=>{
+      setDatacardapio([])
+      console.log('deu certo');
+    })
+  }
 
   return (
     <>
@@ -80,6 +100,7 @@ export default function Config() {
                       </Form.Item>
                       <Form.Item name="categoria">
                         <Select placeholder="categoria">
+                          <option value="porcoes">Porções</option>
                           <option value="bebidas">Bebidas</option>
                           <option value="lanches">Lanches</option>
                           <option value="sobremesas">Sobremesas</option>
@@ -171,6 +192,11 @@ export default function Config() {
                     </>
                   );
                 })}
+                {data.length > 0 && (
+                  <Button type="primary" onClick={handleRegisterMenu}>
+                    Salvar
+                  </Button>
+                )}
               </Col>
             </div>
           </div>
@@ -183,7 +209,7 @@ export default function Config() {
           <br></br>
           <br></br>
           <div className="container-edit-loja">
-            <div style={{padding:"20px"}}>
+            <div style={{ padding: "20px" }}>
               <Typography.Title level={5}>
                 Escolha a cor que pré-dominará no seu ambiente online
               </Typography.Title>
@@ -193,7 +219,7 @@ export default function Config() {
                   style={{ width: "50px", height: "40px" }}
                   type="color"
                 ></Input>
-                <Typography.Text >cor: {cor && <Tag color="green">{cor}</Tag>}</Typography.Text>
+                <Typography.Text>cor: {cor && <Tag color="green">{cor}</Tag>}</Typography.Text>
               </Row>
               <br></br>
               <Typography.Title level={5}>
@@ -203,9 +229,7 @@ export default function Config() {
                 <Input onChange={(color) => setCor(color.target.value)} type="file"></Input>
               </Row>
             </div>
-            <div style={{padding:"20px"}}>
-              inframe do site aqui
-            </div>
+            <div style={{ padding: "20px" }}>inframe do site aqui</div>
           </div>
         </div>
       </div>

@@ -5,6 +5,7 @@ import Dashboard from "../pages/Dashboard/orders";
 import Faturamento from "../pages/Dashboard/Faturamento";
 import Config from "../pages/Dashboard/Configs";
 import Register from "../pages/Register";
+import AboutUs from "../pages/aboutUs";
 
 
 export default function RouterApp() {
@@ -15,6 +16,7 @@ export default function RouterApp() {
       <Route exact path={"/dashboard/:company/config"} component={Config}></Route>
       <Route exact path={"/dashboard/:company/faturamento"} component={Faturamento}></Route>
       <Route exact path={"/cadastro"} component={Register}></Route>
+      <Route exact path={"/sobrenos"} component={AboutUs}></Route>
     </Switch>
   );
 }

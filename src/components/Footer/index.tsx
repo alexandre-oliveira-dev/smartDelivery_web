@@ -8,13 +8,12 @@ export default function Footer(){
         <footer className="footer">
             <Row className="container-footer-content">
                 <Col key={1} >
-                 <Row> <Link to={''} style={{color:"#fff",fontSize:"18px"}}>Início</Link></Row>
-                 <Row> <Link to={''} style={{color:"#fff",fontSize:"18px"}}>Quem somos</Link></Row>
+                 <Row> <Link to={'/'} style={{color:"#fff",fontSize:"18px"}}>Início</Link></Row>
+                 <Row> <Link to={'/sobrenos'} style={{color:"#fff",fontSize:"18px"}}>Quem somos</Link></Row>
                  <Row> <Link to={''} style={{color:"#fff",fontSize:"18px"}}>Duvidas</Link></Row>
                 </Col>
                 <Col key={2} >
-                 <Row> <Link to={''} style={{color:"#fff",fontSize:"18px"}}>Entrar</Link></Row>
-                 <Row> <Link to={''} style={{color:"#fff",fontSize:"18px"}}>Cadastre-se</Link></Row>
+                 <Row> <Link to={'/cadastro'} style={{color:"#fff",fontSize:"18px"}}>Cadastre-se</Link></Row>
                  <Row> <Link to={''} style={{color:"#fff",fontSize:"18px"}}>Nossos Planos</Link></Row>
                 </Col>
             </Row>

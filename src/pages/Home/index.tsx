@@ -39,10 +39,10 @@ export default function Home() {
               </p>
             </div>
           </div>
+          <ListOfadvantages></ListOfadvantages>
           <div className="content-box-section1">
             <img className="ilustracao" src={img} alt=""></img>
           </div>
-          <ListOfadvantages></ListOfadvantages>
         </section>
         
         <section className="section2">
