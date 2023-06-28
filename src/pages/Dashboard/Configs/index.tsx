@@ -54,7 +54,6 @@ export default function Config() {
     });
   }
 
-
   return (
     <>
       <NavBarComponent btn3={true}></NavBarComponent>
@@ -125,7 +124,7 @@ export default function Config() {
                   <Button
                     style={{ cursor: "pointer" }}
                     type="default"
-                    onClick={() => form.submit()}
+                    onClick={() => {form.submit()}}
                   >
                     Adicionar
                   </Button>

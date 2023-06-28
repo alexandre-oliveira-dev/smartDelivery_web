@@ -2,17 +2,21 @@
     width: 100%;
     min-height: 100vh;
     background-color: #FEFEFE;
-    margin-top: 70px;
 }
 
 .section1 {
     width: 100%;
-    min-height: 90vh;
+    min-height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
     padding: 0 30px 0 30px;
-    
+    background-image: url('../../assets//people-taking-photos-food.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.5);
+    position: relative;
 }
 
 .content-box-section1 {
@@ -21,10 +25,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1px solid #5B72F2;
     padding: 30px;
     border-radius: 10px;
     box-shadow: 5px 5px 20px silver;
+    background: #fff;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 
@@ -119,11 +127,10 @@
 
 .section3 {
     width: 100%;
-    min-height: 50vh;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    padding: 2rem;
+    padding: 3rem;
     flex-direction: column;
     gap: 20px;
 }
@@ -135,7 +142,7 @@
     margin-top: 10px;
 }
 
-.stap-information span::after {
+.stap-information #span::after {
     content: '';
     display: block;
     width: 2px;
@@ -145,17 +152,17 @@
     bottom: -20px;
 }
 
-.stap-information:last-child span:after {
+.stap-information:last-child #span:after {
     display: none;
 }
 
 .stap-information h2 {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 400;
 
 }
 
-.stap-information span {
+.stap-information #span {
     background-color: #5B72F2;
     width: 40px;
     height: 40px;
