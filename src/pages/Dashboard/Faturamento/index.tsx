@@ -9,13 +9,14 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  Title,
+  Title as title,
   Tooltip,
   BarElement,
 } from "chart.js";
 import dayjs from "dayjs";
+import Title from '../../Dashboard/components/Title'
 
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, BarElement);
+Chart.register(CategoryScale, LinearScale, PointElement, LineElement, title, Tooltip, BarElement);
 
 export default function Faturamento() {
   const options = {
@@ -125,7 +126,7 @@ export default function Faturamento() {
       <NavBarComponent btn2={true}></NavBarComponent>
       <div className="box-global-dash">
         <div className="content-dasboard-pages">
-          <Typography.Title level={1}>Faturamento</Typography.Title>
+        <Title align="center" color="#fff" size="25px" text="Faturamento"></Title>
           <Row gutter={20}>
             <Col>
               <Card style={card}>

@@ -48,7 +48,7 @@ export default function Header() {
         <div className="nav-btns">
           <button onClick={() => (window.location.href = "/")}>Inicio</button>
           <button onClick={() => (window.location.href = "/sobrenos")}>Quem somos</button>
-          <button>Duvidas</button>
+          <button>Ajuda</button>
         </div>
         <div style={{ display: "flex", alignItems: "center" }}>
           <div

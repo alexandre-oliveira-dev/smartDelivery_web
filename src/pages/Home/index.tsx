@@ -6,6 +6,7 @@ import ListOfadvantages from "./components/list-of-advantages.component";
 import Footer from "../../components/Footer";
 import SectionPlains from "./components/section-planos.component";
 import SectionInformationStaps from "./components/section-information-staps.component";
+import SectionAsksQuestions from "./components/section-asks.component";
 
 const im2 = require("../../assets/ilu3.png");
 
@@ -15,7 +16,7 @@ export default function Home() {
     <>
       <Header></Header>
       <div className="container-home">
-       <div style={{position:"relative"}}>
+       <div  style={{position:"relative"}}>
        <section className="section1">
         </section>
          <ListOfadvantages></ListOfadvantages>
@@ -41,6 +42,7 @@ export default function Home() {
         </section>
        <SectionInformationStaps></SectionInformationStaps>
         <SectionPlains></SectionPlains>
+        <SectionAsksQuestions></SectionAsksQuestions>
         <Footer></Footer>
       </div>
     </>

@@ -1,4 +1,4 @@
-import { Button, Card, Divider, List, Row, Tag, Typography } from "antd";
+import { Button, Card, Divider, Row, Tag, Typography } from "antd";
 import React from "react";
 
 const section: React.CSSProperties = {
@@ -15,7 +15,7 @@ export default function SectionPlains() {
   return (
     <section style={section}>
       <Row>
-        <Typography.Title style={{color:"#5B72F2",fontWeight:"600"}} level={2}>Nosso plano</Typography.Title>
+        <Typography.Title style={{color:"#5B72F2",fontWeight:"600"}} level={2}>Plano</Typography.Title>
       </Row>
       <Card style={{ width: "350px" }}>
         <Row style={{width:"100%",display:"flex",justifyContent:"center"}}>

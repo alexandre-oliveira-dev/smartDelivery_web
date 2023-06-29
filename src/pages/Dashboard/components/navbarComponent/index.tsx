@@ -17,6 +17,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
     if (asUser === undefined || asUser === null) {
       window.location.href = "/";
     }
+    
   }, [asUser]);
 
   async function handleSingout() {
@@ -52,6 +53,10 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
 
   return (
     <nav className="navbardash">
+          <div className="box-profile-nav">
+          <div className="profile"></div>
+          <p style={{ color: "#fff", fontSize: "17px" }}>Bem vindo {asUser?.name_company}</p>
+          </div>
       <div
         style={{
           display: "flex",
@@ -61,8 +66,6 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
           margin: "0 0 20px 0",
         }}
       >
-        <div className="profile"></div>
-        <p style={{ color: "#fff", fontSize: "17px" }}>Bem vindo {asUser?.name_company}</p>
       </div>
       <div className="boxbtnnavdash">
         {navBarBtns.map((item) => {

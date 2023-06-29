@@ -1,189 +1,204 @@
 .container-home {
-    width: 100%;
-    min-height: 100vh;
-    background-color: #FEFEFE;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #fefefe;
+  overflow: hidden;
 }
 
 .section1 {
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    padding: 0 30px 0 30px;
-    background-image: url('../../assets//people-taking-photos-food.jpg');
-    background-size: cover;
-    background-position: center;
-    filter: brightness(0.5);
-    position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 30px 0 30px;
+  background-image: url("../../assets//people-taking-photos-food.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.5);
+  position: relative;
+  animation: zoon 10s ease infinite;
+}
+
+@keyframes zoon {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 .content-box-section1 {
-    width: 33%;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 5px 5px 20px silver;
-    background: #fff;
-    position: absolute;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-
-
-
-
-@keyframes scale {
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.1);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+  width: 33%;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 20px silver;
+  background: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .item-section1 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }
 
 .item-section1 h3 {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .section2 {
-    width: 100%;
-    min-height: 50vh;
-    display: flex;
-    justify-content: center;
-    background-color: #D7DDE7;
-    align-items: center;
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  background-color: #d7dde7;
+  align-items: center;
 }
 
 .box-text-info {
-    width: 60%;
-    height: 50vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 2rem;
+  width: 60%;
+  height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 .box-text-info h2 {
-    font-size: 40px;
-    color: #5B72F2;
-    font-weight: 400;
+  font-size: 40px;
+  color: #5b72f2;
+  font-weight: 400;
 }
 
 .box-text-info h3 {
-    font-size: 30px;
-    color: #fff;
-    font-weight: 800;
-    background-color: #5B72F2;
-    padding: 5px;
-    border-radius: 10px;
+  font-size: 30px;
+  color: #fff;
+  font-weight: 800;
+  background-color: #5b72f2;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 .ilu2 {
-    width: 30%;
-    height: 100%;
+  width: 30%;
+  height: 100%;
 }
 
 .ilu2 img {
-    width: 100%;
+  width: 100%;
 }
 
 .animation {
-    animation: junp 3s ease infinite;
+  animation: junp 3s ease infinite;
 }
 
 @keyframes junp {
-    0% {
-        transform: translateY(0px);
-    }
+  0% {
+    transform: translateY(0px);
+  }
 
-    50% {
-        transform: translateY(-10px);
-    }
+  50% {
+    transform: translateY(-10px);
+  }
 
-    100% {
-        transform: translateY(0px);
-    }
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 .section3 {
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 3rem;
-    flex-direction: column;
-    gap: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 3rem;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .stap-information {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
 }
 
 .stap-information #span::after {
-    content: '';
-    display: block;
-    width: 2px;
-    height: 20px;
-    background-color: #5B72F2;
-    position: absolute;
-    bottom: -20px;
+  content: "";
+  display: block;
+  width: 2px;
+  height: 20px;
+  background-color: #5b72f2;
+  position: absolute;
+  bottom: -20px;
 }
 
 .stap-information:last-child #span:after {
-    display: none;
+  display: none;
 }
 
 .stap-information h2 {
-    font-size: 18px;
-    font-weight: 400;
-
+  font-size: 18px;
+  font-weight: 400;
 }
 
 .stap-information #span {
-    background-color: #5B72F2;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    color: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  background-color: #5b72f2;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 #btn-comecaragr {
-    text-decoration: none;
-    background-color: #5B72F2;
-    padding: 10px;
-    border-radius: 10px;
-    font-size: 20px;
-    color: #fff;
-    width: 100%;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-top: 10px;
+  text-decoration: none;
+  background-color: #5b72f2;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+
+.sectionAskquestions{
+  width: 100%;
+  padding: 20px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 200px;
+}
+
+.detailsask{
+  width: 300px;
+}
+.detailsask summary{
+  color: #5b72f2;
 }

@@ -6,6 +6,7 @@ import { Button, Card, Col, Divider, Form, Input, Row, Select, Tag, Typography }
 import { api } from "../../../services/api";
 import { Options } from "./options-categoria-menu";
 import { DashContext } from "../../../context/dashboard.context";
+import Title from "../components/Title";
 
 type ItemsofMenutypes = {
   item: string;
@@ -15,6 +16,11 @@ type ItemsofMenutypes = {
   quantidade: string;
   categoria: string;
 };
+
+type Optionstype ={ 
+  value:string,
+  id:number
+}
 
 export default function Config() {
   const initialValues = {
@@ -59,9 +65,7 @@ export default function Config() {
       <NavBarComponent btn3={true}></NavBarComponent>
       <div className="box-global-dash">
         <div className="content-dasboard-pages">
-          <Typography.Title style={{ marginTop: "2rem" }} level={1}>
-            Configurações
-          </Typography.Title>
+          <Title text="Configurações" size="25px" align="center" color="#fff" ></Title>
           <div style={{ display: "flex", width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
               <Col style={{ width: "80%" }}>
@@ -88,7 +92,7 @@ export default function Config() {
                   }}
                 >
                   <Row style={{ width: "100%" }}>
-                    <Row style={{ display: "grid", width: "100%", gap: "10px" }}>
+                    <Row style={{ display: "grid", width: "100%" }}>
                       <Form.Item name="item">
                         <Input allowClear placeholder="titulo do item"></Input>
                       </Form.Item>
@@ -103,7 +107,7 @@ export default function Config() {
                       </Form.Item>
                       <Form.Item name="categoria">
                         <Select placeholder="categoria">
-                          {Options.map((item: any) => {
+                          {Options.map((item: Optionstype) => {
                             return (
                               <option key={item.id} value={item.value}>
                                 {item.value}
@@ -114,7 +118,7 @@ export default function Config() {
                       </Form.Item>
                       <Form.Item name="descricao">
                         <textarea
-                          style={{ width: "100%", height: "150px", border: " 1px solid grey" }}
+                          style={{ width: "100%", height: "150px", border: " 1px solid grey",padding:"20px",fontSize:"17px" }}
                           className="textarea-desc"
                           placeholder="descrição"
                         ></textarea>

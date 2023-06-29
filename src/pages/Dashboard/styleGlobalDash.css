@@ -9,6 +9,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #fff;
+    background-color: rgb(245, 245, 245);
     padding-bottom: 2rem;
 }

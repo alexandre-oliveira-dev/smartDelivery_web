@@ -7,7 +7,6 @@ import { Table, Button, Typography, Col, Row } from "antd";
 import { ColumnsType } from "antd/es/table";
 import ModalOrders from "./modalOrders.component";
 
-
 const data = [
   {
     id: 1,
@@ -34,9 +33,6 @@ const data = [
 export type DataType = (typeof data)[0];
 
 export default function Dashboard() {
- 
-
-
   const [dataOrder, setDataOrder] = useState<DataType>();
 
   const orders = data.map((item) => item.order);
@@ -135,30 +131,32 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="box-global-dash">
+    <>
       <NavBarComponent btn1={true}></NavBarComponent>
-      <div className="content-dasboard-pages">
-        <Title align="center" color="#fff" size="20px" text="Meus Pedidos"></Title>
+      <div className="box-global-dash">
+        <div className="content-dasboard-pages">
+          <Title align="center" color="#fff" size="25px" text="Meus Pedidos"></Title>
 
-        <div style={{ marginTop: "100px" }}>
-          <Typography.Title level={2}>Pedidos</Typography.Title>
-          <Table size="large" tableLayout="auto" dataSource={data} columns={coluns}></Table>
+          <div style={{ marginTop: "100px" }}>
+            <Typography.Title level={2}>Pedidos</Typography.Title>
+            <Table size="large" tableLayout="auto" dataSource={data} columns={coluns}></Table>
 
-          <Typography.Title level={2}>Pedidos finalizados</Typography.Title>
+            <Typography.Title level={2}>Pedidos finalizados</Typography.Title>
 
-          <Table size="large" tableLayout="auto" columns={colunsOrdersFinished}></Table>
+            <Table size="large" tableLayout="auto" columns={colunsOrdersFinished}></Table>
 
-          <Row style={{ marginTop: "50px" }}>
-            <Col>
-              <Typography.Title level={2}>Realizar Fechamento de expediente</Typography.Title>
-              <Button type="primary">Fechar expediente</Button>
-            </Col>
-          </Row>
+            <Row style={{ marginTop: "50px" }}>
+              <Col>
+                <Typography.Title level={2}>Realizar Fechamento de expediente</Typography.Title>
+                <Button type="primary">Fechar expediente</Button>
+              </Col>
+            </Row>
+          </div>
+        </div>
+        <div className="box-modalOrders">
+          <ModalOrders data={dataOrder}></ModalOrders>
         </div>
       </div>
-      <div className="box-modalOrders">
-        <ModalOrders data={dataOrder}></ModalOrders>
-      </div>
-    </div>
+    </>
   );
 }
