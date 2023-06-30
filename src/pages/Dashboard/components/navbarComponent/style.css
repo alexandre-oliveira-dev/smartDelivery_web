@@ -1,8 +1,12 @@
+:root{
+    --backNavBarColor:#5b72f2;
+}
+
 .navbardash {
     width: 250px;
     height: 100vh;
     position: fixed;
-    background-color: #5B72F2;
+    background-color: var(--backNavBarColor);
     left: 0;
 }
 
@@ -11,14 +15,10 @@
     flex-direction: column;
     gap: 30px;
     margin-top: 50px;
-
+    align-items: center;
 }
 
-.boxbtnnavdash button {
-    background-color: transparent;
-    color: #fff;
-    font-size: 20px;
-}
+
 
 .profile {
     width: 40px;
@@ -49,3 +49,5 @@
     justify-content: center;
     gap: 10px;
 }
+
+

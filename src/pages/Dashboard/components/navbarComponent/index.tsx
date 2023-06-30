@@ -1,8 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.css";
 import { MdLogout } from "react-icons/md";
 import { api } from "../../../../services/api";
 import { DashContext } from "../../../../context/dashboard.context";
+import { Link } from "react-router-dom";
 
 type Activebtntype = {
   btn1?: boolean;
@@ -11,14 +12,15 @@ type Activebtntype = {
 };
 
 export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
-  const { asUser } = useContext(DashContext);
+  const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
 
   useEffect(() => {
     if (asUser === undefined || asUser === null) {
       window.location.href = "/";
     }
-    
-  }, [asUser]);
+    const nav = document.getElementById("navbardash");
+    nav?.style.setProperty("--backNavBarColor", corNavPrev ?? "#5b72f2");
+  }, [asUser, corNavPrev]);
 
   async function handleSingout() {
     await api.delete(`/singout/${asUser?.id}`).then(() => {
@@ -52,11 +54,11 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
   ];
 
   return (
-    <nav className="navbardash">
-          <div className="box-profile-nav">
-          <div className="profile"></div>
-          <p style={{ color: "#fff", fontSize: "17px" }}>Bem vindo {asUser?.name_company}</p>
-          </div>
+    <nav id="navbardash" className="navbardash">
+      <div className="box-profile-nav">
+        <img className="profile" src={fileProfile} alt=""></img>
+        <p style={{ color: "#fff", fontSize: "17px" }}>Bem vindo {asUser?.name_company}</p>
+      </div>
       <div
         style={{
           display: "flex",
@@ -65,19 +67,33 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
           alignItems: "center",
           margin: "0 0 20px 0",
         }}
-      >
-      </div>
+      ></div>
       <div className="boxbtnnavdash">
         {navBarBtns.map((item) => {
           return (
-            <button
-              type="button"
-              onClick={() => (window.location.href = item.link)}
-              style={item.active ? { color: "silver", fontWeight: "600" } : {}}
+            <Link
+              to={item.link}
+              style={
+                item.active
+                  ? {
+                      color: !corNavPrev ? "#5b72f2" : corNavPrev,
+                      fontWeight: "600",
+                      background: "#fff",
+                      height: "40px",
+                      width:"90%",
+                      borderRadius:'5px',
+                      textDecoration:'none',
+                      display:"flex",
+                      alignItems:"center",
+                      justifyContent:"center",
+                      fontSize:"20px",
+                    }
+                  : {textDecoration:'none',color:"#fff",fontSize:"20px",transition: "all 1s ease"}
+              }
               key={item.id}
             >
               {item.icon} {item.title}
-            </button>
+            </Link>
           );
         })}
       </div>

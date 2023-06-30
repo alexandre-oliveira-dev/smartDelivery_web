@@ -7,6 +7,7 @@ import { api } from "../../../services/api";
 import { Options } from "./options-categoria-menu";
 import { DashContext } from "../../../context/dashboard.context";
 import Title from "../components/Title";
+import ContainerEditMyPage from "./container-edit-page.component";
 
 type ItemsofMenutypes = {
   item: string;
@@ -17,10 +18,10 @@ type ItemsofMenutypes = {
   categoria: string;
 };
 
-type Optionstype ={ 
-  value:string,
-  id:number
-}
+type Optionstype = {
+  value: string;
+  id: number;
+};
 
 export default function Config() {
   const initialValues = {
@@ -33,7 +34,6 @@ export default function Config() {
   };
   const [datacardapio, setDatacardapio] = useState<any>([]);
   const [data, setData] = useState<any>([]);
-  const [cor, setCor] = useState<any>();
   const [form] = Form.useForm();
   const { asUser } = useContext(DashContext);
   const fieldsValues: ItemsofMenutypes = form.getFieldsValue();
@@ -65,7 +65,7 @@ export default function Config() {
       <NavBarComponent btn3={true}></NavBarComponent>
       <div className="box-global-dash">
         <div className="content-dasboard-pages">
-          <Title text="Configurações" size="25px" align="center" color="#fff" ></Title>
+          <Title text="Configurações" size="25px" align="center" color="#fff"></Title>
           <div style={{ display: "flex", width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
               <Col style={{ width: "80%" }}>
@@ -118,7 +118,13 @@ export default function Config() {
                       </Form.Item>
                       <Form.Item name="descricao">
                         <textarea
-                          style={{ width: "100%", height: "150px", border: " 1px solid grey",padding:"20px",fontSize:"17px" }}
+                          style={{
+                            width: "100%",
+                            height: "150px",
+                            border: " 1px solid grey",
+                            padding: "20px",
+                            fontSize: "17px",
+                          }}
                           className="textarea-desc"
                           placeholder="descrição"
                         ></textarea>
@@ -128,7 +134,9 @@ export default function Config() {
                   <Button
                     style={{ cursor: "pointer" }}
                     type="default"
-                    onClick={() => {form.submit()}}
+                    onClick={() => {
+                      form.submit();
+                    }}
                   >
                     Adicionar
                   </Button>
@@ -201,9 +209,7 @@ export default function Config() {
                               <Typography.Title level={5}>Descrição</Typography.Title>
                               <Typography.Text
                                 editable={{
-                                  onChange(value) {
-                                   
-                                  },
+                                  onChange(value) {},
                                 }}
                                 style={{ color: "silver" }}
                               >
@@ -242,29 +248,7 @@ export default function Config() {
           </Typography.Paragraph>
           <br></br>
           <br></br>
-          <div className="container-edit-loja">
-            <div style={{ padding: "20px" }}>
-              <Typography.Title level={5}>
-                Escolha a cor que pré-dominará no seu ambiente online
-              </Typography.Title>
-              <Row style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                <Input
-                  onChange={(color) => setCor(color.target.value)}
-                  style={{ width: "50px", height: "40px" }}
-                  type="color"
-                ></Input>
-                <Typography.Text>cor: {cor && <Tag color="green">{cor}</Tag>}</Typography.Text>
-              </Row>
-              <br></br>
-              <Typography.Title level={5}>
-                Escolha a logo para o seu estabelecimento
-              </Typography.Title>
-              <Row style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-                <Input onChange={(color) => setCor(color.target.value)} type="file"></Input>
-              </Row>
-            </div>
-            <div style={{ padding: "20px" }}>inframe do site aqui</div>
-          </div>
+          <ContainerEditMyPage></ContainerEditMyPage>
         </div>
       </div>
     </>
