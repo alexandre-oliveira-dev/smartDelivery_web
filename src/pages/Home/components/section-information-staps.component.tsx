@@ -1,13 +1,14 @@
 import React,{useContext} from "react";
 import "../style.css";
 import { Tag } from "antd";
-import { DashContext } from "../../../context/dashboard.context";
+import { DashContext, DashProvider } from "../../../context/dashboard.context";
 
 export default function SectionInformationStaps() {
   const {setOpenModal} = useContext(DashContext)
 
   return (
-    <section className="section3">
+    <DashProvider>
+      <section className="section3">
       <div>
         <div className="stap-information">
           <div><span id="span">1</span></div>
@@ -47,5 +48,6 @@ export default function SectionInformationStaps() {
           Começar agora!
         </a>
     </section>
+    </DashProvider>
   );
 }

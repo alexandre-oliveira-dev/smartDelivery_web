@@ -1,6 +1,6 @@
 import { Button, Card, Col, Row, Tag, Typography } from "antd";
 import React, { useContext } from "react";
-import { DataType } from ".";
+import { DataType } from "./order.component";
 import './style.css'
 import { DashContext } from "../../../context/dashboard.context";
 
