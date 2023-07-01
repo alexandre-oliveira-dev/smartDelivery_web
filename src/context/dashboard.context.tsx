@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { SetStateAction, createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { Spin } from "antd";
 
@@ -8,6 +8,8 @@ export interface ContextTypes {
   fileProfile?: string;
   corNavPrev?: string;
   setCorNav?: any;
+  setOpenModal: React.Dispatch<SetStateAction<boolean>>
+  openModal:boolean;
 }
 export const DashContext = createContext<ContextTypes>({
   asUser: {},
@@ -15,6 +17,8 @@ export const DashContext = createContext<ContextTypes>({
   setFileProfile: "",
   corNavPrev: "",
   setCorNav: "",
+  setOpenModal: prevState => prevState,
+  openModal:false,
 });
 
 export function DashProvider({ children }: any) {
@@ -22,6 +26,8 @@ export function DashProvider({ children }: any) {
   const [fileProfile, setFileProfile] = useState("");
   const [corNavPrev, setCorNav] = useState("");
   const [load, setLoad] = useState(false);
+  const [openModal, setOpenModal] = useState<boolean>(false);
+
 
   useEffect(() => {
     setAsUser(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
@@ -40,7 +46,7 @@ export function DashProvider({ children }: any) {
   }, [asUser?.name_company]);
 
   return (
-    <DashContext.Provider value={{ asUser, fileProfile, setFileProfile, corNavPrev, setCorNav}}>
+    <DashContext.Provider value={{ asUser, fileProfile, setFileProfile, corNavPrev, setCorNav,openModal,setOpenModal}}>
       {!load ? children : <Spin size="large"
        style={{
         position:"absolute",

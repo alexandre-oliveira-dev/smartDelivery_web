@@ -1,9 +1,10 @@
-import React from "react";
+import React,{useContext} from "react";
 import "../style.css";
 import { Tag } from "antd";
+import { DashContext } from "../../../context/dashboard.context";
 
 export default function SectionInformationStaps() {
-  const params = new URLSearchParams();
+  const {setOpenModal} = useContext(DashContext)
 
   return (
     <section className="section3">
@@ -26,8 +27,7 @@ export default function SectionInformationStaps() {
               }}
               type="button"
               onClick={() => {
-                params.set("modal", "true");
-                window.location.search = params.toString();
+                setOpenModal(true)
               }}
             >
               entrar
@@ -38,14 +38,14 @@ export default function SectionInformationStaps() {
         <div><span id="span">3</span></div>
           <h2>
             Personalize seu espaço online e obtenha seu link de compartilhamento do seu delivery,
-            para divulgar e mandar para seus clientes, ex:  
+            para divulgar e mandar para seus clientes, ex:{' '}  
           <Tag color="blue">https://smartdelivery.com/nomedoseurestaurante</Tag>
           </h2>
         </div>
+      </div>
         <a href="/cadastro" id="btn-comecaragr">
           Começar agora!
         </a>
-      </div>
     </section>
   );
 }
