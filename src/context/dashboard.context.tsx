@@ -1,5 +1,4 @@
-import React, { SetStateAction, createContext, useEffect, useMemo, useState } from "react";
-import { api } from "../services/api";
+import React, { SetStateAction, createContext, useMemo, useState } from "react";
 
 export interface ContextTypes {
   asUser?: any;
@@ -7,9 +6,9 @@ export interface ContextTypes {
   fileProfile?: string;
   corNavPrev?: string;
   setCorNav?: any;
-  setOpenModal: React.Dispatch<SetStateAction<boolean>>
-  openModal:boolean;
-  load:boolean;
+  setOpenModal: React.Dispatch<SetStateAction<boolean>>;
+  openModal: boolean;
+  load: boolean;
 }
 export const DashContext = createContext<ContextTypes>({
   asUser: null,
@@ -17,9 +16,9 @@ export const DashContext = createContext<ContextTypes>({
   setFileProfile: "",
   corNavPrev: "",
   setCorNav: "",
-  setOpenModal: prevState => prevState,
-  openModal:false,
-  load: false
+  setOpenModal: (prevState) => prevState,
+  openModal: false,
+  load: false,
 });
 
 export function DashProvider({ children }: any) {
@@ -29,15 +28,24 @@ export function DashProvider({ children }: any) {
   const [load, setLoad] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-
   useMemo(() => {
     setAsUser(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
-    setCorNav(asUser?.backgroundColor)
-    
-  },[asUser?.name_company])
+    setCorNav(asUser?.backgroundColor);
+  }, [asUser?.backgroundColor]);
 
   return (
-    <DashContext.Provider value={{ asUser, fileProfile, setFileProfile, corNavPrev, setCorNav,openModal,setOpenModal,load}}>
+    <DashContext.Provider
+      value={{
+        asUser,
+        fileProfile,
+        setFileProfile,
+        corNavPrev,
+        setCorNav,
+        openModal,
+        setOpenModal,
+        load,
+      }}
+    >
       {children}
     </DashContext.Provider>
   );

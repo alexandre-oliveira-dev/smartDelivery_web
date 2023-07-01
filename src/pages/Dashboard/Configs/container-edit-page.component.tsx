@@ -4,6 +4,7 @@ import IframePageCompany from "./iframe-page.component";
 import "./style.css";
 import { DashContext } from "../../../context/dashboard.context";
 import { api } from "../../../services/api";
+import { toast } from "react-toastify";
 
 export default function ContainerEditMyPage() {
   const [cor, setCor] = useState<any>();
@@ -19,6 +20,7 @@ export default function ContainerEditMyPage() {
         backgroundColor: cor,
       })
       .then(() => {
+        setLoad(false);
         let updateLocalstorage = {
           backgroundColor:cor,
           email:asUser?.email,
@@ -27,10 +29,10 @@ export default function ContainerEditMyPage() {
           companyId: asUser?.companyId,
          }  
          localStorage.setItem('@sessionDelivery',JSON.stringify(updateLocalstorage))
-
-        alert("alterações salvas");
-        setLoad(false);
-        window.location.reload();
+         toast.success('Alterações salvas com sucesso!')
+         setTimeout(() => {
+           window.location.reload();
+         }, 2000);
       })
       .catch((err) => {
         setLoad(false);
