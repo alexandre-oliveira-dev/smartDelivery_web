@@ -87,11 +87,11 @@
 
 .box-text-info h3 {
   font-size: 30px;
-  color: #fff;
+  color: #5b72f2;
   font-weight: 800;
-  background-color: #5b72f2;
   padding: 5px;
   border-radius: 10px;
+  font-weight: 600;
 }
 
 .ilu2 {
@@ -197,8 +197,11 @@
 }
 
 .detailsask{
-  width: 300px;
+  width: 50%;
 }
 .detailsask summary{
   color: #5b72f2;
+}
+.detailsask p{
+  padding: 10px;
 }
