@@ -2,7 +2,7 @@ import { Button, Col, Form, Input, Modal, Row, Spin, Typography } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import React, { useContext, useState } from "react";
 import { api } from "../../services/api";
-import { DashContext } from "../../context/dashboard.context";
+import { DashContext, DashProvider } from "../../context/dashboard.context";
 
 type SinginTypes = {
   email: string;
@@ -16,6 +16,7 @@ export default function ModalLogin() {
   const [dataForm, setDataform] = useState<SinginTypes>();
   const { openModal, setOpenModal } = useContext(DashContext);
 
+  console.log('-->  ',openModal)
   return (
     <>
       <Modal

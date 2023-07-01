@@ -19,8 +19,18 @@ export default function ContainerEditMyPage() {
         backgroundColor: cor,
       })
       .then(() => {
+        let updateLocalstorage = {
+          backgroundColor:cor,
+          email:asUser?.email,
+          id: asUser?.id,
+          name_company: asUser?.name_company,
+          companyId: asUser?.companyId,
+         }  
+         localStorage.setItem('@sessionDelivery',JSON.stringify(updateLocalstorage))
+
         alert("alterações salvas");
         setLoad(false);
+        window.location.reload();
       })
       .catch((err) => {
         setLoad(false);

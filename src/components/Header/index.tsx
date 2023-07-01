@@ -17,7 +17,7 @@ export default function Header() {
   });
 
   return (
-    <header className="box-header">
+      <header className="box-header">
       <div className="header">
         <Typography.Title
           onClick={() => (window.location.href = "/")}
