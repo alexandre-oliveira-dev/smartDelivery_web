@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import NavBarComponent from "../components/navbarComponent";
 import "../styleGlobalDash.css";
 import { Card, Col, Row, Typography } from "antd";
@@ -15,10 +15,13 @@ import {
 } from "chart.js";
 import dayjs from "dayjs";
 import Title from '../../Dashboard/components/Title'
+import { DashContext } from "../../../context/dashboard.context";
 
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, title, Tooltip, BarElement);
 
 export default function Faturamento() {
+  const {corNavPrev} = useContext(DashContext)
+
   const options = {
     scales: {
       y: {
@@ -137,7 +140,7 @@ export default function Faturamento() {
                     datasets: [
                       {
                         data: [12, 19, 3, 5, 2, 3],
-                        backgroundColor: "#5B72F2",
+                        backgroundColor: corNavPrev,
                       },
                     ],
                     yLabels: ["R$"],
@@ -155,7 +158,7 @@ export default function Faturamento() {
                     datasets: [
                       {
                         data: datafat.map((item) => item.amountvalue),
-                        backgroundColor: "#5B72F2",
+                        backgroundColor: corNavPrev,
                       },
                     ],
                     yLabels: ["R$"],
@@ -168,14 +171,6 @@ export default function Faturamento() {
             </Col>
             <Col>
               <Card style={card}>
-                <Typography.Title level={4}>Total de pedidos</Typography.Title>
-                <Typography.Text>59</Typography.Text>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Card style={card}>
                 <Typography.Title level={4}>Vendas no mês</Typography.Title>
                 <Bar
                   options={options}
@@ -183,13 +178,21 @@ export default function Faturamento() {
                     datasets: [
                       {
                         data: [12, 19, 3, 5, 2, 3],
-                        backgroundColor: "#5B72F2",
+                        backgroundColor: corNavPrev,
                       },
                     ],
                     yLabels: ["R$"],
                     labels: months,
                   }}
                 ></Bar>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Card style={card}>
+                <Typography.Title level={4}>Total de pedidos</Typography.Title>
+                <Typography.Text>59</Typography.Text>
               </Card>
             </Col>
           </Row>

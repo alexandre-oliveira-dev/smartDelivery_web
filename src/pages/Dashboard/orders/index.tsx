@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import NavBarComponent from "../components/navbarComponent";
 import Title from "../components/Title";
 import "./style.css";
@@ -6,6 +6,7 @@ import "../styleGlobalDash.css";
 import { Table, Button, Typography, Col, Row } from "antd";
 import { ColumnsType } from "antd/es/table";
 import ModalOrders from "./modalOrders.component";
+import { DashContext } from "../../../context/dashboard.context";
 
 const data = [
   {
@@ -33,6 +34,7 @@ const data = [
 export type DataType = (typeof data)[0];
 
 export default function Dashboard() {
+  const {corNavPrev} = useContext(DashContext)
   const [dataOrder, setDataOrder] = useState<DataType>();
 
   const orders = data.map((item) => item.order);
@@ -88,7 +90,7 @@ export default function Dashboard() {
               setDataOrder(rec);
             }}
             type="primary"
-            style={{ color: "#fff" }}
+            style={{ color: "#fff",background:corNavPrev }}
           >
             Atualizar pedido
           </Button>
@@ -148,7 +150,7 @@ export default function Dashboard() {
             <Row style={{ marginTop: "50px" }}>
               <Col>
                 <Typography.Title level={2}>Realizar Fechamento de expediente</Typography.Title>
-                <Button type="primary">Fechar expediente</Button>
+                <Button style={{background:corNavPrev}} type="primary">Fechar expediente</Button>
               </Col>
             </Row>
           </div>

@@ -4,6 +4,7 @@ import { MdLogout } from "react-icons/md";
 import { api } from "../../../../services/api";
 import { DashContext } from "../../../../context/dashboard.context";
 import { Link } from "react-router-dom";
+import { Spin } from "antd";
 
 type Activebtntype = {
   btn1?: boolean;
@@ -13,6 +14,7 @@ type Activebtntype = {
 
 export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
   const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
+  const [load, setLoad] = useState(false)
 
   useEffect(() => {
     if (asUser === undefined || asUser === null) {
@@ -23,10 +25,12 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
   }, [asUser, corNavPrev]);
 
   async function handleSingout() {
+    setLoad(true)
     await api.delete(`/singout/${asUser?.id}`).then(() => {
       localStorage.removeItem("@sessionDelivery");
       window.location.href = "/";
-    });
+      setLoad(false)
+    }).catch(()=>setLoad(false))
   }
 
   const navBarBtns = [
@@ -56,8 +60,10 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
   return (
     <nav id="navbardash" className="navbardash">
       <div className="box-profile-nav">
-        <img className="profile" src={fileProfile} alt=""></img>
+        <div className="box-style-filter-profile">
+        <img className="profile" src={fileProfile ? fileProfile :  'https://via.placeholder.com/150'} alt=""></img>
         <p style={{ color: "#fff", fontSize: "17px" }}>Bem vindo {asUser?.name_company}</p>
+        </div>
       </div>
       <div
         style={{
@@ -99,7 +105,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
       </div>
 
       <button className="btn-sair" onClick={handleSingout}>
-        <MdLogout></MdLogout> sair
+        {!load ? (<><MdLogout></MdLogout> <span>Sair</span></>) : <Spin></Spin>}
       </button>
     </nav>
   );

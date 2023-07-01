@@ -35,7 +35,7 @@ export default function Config() {
   const [datacardapio, setDatacardapio] = useState<any>([]);
   const [data, setData] = useState<any>([]);
   const [form] = Form.useForm();
-  const { asUser } = useContext(DashContext);
+  const { asUser,corNavPrev } = useContext(DashContext);
   const fieldsValues: ItemsofMenutypes = form.getFieldsValue();
 
   useEffect(() => {
@@ -66,25 +66,16 @@ export default function Config() {
       <div className="box-global-dash">
         <div className="content-dasboard-pages">
           <Title text="Configurações" size="25px" align="center" color="#fff"></Title>
+          <Row style={{ justifyContent: "center", width: "100%", marginBottom: "3rem" }}>
+            <Typography.Title level={3}>Personalizar meu cardápio</Typography.Title>
+          </Row>
           <div style={{ display: "flex", width: "100%" }}>
             <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
               <Col style={{ width: "80%" }}>
-                <Row style={{ textAlign: "center", width: "100%" }}>
-                  <Typography.Title level={3}>Personalizar meu cardápio</Typography.Title>
-                </Row>
                 <Form
                   form={form}
                   initialValues={initialValues}
-                  onFinish={(item) => {
-                    if (
-                      !fieldsValues.descricao ||
-                      !fieldsValues.item ||
-                      !fieldsValues.peoples ||
-                      !fieldsValues.price ||
-                      !fieldsValues.quantidade
-                    ) {
-                      return;
-                    }
+                  onFinish={(item) => {            
                     let data = [...datacardapio];
                     data.push(item);
                     setDatacardapio(data);
@@ -94,19 +85,19 @@ export default function Config() {
                   <Row style={{ width: "100%" }}>
                     <Row style={{ display: "grid", width: "100%" }}>
                       <Form.Item name="item">
-                        <Input allowClear placeholder="titulo do item"></Input>
+                        <Input required allowClear placeholder="titulo do item"></Input>
                       </Form.Item>
                       <Form.Item name="price">
-                        <Input allowClear placeholder="preço do item"></Input>
+                        <Input required allowClear placeholder="preço do item"></Input>
                       </Form.Item>
                       <Form.Item name="quantidade">
-                        <Input allowClear placeholder="peso ou quantidade do item"></Input>
+                        <Input required allowClear placeholder="peso ou quantidade do item"></Input>
                       </Form.Item>
                       <Form.Item name="peoples">
-                        <Input allowClear placeholder="serve quantas pessoas"></Input>
+                        <Input required allowClear placeholder="serve quantas pessoas"></Input>
                       </Form.Item>
                       <Form.Item name="categoria">
-                        <Select placeholder="categoria">
+                        <Select  placeholder="categoria">
                           {Options.map((item: Optionstype) => {
                             return (
                               <option key={item.id} value={item.value}>
@@ -118,6 +109,7 @@ export default function Config() {
                       </Form.Item>
                       <Form.Item name="descricao">
                         <textarea
+                        required
                           style={{
                             width: "100%",
                             height: "150px",
@@ -132,11 +124,14 @@ export default function Config() {
                     </Row>
                   </Row>
                   <Button
-                    style={{ cursor: "pointer" }}
-                    type="default"
-                    onClick={() => {
-                      form.submit();
+                    style={{
+                      width:"200px",
+                      background:corNavPrev
                     }}
+                    type="primary"
+                    onClick={() => {
+                      form.submit()
+                      console.log(form.getFieldsValue())}}
                   >
                     Adicionar
                   </Button>
@@ -146,13 +141,16 @@ export default function Config() {
             <div
               style={{
                 display: "flex",
-                justifyContent: "center",
                 width: "50%",
                 height: "500px",
                 overflow: "auto",
+                paddingTop: "30px",
+                flexDirection:"column",
+                alignContent:"center",
+                justifyContent:'flex-start',
               }}
             >
-              <Col style={{ width: "100%", padding: "2rem 0 0 2rem" }}>
+          
                 {datacardapio.length < 1 && (
                   <Typography.Title level={3}>Nenhum item adicionado!</Typography.Title>
                 )}
@@ -233,11 +231,14 @@ export default function Config() {
                   );
                 })}
                 {datacardapio.length > 0 && (
-                  <Button type="primary" onClick={handleRegisterMenu}>
+                  <Button style={{
+                    width:"200px",
+                    background:corNavPrev
+                  }} type="primary" onClick={handleRegisterMenu}>
                     Salvar
                   </Button>
                 )}
-              </Col>
+             
             </div>
           </div>
           <br></br>

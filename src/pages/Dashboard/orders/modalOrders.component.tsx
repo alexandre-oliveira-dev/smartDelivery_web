@@ -1,7 +1,8 @@
 import { Button, Card, Col, Row, Tag, Typography } from "antd";
-import React from "react";
+import React, { useContext } from "react";
 import { DataType } from ".";
 import './style.css'
+import { DashContext } from "../../../context/dashboard.context";
 
 
 type Datamodal ={ 
@@ -10,6 +11,8 @@ type Datamodal ={
 
 
 export default function ModalOrders({data}:Datamodal) {
+  const {corNavPrev} = useContext(DashContext)
+
   return (
     <>
       <Card className="ModalOrders">
@@ -47,7 +50,7 @@ export default function ModalOrders({data}:Datamodal) {
           </Col>
         </Row>
 
-        <Button type="primary">Finalizar Pedido</Button>
+        <Button style={{background:corNavPrev}} type="primary">Finalizar Pedido</Button>
       </Card>
     </>
   );
