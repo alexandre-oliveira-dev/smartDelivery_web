@@ -1,14 +1,15 @@
 import React, { useState, useContext } from "react";
-import "./style.css";
-import "../styleGlobalDash.css";
-import NavBarComponent from "../components/navbarComponent";
+import "../style.css";
+import "../../styleGlobalDash.css";
+import NavBarComponent from "../../components/navbarComponent";
 import { Button, Card, Col, Divider, Form, Input, Row, Select, Spin, Tag, Typography } from "antd";
-import { api } from "../../../services/api";
-import { Options } from "./options-categoria-menu";
-import { DashContext } from "../../../context/dashboard.context";
-import Title from "../components/Title";
+import { api } from "../../../../services/api";
+import { Options } from "../options-categoria-menu";
+import { DashContext } from "../../../../context/dashboard.context";
+import Title from "../../components/Title";
 import ContainerEditMyPage from "./container-edit-page.component";
 import { toast } from "react-toastify";
+import TableForListItems from "./table-list-items.component";
 
 type ItemsofMenutypes = {
   item: string;
@@ -45,7 +46,7 @@ export default function Config() {
     const response = datacardapio?.map(async (item: ItemsofMenutypes) => {
       await api.post("/createmenu", {
         title: String(item.item),
-        price: Number(item.price),
+        price: String(item.price),
         amount: String(item.quantidade),
         companiesId: String(asUser.companyId),
         weight: String(item.peoples),
@@ -57,7 +58,7 @@ export default function Config() {
       setDatacardapio([]);
       setLoadForm(false)
       toast.success("itens cadastrados com sucesso!");
-    });
+    }).catch(()=> setLoadForm(false))
   }
 
   return (
@@ -83,7 +84,7 @@ export default function Config() {
             <div style={{ display: "flex", width: "100%" }}>
               <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
                 <Col style={{ width: "80%" }}>
-                  <Form form={form} initialValues={initialValues} onFinish={(item) => {}}>
+                  <Form form={form} initialValues={initialValues}>
                     <Row style={{ width: "100%" }}>
                       <Row style={{ display: "grid", width: "100%" }}>
                         <Form.Item name="item">
@@ -343,7 +344,7 @@ export default function Config() {
                                     )[0];
                                     let fieldUpdate = {
                                       item: currentData.item,
-                                      price: value,
+                                      price: parseFloat(value.replace(',','.')),
                                       quantidade: currentData.quantidade,
                                       peoples: currentData.peoples,
                                       categoria: currentData.categoria,
@@ -358,7 +359,7 @@ export default function Config() {
                                 }}
                               >
                                 <Tag style={{ height: "max-content" }} color="green">
-                                  {Number(item.price).toLocaleString("pt-br", {
+                                  {(item.price).toLocaleString("pt-br", {
                                     style: "currency",
                                     currency: "BRL",
                                   })}
@@ -386,6 +387,7 @@ export default function Config() {
                 )}
               </div>
             </div>
+            <TableForListItems></TableForListItems>
             <br></br>
             <br></br>
             <Typography.Title level={3}>Personalizar meu espaço online</Typography.Title>

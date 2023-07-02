@@ -1,4 +1,5 @@
-import React, { SetStateAction, createContext, useMemo, useState } from "react";
+import React, { SetStateAction, createContext, useMemo, useState,useEffect } from "react";
+import { api } from "../services/api";
 
 export interface ContextTypes {
   asUser?: any;
@@ -9,6 +10,7 @@ export interface ContextTypes {
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
   openModal: boolean;
   load: boolean;
+  dataCardapio: []
 }
 export const DashContext = createContext<ContextTypes>({
   asUser: null,
@@ -19,6 +21,7 @@ export const DashContext = createContext<ContextTypes>({
   setOpenModal: (prevState) => prevState,
   openModal: false,
   load: false,
+  dataCardapio:[]
 });
 
 export function DashProvider({ children }: any) {
@@ -27,11 +30,25 @@ export function DashProvider({ children }: any) {
   const [corNavPrev, setCorNav] = useState("");
   const [load, setLoad] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [dataCardapio, setDataCardapio] = useState<[]>([]);
 
   useMemo(() => {
     setAsUser(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
     setCorNav(asUser?.backgroundColor);
   }, [asUser?.backgroundColor]);
+
+  useEffect(()=>{
+    async function LoadDatacardapio(){
+      setLoad(true)
+      await api.get(`/getallmenu/${asUser?.companyId}`)
+      .then((data)=>{
+        setLoad(false)
+        setDataCardapio(data.data)
+      })
+    }
+    LoadDatacardapio();
+  },[asUser?.companyId])
+  
 
   return (
     <DashContext.Provider
@@ -44,6 +61,7 @@ export function DashProvider({ children }: any) {
         openModal,
         setOpenModal,
         load,
+        dataCardapio
       }}
     >
       {children}

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { DashContext } from "../../../context/dashboard.context";
+import { DashContext } from "../../../../context/dashboard.context";
+import { Button } from "antd";
 
 interface Params {
   color?: string | number;
@@ -7,7 +8,7 @@ interface Params {
 }
 
 export default function IframePageCompany({ color, file }: Params) {
-  const { asUser } = useContext(DashContext);
+  const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
   return (
     <>
       <header
@@ -24,11 +25,10 @@ export default function IframePageCompany({ color, file }: Params) {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <img
-            style={{ width: "30px", height: "30px", borderRadius: "50%" }}
-            src={String(file) ? String(file) : "https://via.placeholder.com/150"}
+            style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+            src={fileProfile ? fileProfile : "https://via.placeholder.com/150"}
             alt=""
           ></img>
-
           <h4 style={{ color: "#fff" }}>{asUser.name_company}</h4>
         </div>
         <div
@@ -48,8 +48,15 @@ export default function IframePageCompany({ color, file }: Params) {
           width: "100%",
           height: "100px",
           background: "#fff",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
-      ></div>
+      >
+        <Button type="primary" style={{ background: corNavPrev }} onClick={(()=>window.location.href=``)}>
+          Ver site
+        </Button>
+      </div>
     </>
   );
 }

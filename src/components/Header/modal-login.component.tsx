@@ -3,6 +3,7 @@ import FormItem from "antd/es/form/FormItem";
 import React, { useContext, useState } from "react";
 import { api } from "../../services/api";
 import { DashContext, DashProvider } from "../../context/dashboard.context";
+import { toast } from "react-toastify";
 
 type SinginTypes = {
   email: string;
@@ -13,10 +14,8 @@ export default function ModalLogin() {
   const [errmessage, setErrmessage] = useState("");
   const [form] = Form.useForm();
   const [load, setLoad] = useState(false);
-  const [dataForm, setDataform] = useState<SinginTypes>();
   const { openModal, setOpenModal } = useContext(DashContext);
 
-  console.log('-->  ',openModal)
   return (
     <>
       <Modal
@@ -30,7 +29,7 @@ export default function ModalLogin() {
         }}
         onOk={async () => {
           if (!form.getFieldValue("email") && !form.getFieldValue("password")) {
-            setErrmessage("Preencha todos os campos");
+            toast.error("Preencha todos os campos");
             return;
           }
           setLoad(true);
@@ -53,7 +52,7 @@ export default function ModalLogin() {
         }}
       >
         <Typography.Title level={3}>Fazer login</Typography.Title>
-        <Form form={form} onFinish={(data) => setDataform(data)}>
+        <Form form={form}>
           <FormItem name={"email"}>
             <Input placeholder="Digite seu email"></Input>
           </FormItem>

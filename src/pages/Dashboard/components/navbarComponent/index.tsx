@@ -6,6 +6,9 @@ import { DashContext } from "../../../../context/dashboard.context";
 import { Link } from "react-router-dom";
 import { Spin } from "antd";
 
+import {MdDashboard} from 'react-icons/md'
+import {FaListAlt} from 'react-icons/fa'
+import {GoGear} from 'react-icons/go'
 type Activebtntype = {
   btn1?: boolean;
   btn2?: boolean;
@@ -38,21 +41,21 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
       id: 1,
       title: "Dashboard",
       link: `/dashboard/${asUser?.name_company}/faturamento`,
-      icon: "",
+      icon: <MdDashboard color={corNavPrev}></MdDashboard>,
       active: btn2,
     },
     {
       id: 2,
       title: "Meus Pedidos",
       link: `/dashboard/${asUser?.name_company}`,
-      icon: "",
+      icon: <FaListAlt color={corNavPrev}></FaListAlt>,
       active: btn1,
     },
     {
       id: 3,
       title: "Configurações",
       link: `/dashboard/${asUser?.name_company}/config`,
-      icon: "",
+      icon: <GoGear color={corNavPrev}></GoGear>,
       active: btn3,
     },
   ];
@@ -93,6 +96,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
                       alignItems:"center",
                       justifyContent:"center",
                       fontSize:"20px",
+                      gap:"10px"
                     }
                   : {textDecoration:'none',color:"#fff",fontSize:"20px",transition: "all 1s ease"}
               }

@@ -1,6 +1,7 @@
 import React from "react";
 import { DashProvider } from "../../../context/dashboard.context";
-import Config from "./config.component";
+import Config from "./components/config.component";
+
 
 export default function ConfigComponent(){
     return(

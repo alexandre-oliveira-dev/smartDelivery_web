@@ -1,10 +1,11 @@
 import { Button, Input, Row, Spin, Tag, Typography } from "antd";
 import React, { useState, useContext } from "react";
-import IframePageCompany from "./iframe-page.component";
-import "./style.css";
-import { DashContext } from "../../../context/dashboard.context";
-import { api } from "../../../services/api";
+
+import "../style.css";
+import { DashContext } from "../../../../context/dashboard.context";
+import { api } from "../../../../services/api";
 import { toast } from "react-toastify";
+import IframePageCompany from "./iframe-page.component";
 
 export default function ContainerEditMyPage() {
   const [cor, setCor] = useState<any>();
