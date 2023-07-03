@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import "../style.css";
 import { Tag } from "antd";
-import { DashContext, DashProvider } from "../../../context/dashboard.context";
+import { DashContext } from "../../../context/dashboard.context";
 
 export default function SectionInformationStaps() {
   const { setOpenModal } = useContext(DashContext);

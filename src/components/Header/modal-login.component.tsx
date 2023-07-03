@@ -2,7 +2,7 @@ import { Button, Col, Form, Input, Modal, Row, Spin, Typography } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import React, { useContext, useState } from "react";
 import { api } from "../../services/api";
-import { DashContext, DashProvider } from "../../context/dashboard.context";
+import { DashContext } from "../../context/dashboard.context";
 import { toast } from "react-toastify";
 
 type SinginTypes = {
