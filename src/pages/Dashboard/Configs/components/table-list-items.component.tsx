@@ -1,14 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext,useState } from "react";
 import { DashContext } from "../../../../context/dashboard.context";
-import { Button, Col, Input, Row, Select, Table, Tag, Typography } from "antd";
+import { Button, Col, Input, Row, Table, Tag, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { FiEdit } from "react-icons/fi";
 import { TbListDetails } from "react-icons/tb";
 import Card from "antd/es/card/Card";
-import { useQueryParam, StringParam  } from "use-query-params";
+import { useQueryParam, StringParam } from "use-query-params";
 import { Options } from "../options-categoria-menu";
+import ModalDetailsItem from "./modal-details-item.component";
 
 export default function TableForListItems() {
+  const { dataCardapio, corNavPrev,loadTables,setOpenModal } = useContext(DashContext);
+  const [dataItemDetails,setdataItemDetails] = useState<any>({})
+
   const coloumns: ColumnsType<any> = [
     {
       title: "Title",
@@ -31,10 +35,10 @@ export default function TableForListItems() {
       title: "Preço",
       dataIndex: "price",
       key: 3,
-      render(item) {
+      render(item:string) {
         return (
           <Tag style={{ fontSize: "17px", padding: "4px" }} color="green">
-            {Number(item).toLocaleString("pt-br", {
+            {parseFloat(item).toLocaleString("pt-br", {
               style: "currency",
               currency: "BRL",
             })}
@@ -47,10 +51,11 @@ export default function TableForListItems() {
       key: 4,
       width: "150px",
 
-      render() {
+      render(item) {
         return (
           <div style={{ display: "flex", gap: "10px" }}>
-            <Button
+       <>
+       <Button
               type="primary"
               title="Editar"
               icon={<FiEdit></FiEdit>}
@@ -63,21 +68,23 @@ export default function TableForListItems() {
               title="Mais detalhes"
               icon={<TbListDetails></TbListDetails>}
               style={{ background: "#0a95ff" }}
+              onClick={()=> {
+                setOpenModal(true)
+                setdataItemDetails(item)
+              }}
             >
               Detalhes
             </Button>
+            <ModalDetailsItem data={dataItemDetails}></ModalDetailsItem>
+       </>
           </div>
         );
       },
     },
   ];
 
-  const { dataCardapio, load } = useContext(DashContext);
 
   const [, setItem] = useQueryParam("item", StringParam);
-  const [, setCategoria] = useQueryParam("categoria", StringParam);
-
-  
 
   return (
     <>
@@ -94,34 +101,47 @@ export default function TableForListItems() {
         <Row>
           <Typography.Title level={2}>Meu Cardápio</Typography.Title>
         </Row>
-        <Card style={{ width: "90%" }}>
+        <Card style={{ width: "90%",marginBottom:"20px" }}>
           <Row justify={"end"}>
-            <Button>Limpar</Button>
+            <Button onClick={() => {
+              window.location.href= window.location.pathname
+            }}>Limpar</Button>
           </Row>
-          <Row>
+          <Row gutter={[22,22]} >
             <Col>
               <Input
                 placeholder={"Pesquisar pelo item"}
                 type="search"
-                onChange={(event) => {
+                onChange={(event) => {  
                   setItem(event.target.value);
                 }}
               ></Input>
             </Col>
             <Col>
               <select
-                placeholder="categoria"
+              style={{
+                width:"200px",
+                height:"30px",
+                outlineColor:corNavPrev,
+                border:"1px solid silver",
+                borderRadius:"5px",
+                color:"silver"
+              }}
+                placeholder="Selecione"
                 onChange={(event) => {
-                  setCategoria(event.target?.value);
+                  setItem(event.target?.value);
                 }}
               >
-                {Options.map((item: any) => {
+                <option>Selecione</option>
+              <>
+              {Options.map((item: any) => {
                   return (
                     <option key={item.id} value={item.value}>
                       {item.value}
                     </option>
                   );
                 })}
+              </>
               </select>
             </Col>
           </Row>
@@ -130,7 +150,11 @@ export default function TableForListItems() {
           style={{ width: "90%" }}
           dataSource={dataCardapio}
           columns={coloumns}
-          loading={load}
+          loading={loadTables}
+          pagination={{
+            size:'default',
+            pageSize:4,
+        }}
         ></Table>
       </div>
     </>

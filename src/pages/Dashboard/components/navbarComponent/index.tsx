@@ -6,9 +6,9 @@ import { DashContext } from "../../../../context/dashboard.context";
 import { Link } from "react-router-dom";
 import { Spin } from "antd";
 
-import {MdDashboard} from 'react-icons/md'
-import {FaListAlt} from 'react-icons/fa'
-import {GoGear} from 'react-icons/go'
+import { MdDashboard } from "react-icons/md";
+import { FaListAlt } from "react-icons/fa";
+import { GoGear } from "react-icons/go";
 type Activebtntype = {
   btn1?: boolean;
   btn2?: boolean;
@@ -17,7 +17,7 @@ type Activebtntype = {
 
 export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
   const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
 
   useEffect(() => {
     if (asUser === undefined || asUser === null) {
@@ -28,12 +28,15 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
   }, [asUser, corNavPrev]);
 
   async function handleSingout() {
-    setLoad(true)
-    await api.delete(`/singout/${asUser?.id}`).then(() => {
-      localStorage.removeItem("@sessionDelivery");
-      window.location.href = "/";
-      setLoad(false)
-    }).catch(()=>setLoad(false))
+    setLoad(true);
+    await api
+      .delete(`/singout/${asUser?.id}`)
+      .then(() => {
+        localStorage.removeItem("@sessionDelivery");
+        window.location.href = "/";
+        setLoad(false);
+      })
+      .catch(() => setLoad(false));
   }
 
   const navBarBtns = [
@@ -64,8 +67,12 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
     <nav id="navbardash" className="navbardash">
       <div className="box-profile-nav">
         <div className="box-style-filter-profile">
-        <img className="profile" src={fileProfile ? fileProfile :  'https://via.placeholder.com/150'} alt=""></img>
-        <p style={{ color: "#fff", fontSize: "17px" }}>Bem vindo {asUser?.name_company}</p>
+          <img
+            className="profile"
+            src={fileProfile ? fileProfile : "https://via.placeholder.com/150"}
+            alt=""
+          ></img>
+          <p style={{ color: "#fff", fontSize: "17px" }}>Bem vindo {asUser?.name_company}</p>
         </div>
       </div>
       <div
@@ -89,16 +96,25 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
                       fontWeight: "600",
                       background: "#fff",
                       height: "40px",
-                      width:"90%",
-                      borderRadius:'5px',
-                      textDecoration:'none',
-                      display:"flex",
-                      alignItems:"center",
-                      justifyContent:"center",
-                      fontSize:"20px",
-                      gap:"10px"
+                      width: "90%",
+                      borderRadius: "5px",
+                      textDecoration: "none",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      fontSize: "20px",
+                      gap: "10px",
                     }
-                  : {textDecoration:'none',color:"#fff",fontSize:"20px",transition: "all 1s ease"}
+                  : {
+                      textDecoration: "none",
+                      color: "#fff",
+                      fontSize: "20px",
+                      transition: "all 1s ease",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width:"max-content"
+                    }
               }
               key={item.id}
             >
@@ -109,7 +125,13 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
       </div>
 
       <button className="btn-sair" onClick={handleSingout}>
-        {!load ? (<><MdLogout></MdLogout> <span>Sair</span></>) : <Spin></Spin>}
+        {!load ? (
+          <>
+            <MdLogout></MdLogout> <span>Sair</span>
+          </>
+        ) : (
+          <Spin></Spin>
+        )}
       </button>
     </nav>
   );

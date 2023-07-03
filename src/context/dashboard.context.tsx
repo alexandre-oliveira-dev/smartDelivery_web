@@ -1,5 +1,6 @@
-import React, { SetStateAction, createContext, useMemo, useState,useEffect } from "react";
+import React, { SetStateAction, createContext, useMemo, useState, useEffect } from "react";
 import { api } from "../services/api";
+import { StringParam, useQueryParam } from "use-query-params";
 
 export interface ContextTypes {
   asUser?: any;
@@ -8,9 +9,13 @@ export interface ContextTypes {
   corNavPrev?: string;
   setCorNav?: any;
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
+  setSearchParam: React.Dispatch<SetStateAction<string | null>>;
   openModal: boolean;
   load: boolean;
-  dataCardapio: []
+  loadTables: boolean;
+  dataCardapio: [];
+  searchParam: string | null;
+  setLoadTables: React.Dispatch<SetStateAction<boolean>>;
 }
 export const DashContext = createContext<ContextTypes>({
   asUser: null,
@@ -19,36 +24,51 @@ export const DashContext = createContext<ContextTypes>({
   corNavPrev: "",
   setCorNav: "",
   setOpenModal: (prevState) => prevState,
+  setSearchParam: (prevState) => prevState,
   openModal: false,
   load: false,
-  dataCardapio:[]
+  loadTables: false,
+  dataCardapio: [],
+  searchParam: "",
+  setLoadTables: (prevState) => prevState,
 });
 
 export function DashProvider({ children }: any) {
   const [asUser, setAsUser] = useState(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
   const [fileProfile, setFileProfile] = useState("");
   const [corNavPrev, setCorNav] = useState("");
+  const [searchParam, setSearchParam] = useState<string | null>("");
   const [load, setLoad] = useState(false);
+  const [loadTables, setLoadTables] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [dataCardapio, setDataCardapio] = useState<[]>([]);
 
+  const params = new URLSearchParams(window.location.search);
+
   useMemo(() => {
+    setLoad(true);
     setAsUser(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
     setCorNav(asUser?.backgroundColor);
+    setLoad(false);
   }, [asUser?.backgroundColor]);
 
-  useEffect(()=>{
-    async function LoadDatacardapio(){
-      setLoad(true)
-      await api.get(`/getallmenu/${asUser?.companyId}`)
-      .then((data)=>{
-        setLoad(false)
-        setDataCardapio(data.data)
-      })
+  useEffect(() => {
+    async function LoadDatacardapioByParamvoid() {
+      setLoadTables(true);
+      await api
+        .get(
+          `/getallmenu/${asUser?.companyId}?param=${params.get("item") ?? ""}&take=${
+            params.get("take") ?? 100
+          }&skip=${params.get("skip") ?? 0}`
+        )
+        .then((data) => {
+          setDataCardapio(data.data);
+          setLoadTables(false);
+        })
+        .catch(() => setLoadTables(false));
     }
-    LoadDatacardapio();
-  },[asUser?.companyId])
-  
+    LoadDatacardapioByParamvoid();
+  }, [asUser?.companyId, params.get("item"), params.get("take"), params.get("skip")]);
 
   return (
     <DashContext.Provider
@@ -61,7 +81,11 @@ export function DashProvider({ children }: any) {
         openModal,
         setOpenModal,
         load,
-        dataCardapio
+        dataCardapio,
+        searchParam,
+        setSearchParam,
+        loadTables,
+        setLoadTables,
       }}
     >
       {children}

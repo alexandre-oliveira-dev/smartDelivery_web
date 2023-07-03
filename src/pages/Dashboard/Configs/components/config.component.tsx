@@ -11,7 +11,7 @@ import ContainerEditMyPage from "./container-edit-page.component";
 import { toast } from "react-toastify";
 import TableForListItems from "./table-list-items.component";
 
-type ItemsofMenutypes = {
+export type ItemsofMenutypes = {
   item: string;
   descricao: string;
   peoples: string;
@@ -36,7 +36,7 @@ export default function Config() {
   };
   const [datacardapio, setDatacardapio] = useState<any[]>([]);
   const [form] = Form.useForm();
-  const { asUser, corNavPrev, load } = useContext(DashContext);
+  const { asUser, corNavPrev, load,setLoadTables } = useContext(DashContext);
   const [loadForm,setLoadForm] = useState(false)
 
 
@@ -57,7 +57,10 @@ export default function Config() {
     Promise.all(response).then(() => {
       setDatacardapio([]);
       setLoadForm(false)
-      toast.success("itens cadastrados com sucesso!");
+      toast.success("itens cadastrados com sucesso!"); 
+      setTimeout(() => {
+        window.location.reload()
+      }, 2000);  
     }).catch(()=> setLoadForm(false))
   }
 
@@ -78,8 +81,10 @@ export default function Config() {
         <div className="box-global-dash">
           <div className="content-dasboard-pages">
             <Title text="Configurações" size="25px" align="center" color="#fff"></Title>
+            <TableForListItems></TableForListItems>
+
             <Row style={{ justifyContent: "center", width: "100%", marginBottom: "3rem" }}>
-              <Typography.Title level={3}>Personalizar meu cardápio</Typography.Title>
+              <Typography.Title level={3}>Adicionar itens no cardápio</Typography.Title>
             </Row>
             <div style={{ display: "flex", width: "100%" }}>
               <div style={{ display: "flex", justifyContent: "center", width: "50%" }}>
@@ -90,7 +95,7 @@ export default function Config() {
                         <Form.Item name="item">
                           <Input required allowClear placeholder="titulo do item"></Input>
                         </Form.Item>
-                        <Form.Item name="price">
+                        <Form.Item  name="price">
                           <Input required allowClear placeholder="preço do item"></Input>
                         </Form.Item>
                         <Form.Item name="quantidade">
@@ -387,7 +392,6 @@ export default function Config() {
                 )}
               </div>
             </div>
-            <TableForListItems></TableForListItems>
             <br></br>
             <br></br>
             <Typography.Title level={3}>Personalizar meu espaço online</Typography.Title>
