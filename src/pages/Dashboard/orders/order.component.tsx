@@ -106,15 +106,7 @@ export default function Dashboard() {
   ];
 
   const colunsOrdersFinished: ColumnsType<any> = [
-    {
-      title: "Ordem",
-      align: "left",
-      dataIndex: "index",
-      key: "index",
-      render(item, index: number) {
-        return <p># {orders.findIndex((i: number) => i === index) + 2}</p>;
-      },
-    },
+ 
     {
       title: "cliente",
       dataIndex: "client",
@@ -224,7 +216,7 @@ export default function Dashboard() {
                 size="large"
                 tableLayout="auto"
                 columns={colunsOrdersFinished}
-                dataSource={dataOrders.filter((status: any) => status?.status === "finalizado")}
+                dataSource={dataOrders.filter((status: any) => status?.status === "finalizado" || status?.status === 'entrega')}
                 loading={loadTables}
               ></Table>
 

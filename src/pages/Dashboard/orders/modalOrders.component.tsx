@@ -1,16 +1,36 @@
-import { Button, Card, Col, Row, Tag, Typography } from "antd";
-import React, { useContext } from "react";
-import './style.css'
+import { Button, Card, Col, Row, Spin, Tag, Typography } from "antd";
+import React, { useContext, useState } from "react";
+import "./style.css";
 import { DashContext } from "../../../context/dashboard.context";
+import { api } from "../../../services/api";
+import { toast } from "react-toastify";
 
+type Datamodal = {
+  data?: any;
+};
 
-type Datamodal ={ 
-    data?:any
-}
+export default function ModalOrders({ data }: Datamodal) {
+  const { corNavPrev } = useContext(DashContext);
+  const [load, setLoad] = useState(false);
 
-
-export default function ModalOrders({data}:Datamodal) {
-  const {corNavPrev} = useContext(DashContext)
+  async function handleUpdateStatusOrder(id: string) {
+    setLoad(true);
+    await api
+      .put(`/orders/${id}`, {
+        status: "entrega",
+      })
+      .then(() => {
+        setLoad(false);
+        toast.success("Pedido atualizado com sucesso!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch(() => {
+        setLoad(false);
+        toast.error("ops, tente novamente!");
+      });
+  }
 
   return (
     <>
@@ -41,7 +61,7 @@ export default function ModalOrders({data}:Datamodal) {
             <Typography.Title level={5}>Metodo de pagamento:</Typography.Title>
             <Typography.Paragraph>{data?.payment_method}</Typography.Paragraph>
             <Typography.Title level={5}>Pedido:</Typography.Title>
-            {data?.order.map((item:any) => (
+            {data?.order.map((item: any) => (
               <Typography.Paragraph>
                 <Tag>{item}</Tag>
               </Typography.Paragraph>
@@ -49,7 +69,13 @@ export default function ModalOrders({data}:Datamodal) {
           </Col>
         </Row>
 
-        <Button style={{background:corNavPrev}} type="primary">Finalizar Pedido</Button>
+        <Button
+          style={{ background: corNavPrev,width:"150px" }}
+          type="primary"
+          onClick={() => handleUpdateStatusOrder(data?.id)}
+        >
+          {load ? <Spin></Spin> : "Finalizar Pedido"}
+        </Button>
       </Card>
     </>
   );
