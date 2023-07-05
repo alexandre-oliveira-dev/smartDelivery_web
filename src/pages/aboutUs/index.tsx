@@ -46,7 +46,7 @@ export default function AboutUs() {
               </Row>
               <br />
               <Row>
-                <Typography.Text  style={{color:"#121212",fontSize:'20px',border:"1px solid silver",padding:"15px",borderRadius:"10px"}}>
+                <Typography.Text  style={{color:"#121212",fontSize:'17px',border:"1px solid silver",padding:"15px",borderRadius:"10px"}}>
                   Nós somos apaixonados por comida e pela conveniência de oferecer uma maneira fácil
                   e rápida de desfrutar de refeições deliciosas no conforto da casa dos seus
                   clientes. Nosso objetivo é proporcionar uma experiência excepcional de delivery,
@@ -59,7 +59,7 @@ export default function AboutUs() {
               </Row>
               <br />
               <Row>
-                <Typography.Text  style={{color:"#121212",fontSize:'20px',border:"1px solid silver",padding:"15px",borderRadius:"10px"}}>
+                <Typography.Text  style={{color:"#121212",fontSize:'17px',border:"1px solid silver",padding:"15px",borderRadius:"10px"}}>
                   Nossa plataforma intuitiva e fácil de usar foi projetada para tornar o processo de
                   pedido e entrega o mais simples possível. Basta o seu cliente navegar pelo menu personalizado com seu restaurante,
                   explorar os pratos que despertam o seu apetite e selecionar suas escolhas. Com

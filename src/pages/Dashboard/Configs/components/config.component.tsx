@@ -36,13 +36,11 @@ export default function Config() {
   };
   const [datacardapio, setDatacardapio] = useState<any[]>([]);
   const [form] = Form.useForm();
-  const { asUser, corNavPrev, load,setLoadTables } = useContext(DashContext);
-  const [loadForm,setLoadForm] = useState(false)
-
-
+  const { asUser, corNavPrev, load } = useContext(DashContext);
+  const [loadForm, setLoadForm] = useState(false);
 
   async function handleRegisterMenu() {
-    setLoadForm(true)
+    setLoadForm(true);
     const response = datacardapio?.map(async (item: ItemsofMenutypes) => {
       await api.post("/createmenu", {
         title: String(item.item),
@@ -54,14 +52,16 @@ export default function Config() {
         description: String(item.descricao),
       });
     });
-    Promise.all(response).then(() => {
-      setDatacardapio([]);
-      setLoadForm(false)
-      toast.success("itens cadastrados com sucesso!"); 
-      setTimeout(() => {
-        window.location.reload()
-      }, 2000);  
-    }).catch(()=> setLoadForm(false))
+    Promise.all(response)
+      .then(() => {
+        setDatacardapio([]);
+        setLoadForm(false);
+        toast.success("itens cadastrados com sucesso!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch(() => setLoadForm(false));
   }
 
   return (
@@ -95,7 +95,7 @@ export default function Config() {
                         <Form.Item name="item">
                           <Input required allowClear placeholder="titulo do item"></Input>
                         </Form.Item>
-                        <Form.Item  name="price">
+                        <Form.Item name="price">
                           <Input required allowClear placeholder="preço do item"></Input>
                         </Form.Item>
                         <Form.Item name="quantidade">
@@ -349,7 +349,7 @@ export default function Config() {
                                     )[0];
                                     let fieldUpdate = {
                                       item: currentData.item,
-                                      price: parseFloat(value.replace(',','.')),
+                                      price: parseFloat(value.replace(",", ".")),
                                       quantidade: currentData.quantidade,
                                       peoples: currentData.peoples,
                                       categoria: currentData.categoria,
@@ -364,7 +364,7 @@ export default function Config() {
                                 }}
                               >
                                 <Tag style={{ height: "max-content" }} color="green">
-                                  {(item.price).toLocaleString("pt-br", {
+                                  {item.price.toLocaleString("pt-br", {
                                     style: "currency",
                                     currency: "BRL",
                                   })}
@@ -387,7 +387,7 @@ export default function Config() {
                     type="primary"
                     onClick={handleRegisterMenu}
                   >
-                    {loadForm ? <Spin></Spin> : 'Salvar'}
+                    {loadForm ? <Spin></Spin> : "Salvar"}
                   </Button>
                 )}
               </div>

@@ -1,6 +1,5 @@
 import React, { SetStateAction, createContext, useMemo, useState, useEffect } from "react";
 import { api } from "../services/api";
-import { StringParam, useQueryParam } from "use-query-params";
 
 export interface ContextTypes {
   asUser?: any;
@@ -78,8 +77,6 @@ export function DashProvider({ children }: any) {
     await api.get(`/findorders?companiesId=${asUser?.companyId}`)
     .then((data)=>{
       setDataOrders(data.data)
-      console.log(data.data);
-
     })
    }
    LoadOrders();

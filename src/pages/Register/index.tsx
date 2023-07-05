@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./style.css";
 import Header from "../../components/Header";
-import {  Col, Form, Input, Row, Tabs, Typography } from "antd";
+import { Col, Form, Input, Row, Tabs, Typography } from "antd";
 import TabPane from "antd/es/tabs/TabPane";
 import FormItem from "antd/es/form/FormItem";
 import { api } from "../../services/api";
-
+import { DashProvider } from "../../context/dashboard.context";
 
 type RegisterValues = {
   name_company: string;
@@ -19,10 +19,44 @@ type RegisterValues = {
 
 export default function Register() {
   const [payment_modes, setPaymentModes] = useState<any>([]);
-  const [load,setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
+
+  const acceptPayments = [
+    {
+      paymentmode: "Pix",
+      brand: "https://img.icons8.com/fluency/48/pix.png",
+    },
+    {
+      paymentmode: "débito",
+      brand: "https://img.icons8.com/color/48/mastercard-logo.png",
+    },
+    {
+      paymentmode: "débito",
+      brand: "https://img.icons8.com/color/48/visa.png",
+    },
+    {
+      paymentmode: "crédito",
+      brand: "https://img.icons8.com/color/48/mastercard-logo.png",
+    },
+    {
+      paymentmode: "crédito",
+      brand: "https://img.icons8.com/color/48/visa.png",
+    },
+    {
+      paymentmode: "vale refeição",
+      brand: "https://img.icons8.com/office/16/bank-card-back-side.png",
+    },
+    {
+      paymentmode: "ticket refeição",
+      brand: "https://img.icons8.com/office/16/bank-card-back-side.png",
+    },
+    {
+      paymentmode: "todas as marcas de vale refeição",
+      brand: "https://img.icons8.com/office/16/bank-card-back-side.png",
+    },
+  ];
 
   const [form] = Form.useForm();
-
 
   const initialvalues = {
     name_company: "",
@@ -33,17 +67,16 @@ export default function Register() {
     password: "",
     address: "",
   };
-  
-  console.log(payment_modes)
+
   return (
     <div>
       <Form
         form={form}
         initialValues={initialvalues}
         onFinish={async (data: RegisterValues) => {
-          setLoad(true)
+          setLoad(true);
           form.setFieldValue("payments_methods", [...payment_modes]);
-         await api
+          await api
             .post("/create", {
               data: {
                 name_company: data.name_company,
@@ -57,16 +90,18 @@ export default function Register() {
             })
             .then(() => {
               window.location.href = "/";
-              setLoad(false)
+              setLoad(false);
             })
             .catch((err) => {
-              alert('ops usuario já existe')
-              console.log(err)
-              setLoad(false)
+              alert("ops usuario já existe");
+              console.log(err);
+              setLoad(false);
             });
         }}
       >
-        <Header></Header>
+        <DashProvider>
+          <Header></Header>
+        </DashProvider>
         <br />
         <br />
         <div className="box-register">
@@ -103,92 +138,49 @@ export default function Register() {
                 <Col style={{ width: "100%" }}>
                   <label htmlFor="payments_methods">Formas de pagamento que você aceita:</label>
                   <FormItem name={"payments_methods"}>
-                    <Row style={{ display: "flex", gap: "10px" }}>
-                      <Input
-                        style={{ width: "auto" }}
-                        type="checkbox"
-                        value="Débito"
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setPaymentModes((prev: typeof payment_modes) => [
-                              ...prev,
-                              e.target.value,
-                            ]);
-                          } else {
-                            setPaymentModes(
-                              payment_modes.filter((item: string) => item !== e.target.value)
-                            );
-                          
-                          }
-                        }}
-                      ></Input>
-                      <label htmlFor="payment_mode">Cartão de Débito</label>
-                    </Row>
-                    <Row style={{ display: "flex", gap: "10px" }}>
-                      <Input
-                        style={{ width: "auto" }}
-                        type="checkbox"
-                        value="Crédito"
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setPaymentModes((prev: typeof payment_modes) => [
-                              ...prev,
-                              e.target.value,
-                            ]);
-                          } else {
-                            setPaymentModes(
-                              payment_modes.filter((item: string) => item !== e.target.value)
-                            );
-                          
-                          }
-                        }}
-                      ></Input>
-                      <label htmlFor="payment_mode">Cartão de Crédito</label>
-                    </Row>
-                    <Row style={{ display: "flex", gap: "10px" }}>
-                      <Input
-                        style={{ width: "auto" }}
-                        type="checkbox"
-                        value="Refeicao"
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setPaymentModes((prev: typeof payment_modes) => [
-                              ...prev,
-                              e.target.value,
-                            ]);
-                          } else {
-                            setPaymentModes(
-                              payment_modes.filter((item: string) => item !== e.target.value)
-                            );
-                           
-                          }
-                        }}
-                      ></Input>
-                      <label htmlFor="payment_mode">vale Refeicao</label>
-                    </Row>
-                    <Row style={{ display: "flex", gap: "10px" }}>
-                      <Input
-                        style={{ width: "auto" }}
-                        type="checkbox"
-                        value="Pix"
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setPaymentModes((prev: typeof payment_modes) => [
-                              ...prev,
-                              e.target.value,
-                            ]);
-                          } else {
-                            setPaymentModes(
-                              payment_modes.filter((item: string) => item !== e.target.value)
-                            );
-                            form.setFieldValue(
-                              "payments_methods",
-                              payment_modes.filter((item: string) => item !== e.target.value)
-                            );
-                          }
-                        }}
-                      ></Input>
-                      <label htmlFor="payment_mode">Pix</label>
+                    <Row style={{ display: "flex", gap: "10px", flexDirection: "column" }}>
+                      {acceptPayments.map((item: (typeof acceptPayments)[0], index) => {
+                        return (
+                          <Row
+                            key={index}
+                            style={{
+                              display: "flex",
+                              gap: "10px",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Input
+                              prefix={
+                                <Row>
+                                  <label htmlFor="payment_mode" style={{ width: "300px" }}>
+                                    Cartão de {item.paymentmode}
+                                  </label>
+                                  <img
+                                    style={{ width: "20px", marginLeft: "30px" }}
+                                    src={item.brand}
+                                    alt=""
+                                  ></img>
+                                </Row>
+                              }
+                              style={{ width: "100%" }}
+                              type="checkbox"
+                              value={item.paymentmode}
+                              onChange={(e) => {
+                                if (e.target.checked) {
+                                  setPaymentModes((prev: typeof payment_modes) => [
+                                    ...prev,
+                                    e.target.value,
+                                  ]);
+                                } else {
+                                  setPaymentModes(
+                                    payment_modes.filter((item: string) => item !== e.target.value)
+                                  );
+                                }
+                              }}
+                            ></Input>
+                          </Row>
+                        );
+                      })}
                     </Row>
                   </FormItem>
                 </Col>
@@ -202,7 +194,7 @@ export default function Register() {
                     <Input placeholder="ex: av paulista 2049"></Input>
                   </FormItem>
                   <button disabled={load} id="finshbtn" type="submit">
-                    {load ? 'Cadastrando...' : 'Finalizar'}
+                    {load ? "Cadastrando..." : "Finalizar"}
                   </button>
                 </Col>
               </Row>

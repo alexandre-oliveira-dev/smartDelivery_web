@@ -5,10 +5,10 @@ import { DashContext } from '../../../../context/dashboard.context'
  export type ItemTypes = {
    data:{
     title: string;
-    descricao: string;
+    description: string;
     peoples: string;
     price: string;
-    quantidade: string;
+    weight: string;
     categoria: string;
    }
   };
@@ -41,11 +41,11 @@ export default function ModalDetailsItem({data}:ItemTypes){
          </Row>
          <Row gutter={10}>
            <Col style={{fontWeight:"600"}}>Quantidade / peso:</Col>
-           <Col>{data.quantidade}</Col>
+           <Col>{data.weight}</Col>
          </Row>
          <Row gutter={10}>
            <Col style={{fontWeight:"600"}}>Descrição:</Col>
-           <Col>{data.descricao}</Col>
+           <Col>{data.description}</Col>
          </Row>
          <Row gutter={10}>
            <Col style={{fontWeight:"600"}}>Preço:</Col>
