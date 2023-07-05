@@ -1,12 +1,11 @@
 import { Button, Card, Col, Row, Tag, Typography } from "antd";
 import React, { useContext } from "react";
-import { DataType } from "./order.component";
 import './style.css'
 import { DashContext } from "../../../context/dashboard.context";
 
 
 type Datamodal ={ 
-    data?:DataType
+    data?:any
 }
 
 
@@ -32,17 +31,17 @@ export default function ModalOrders({data}:Datamodal) {
             <Typography.Title key={data?.id} level={5}>
               Nome:
             </Typography.Title>
-            <Typography.Paragraph>{data?.name}</Typography.Paragraph>
+            <Typography.Paragraph>{data?.client.name}</Typography.Paragraph>
             <Typography.Title level={5}>Endereço:</Typography.Title>
             <Typography.Paragraph copyable={true}>{data?.address}</Typography.Paragraph>
             <Typography.Title level={5}>Telefone:</Typography.Title>
-            <Typography.Paragraph copyable={true}>{data?.phone}</Typography.Paragraph>
+            <Typography.Paragraph copyable={true}>{data?.client?.phone}</Typography.Paragraph>
           </Col>
           <Col>
             <Typography.Title level={5}>Metodo de pagamento:</Typography.Title>
-            <Typography.Paragraph>{data?.payment}</Typography.Paragraph>
+            <Typography.Paragraph>{data?.payment_method}</Typography.Paragraph>
             <Typography.Title level={5}>Pedido:</Typography.Title>
-            {data?.order.map((item) => (
+            {data?.order.map((item:any) => (
               <Typography.Paragraph>
                 <Tag>{item}</Tag>
               </Typography.Paragraph>

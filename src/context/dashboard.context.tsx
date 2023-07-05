@@ -14,6 +14,7 @@ export interface ContextTypes {
   load: boolean;
   loadTables: boolean;
   dataCardapio: [];
+  dataOrders: [];
   searchParam: string | null;
   setLoadTables: React.Dispatch<SetStateAction<boolean>>;
 }
@@ -31,6 +32,7 @@ export const DashContext = createContext<ContextTypes>({
   dataCardapio: [],
   searchParam: "",
   setLoadTables: (prevState) => prevState,
+  dataOrders:[]
 });
 
 export function DashProvider({ children }: any) {
@@ -42,6 +44,7 @@ export function DashProvider({ children }: any) {
   const [loadTables, setLoadTables] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [dataCardapio, setDataCardapio] = useState<[]>([]);
+  const [dataOrders, setDataOrders] = useState<[]>([]);
 
   const params = new URLSearchParams(window.location.search);
 
@@ -70,6 +73,18 @@ export function DashProvider({ children }: any) {
     LoadDatacardapioByParamvoid();
   }, [asUser?.companyId, params.get("item"), params.get("take"), params.get("skip")]);
 
+  useEffect(()=>{
+   async function LoadOrders(){
+    await api.get(`/findorders?companiesId=${asUser?.companyId}`)
+    .then((data)=>{
+      setDataOrders(data.data)
+      console.log(data.data);
+
+    })
+   }
+   LoadOrders();
+  },[asUser?.companyId])
+
   return (
     <DashContext.Provider
       value={{
@@ -86,6 +101,7 @@ export function DashProvider({ children }: any) {
         setSearchParam,
         loadTables,
         setLoadTables,
+        dataOrders
       }}
     >
       {children}

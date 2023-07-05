@@ -3,53 +3,35 @@ import NavBarComponent from "../components/navbarComponent";
 import Title from "../components/Title";
 import "./style.css";
 import "../styleGlobalDash.css";
-import { Table, Button, Typography, Col, Row, Spin } from "antd";
+import { Table, Button, Typography, Col, Row, Spin, Tag } from "antd";
 import { ColumnsType } from "antd/es/table";
 import ModalOrders from "./modalOrders.component";
 import { DashContext } from "../../../context/dashboard.context";
-
-const data = [
-  {
-    id: 1,
-    name: "ale",
-    order: ["batata", "coca lata 300ml"],
-    address: "tv dois de julho",
-    phone: "11 994407328",
-    amount: "R$25,00",
-    payment: "credCard",
-    created_at: "30/05/2023 as 20:20",
-  },
-  {
-    id: 2,
-    name: "bianca rocha dos santos",
-    order: ["esfiha", "dolly lata 300ml"],
-    address: "tv dois de julho",
-    phone: "11 994407328",
-    amount: "R$25,00",
-    payment: "credCard",
-    created_at: "30/05/2023 as 20:20",
-  },
-];
-
-export type DataType = (typeof data)[0];
+import dayjs from "dayjs";
 
 export default function Dashboard() {
-  const { corNavPrev, load } = useContext(DashContext);
-  const [dataOrder, setDataOrder] = useState<DataType>();
+  const { corNavPrev, load, dataOrders,loadTables } = useContext(DashContext);
+  const [dataOrder, setDataOrder] = useState<any>();
 
-  const orders = data.map((item) => item.order);
+  const orders = dataOrders.map((item: any) => item.order);
 
   const coluns: ColumnsType<any> = [
     {
-      title: "id",
-      dataIndex: "id",
+      title: "Ordem",
       align: "left",
-      key: "id",
+      dataIndex: "index",
+      key: "index",
+      render(item, index: number) {
+        return <p># {orders.findIndex((i: number) => i === index) + 2}</p>;
+      },
     },
     {
       title: "cliente",
-      dataIndex: "name",
+      dataIndex: "client",
       key: "name",
+      render(text, rec, indexx) {
+        return <p>{rec?.client?.name}</p>;
+      },
     },
     {
       title: "Pedido",
@@ -57,28 +39,52 @@ export default function Dashboard() {
       render(text, rec, indexx) {
         return orders
           .filter((item, index) => index === indexx)
-          .map((item) => item.map((i) => <p>{i}</p>));
+          .map((item) => item.map((i: string) => <p>{i}</p>));
       },
     },
     {
       title: "Endereço",
       dataIndex: "address",
       key: "address",
+      render(rec) {
+        return <Typography.Text copyable>{rec}</Typography.Text>;
+      },
     },
     {
       title: "Telefone",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "client",
+      key: "client",
+      render(text, rec, indexx) {
+        return <Typography.Text copyable>{rec?.client?.phone}</Typography.Text>;
+      },
     },
     {
       title: "Modo de pagamento",
-      dataIndex: "payment",
-      key: "payment",
+      dataIndex: "payment_method",
+      key: "payment_method",
+      render(item) {
+        return <Tag color="green">{item}</Tag>;
+      },
     },
     {
-      title: "Data",
-      dataIndex: "created_at",
-      key: "created_at",
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render(item) {
+        return (
+          <>
+            {item === "preparando" ? (
+              <Tag color="green">{item}</Tag>
+            ) : item === "entrega" ? (
+              <Tag color="blue">{item}</Tag>
+            ) : item === "cancelado" ? (
+              <Tag color="red">{item}</Tag>
+            ) : (
+              item === "finalizado" && <Tag color="purple">{item}</Tag>
+            )}
+          </>
+        );
+      },
     },
     {
       title: "Ações",
@@ -101,15 +107,21 @@ export default function Dashboard() {
 
   const colunsOrdersFinished: ColumnsType<any> = [
     {
-      title: "id",
-      dataIndex: "id",
+      title: "Ordem",
       align: "left",
-      key: "id",
+      dataIndex: "index",
+      key: "index",
+      render(item, index: number) {
+        return <p># {orders.findIndex((i: number) => i === index) + 2}</p>;
+      },
     },
     {
       title: "cliente",
-      dataIndex: "name",
-      key: "name",
+      dataIndex: "client",
+      key: "client",
+      render(text, rec, indexx) {
+        return <Typography.Text>{rec?.client?.name}</Typography.Text>;
+      },
     },
     {
       title: "Pedido",
@@ -117,18 +129,64 @@ export default function Dashboard() {
       render(text, rec, indexx) {
         return orders
           .filter((item, index) => index === indexx)
-          .map((item) => item.map((i) => <p>{i}</p>));
+          .map((item) => item.map((i: string) => <p>{i}</p>));
       },
     },
     {
       title: "Telefone",
-      dataIndex: "amount",
-      key: "amount",
+      dataIndex: "client",
+      key: "client",
+      render(text, rec, indexx) {
+        return <Typography.Text copyable>{rec?.client?.phone}</Typography.Text>;
+      },
+    },
+    {
+      title: "Valor pago",
+      dataIndex: "amoutMoney",
+      key: "amoutMoney",
+      render(item) {
+        return (
+          <Tag color="green">
+            {parseFloat(item).toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
+          </Tag>
+        );
+      },
+    },
+    {
+      title: "Modo de pagamento",
+      dataIndex: "payment_method",
+      key: "payment_method",
+      render(item) {
+        return <Tag color="green">{item}</Tag>;
+      },
+    },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render(item) {
+        return (
+          <>
+            {item === "preparando" ? (
+              <Tag color="green">{item}</Tag>
+            ) : item === "entrega" ? (
+              <Tag color="blue">{item}</Tag>
+            ) : item === "cancelado" ? (
+              <Tag color="red">{item}</Tag>
+            ) : (
+              item === "finalizado" && <Tag color="purple">{item}</Tag>
+            )}
+          </>
+        );
+      },
     },
     {
       title: "Data",
       dataIndex: "created_at",
       key: "created_at",
+      render(item) {
+        return dayjs(item).format("DD/MM/YYYY");
+      },
     },
   ];
 
@@ -152,11 +210,23 @@ export default function Dashboard() {
 
             <div style={{ marginTop: "100px" }}>
               <Typography.Title level={2}>Pedidos</Typography.Title>
-              <Table size="large" tableLayout="auto" dataSource={data} columns={coluns}></Table>
+              <Table
+                size="large"
+                tableLayout="auto"
+                dataSource={dataOrders?.filter((status:any) => status?.status === "preparando" || status?.status === 'cancelado' )}
+                columns={coluns}
+                loading={loadTables}
+              ></Table>
 
               <Typography.Title level={2}>Pedidos finalizados</Typography.Title>
 
-              <Table size="large" tableLayout="auto" columns={colunsOrdersFinished}></Table>
+              <Table
+                size="large"
+                tableLayout="auto"
+                columns={colunsOrdersFinished}
+                dataSource={dataOrders.filter((status: any) => status?.status === "finalizado")}
+                loading={loadTables}
+              ></Table>
 
               <Row style={{ marginTop: "50px" }}>
                 <Col>
