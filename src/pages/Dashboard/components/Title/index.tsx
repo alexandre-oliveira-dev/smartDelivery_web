@@ -20,7 +20,6 @@ export default function Title({align,color,size,text}:Styles){
             padding:"10px 0 10px 0",
             backgroundColor:  !corNavPrev ? "#5B72F2" : corNavPrev,
             borderRadius:"10px",
-            marginBottom:"3rem"
         }}>
             {text}
         </h2>

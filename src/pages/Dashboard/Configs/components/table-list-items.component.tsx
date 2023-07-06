@@ -95,7 +95,6 @@ export default function TableForListItems() {
           alignItems: "center",
           justifyContent: "center",
           flexDirection: "column",
-          marginTop: "30px",
         }}
       >
         <Row>

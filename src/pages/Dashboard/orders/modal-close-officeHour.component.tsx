@@ -4,7 +4,7 @@ import { DashContext } from "../../../context/dashboard.context";
 import { api } from "../../../services/api";
 import { toast } from "react-toastify";
 
-interface PropsCreateOrderFinished{
+ interface PropsCreateOrderFinished{
     data:{
         amountOrders:number,
         amountvalue:number,
@@ -14,9 +14,14 @@ interface PropsCreateOrderFinished{
 }
 
 export default function ModalCloseOfficeHour({data:{amountOrders,amountvalue,companyId,date}}:PropsCreateOrderFinished) {
-  const { setOpenModal, openModal } = useContext(DashContext);
+  const { setOpenModal, openModal,dataOrders } = useContext(DashContext);
 
   async function handleCreateOrdersFinished(){
+
+    if(dataOrders.filter((item:any)=>item.status !== 'finalizado').length < 1){
+      toast.error('Não existe pedidos em preparação ou em entrega no momento!')
+      return;
+    }
     await api.post(`/ordersFinished`,{
         amountOrders:amountOrders,
         amountvalue:amountvalue,

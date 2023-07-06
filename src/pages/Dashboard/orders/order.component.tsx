@@ -14,7 +14,9 @@ export default function Dashboard() {
   const { corNavPrev, load, dataOrders,loadTables,setOpenModal,asUser } = useContext(DashContext);
   const [dataOrder, setDataOrder] = useState<any>();
 
-  const orders = dataOrders.map((item: any) => item.order);
+  const orders = dataOrders.filter((item:any)=> item.status !== 'finalizado').map((item: any) => item.order);
+  const ordersFinished = dataOrders.map((item: any) => item.order);
+
   const coluns: ColumnsType<any> = [
     {
       title: "Ordem",
@@ -28,18 +30,25 @@ export default function Dashboard() {
     {
       title: "cliente",
       dataIndex: "client",
-      key: "name",
+      key: "client",
       render(text, rec, indexx) {
         return <p>{rec?.client?.name}</p>;
       },
     },
     {
       title: "Pedido",
-      dataIndex: "orders",
+      dataIndex: "order",
       render(text, rec, indexx) {
         return orders
           .filter((item, index) => index === indexx)
           .map((item) => item.map((i: string) => <p>{i}</p>));
+      },
+    },
+    {
+      title: "Valor",
+      dataIndex: "amoutMoney",
+      render(rec) {
+        return <Tag color="darkgreen">{parseFloat(rec).toLocaleString('pt-br',{style:'currency',currency:"BRL"})}</Tag>
       },
     },
     {
@@ -118,7 +127,7 @@ export default function Dashboard() {
       title: "Pedido",
       dataIndex: "orders",
       render(text, rec, indexx) {
-        return orders
+        return ordersFinished
           .filter((item, index) => index === indexx)
           .map((item) => item.map((i: string) => <p>{i}</p>));
       },
@@ -184,7 +193,7 @@ export default function Dashboard() {
 
   let soma = 0;
   const ordersFinishedValue:string[] = dataOrders.filter((item:any) => item.status === 'finalizado').map((item:any) => (item?.amoutMoney))
-  for(let i = 0; i < 2; i ++){
+  for(let i = 0; i < ordersFinishedValue.length; i ++){
     soma += parseFloat(ordersFinishedValue[i])
   }
   const amountOrders = dataOrders.filter((item:any) => item.status === 'finalizado').length
@@ -212,11 +221,11 @@ export default function Dashboard() {
           <div className="content-dasboard-pages">
             <Title align="center" color="#fff" size="25px" text="Meus Pedidos"></Title>
 
-            <div style={{ marginTop: "100px" }}>
+            <div style={{width:"100%",display:"grid",placeItems:"center",gap:"20px" }}>
               <Typography.Title level={2}>Pedidos</Typography.Title>
               <Table
+              style={{width:"90%"}}
                 size="large"
-                tableLayout="auto"
                 dataSource={dataOrders?.filter((status:any) => status?.status === "preparando" || status?.status === 'cancelado' )}
                 columns={coluns}
                 loading={loadTables}
@@ -225,8 +234,8 @@ export default function Dashboard() {
               <Typography.Title level={2}>Pedidos finalizados</Typography.Title>
 
               <Table
+              style={{width:"90%"}}
                 size="large"
-                tableLayout="auto"
                 columns={colunsOrdersFinished}
                 dataSource={dataOrders.filter((status: any) => status?.status === "finalizado" || status?.status === 'entrega')}
                 loading={loadTables}

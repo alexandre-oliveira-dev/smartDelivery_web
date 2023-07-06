@@ -12,6 +12,7 @@ import {
   Title as title,
   Tooltip,
   BarElement,
+  ChartOptions,
 } from "chart.js";
 import dayjs from "dayjs";
 import Title from "../components/Title";
@@ -20,84 +21,23 @@ import { DashContext } from "../../../context/dashboard.context";
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, title, Tooltip, BarElement);
 
 export default function Faturamento() {
-  const { corNavPrev, load } = useContext(DashContext);
+  const { corNavPrev, load, dataOrdersFinished: datafat, loadTables } = useContext(DashContext);
 
-  const options = {
+  let soma = 0;
+  const amountOrdersArray: string[] = datafat.map((item: any) => item?.amountOrders);
+  for (let i = 0; i < amountOrdersArray.length; i++) {
+    soma += parseFloat(amountOrdersArray[i]);
+  }
+  const amountOrders: number = soma;
+
+  const options: ChartOptions = {
     scales: {
       y: {
         beginAtZero: true,
       },
+      
     },
   };
-
-  const datafat = [
-    {
-      id: 1,
-      date: "01/06/2023",
-      amountOrders: 4,
-      amountvalue: 200,
-    },
-    {
-      id: 2,
-      date: "02/06/2023",
-      amountOrders: 4,
-      amountvalue: 300,
-    },
-    {
-      id: 3,
-      date: "03/06/2023",
-      amountOrders: 4,
-      amountvalue: 600,
-    },
-    {
-      id: 3,
-      date: "04/06/2023",
-      amountOrders: 4,
-      amountvalue: 3500,
-    },
-    {
-      id: 3,
-      date: "05/06/2023",
-      amountOrders: 4,
-      amountvalue: 1000,
-    },
-    {
-      id: 3,
-      date: "06/06/2023",
-      amountOrders: 4,
-      amountvalue: 2000,
-    },
-    {
-      id: 3,
-      date: "07/06/2023",
-      amountOrders: 4,
-      amountvalue: 2000,
-    },
-    {
-      id: 3,
-      date: "08/06/2023",
-      amountOrders: 4,
-      amountvalue: 2000,
-    },
-    {
-      id: 3,
-      date: "09/06/2023",
-      amountOrders: 4,
-      amountvalue: 2000,
-    },
-    {
-      id: 3,
-      date: "10/06/2023",
-      amountOrders: 4,
-      amountvalue: 2000,
-    },
-    {
-      id: 3,
-      date: "11/06/2023",
-      amountOrders: 4,
-      amountvalue: 2000,
-    },
-  ];
 
   const months = [
     "Janeiro",
@@ -141,12 +81,14 @@ export default function Faturamento() {
         <div className="box-global-dash">
           <div className="content-dasboard-pages">
             <Title align="center" color="#fff" size="25px" text="Faturamento"></Title>
+            <Typography.Title level={2}>Dashboard</Typography.Title>
+
             <Row gutter={20}>
               <Col>
                 <Card style={card}>
                   <Typography.Title level={4}>Vendas no mês</Typography.Title>
                   <Bar
-                    options={options}
+                    options={options as any}
                     data={{
                       datasets: [
                         {
@@ -164,17 +106,17 @@ export default function Faturamento() {
                 <Card style={card}>
                   <Typography.Title level={4}>Vendas na Semana</Typography.Title>
                   <Line
-                    options={options}
+                    options={options as any}  
                     data={{
                       datasets: [
                         {
-                          data: datafat.map((item) => item.amountvalue),
+                          data: datafat.map((item: any) => item?.amountvalue),
                           backgroundColor: corNavPrev,
                         },
                       ],
                       yLabels: ["R$"],
                       labels: datafat
-                        .map((item) => item.date)
+                        .map((item: any) => item.date)
                         .slice(datafat.length > 8 ? datafat.length - 8 : 0, datafat.length),
                     }}
                   ></Line>
@@ -184,7 +126,7 @@ export default function Faturamento() {
                 <Card style={card}>
                   <Typography.Title level={4}>Vendas no mês</Typography.Title>
                   <Bar
-                    options={options}
+                    options={options as any}
                     data={{
                       datasets: [
                         {
@@ -203,7 +145,13 @@ export default function Faturamento() {
               <Col>
                 <Card style={card}>
                   <Typography.Title level={4}>Total de pedidos</Typography.Title>
-                  <Typography.Text>59</Typography.Text>
+                  <Typography.Text>{amountOrders}</Typography.Text>
+                </Card>
+              </Col>
+              <Col>
+                <Card style={card}>
+                  <Typography.Title level={4}>Faturamento total</Typography.Title>
+                  <Typography.Text>{'R$25000,00'}</Typography.Text>
                 </Card>
               </Col>
             </Row>

@@ -14,6 +14,7 @@ export interface ContextTypes {
   loadTables: boolean;
   dataCardapio: [];
   dataOrders: [];
+  dataOrdersFinished: [];
   searchParam: string | null;
   setLoadTables: React.Dispatch<SetStateAction<boolean>>;
 }
@@ -31,7 +32,8 @@ export const DashContext = createContext<ContextTypes>({
   dataCardapio: [],
   searchParam: "",
   setLoadTables: (prevState) => prevState,
-  dataOrders:[]
+  dataOrders: [],
+  dataOrdersFinished: [],
 });
 
 export function DashProvider({ children }: any) {
@@ -44,6 +46,7 @@ export function DashProvider({ children }: any) {
   const [openModal, setOpenModal] = useState(false);
   const [dataCardapio, setDataCardapio] = useState<[]>([]);
   const [dataOrders, setDataOrders] = useState<[]>([]);
+  const [dataOrdersFinished, setDataOrdersFinished] = useState<[]>([]);
 
   const params = new URLSearchParams(window.location.search);
 
@@ -69,18 +72,26 @@ export function DashProvider({ children }: any) {
         })
         .catch(() => setLoadTables(false));
     }
-    LoadDatacardapioByParamvoid();
-  }, [asUser?.companyId, params.get("item"), params.get("take"), params.get("skip")]);
 
-  useEffect(()=>{
-   async function LoadOrders(){
-    await api.get(`/findorders?companiesId=${asUser?.companyId}`)
-    .then((data)=>{
-      setDataOrders(data.data)
-    })
-   }
-   LoadOrders();
-  },[asUser?.companyId])
+    async function LoadOrdersFinished() {
+      setLoadTables(true);
+      await api.get(`/ordersFinished/${asUser?.companyId}`).then((data) => {
+        setLoadTables(false);
+        setDataOrdersFinished(data.data);
+      });
+    }
+
+    async function LoadOrders() {
+      await api.get(`/findorders?companiesId=${asUser?.companyId}`).then((data) => {
+        setDataOrders(data.data);
+      });
+    }
+    
+    LoadOrders();
+    LoadDatacardapioByParamvoid();
+    LoadOrdersFinished();
+
+  }, [asUser?.companyId]);
 
   return (
     <DashContext.Provider
@@ -98,7 +109,8 @@ export function DashProvider({ children }: any) {
         setSearchParam,
         loadTables,
         setLoadTables,
-        dataOrders
+        dataOrders,
+        dataOrdersFinished,
       }}
     >
       {children}
