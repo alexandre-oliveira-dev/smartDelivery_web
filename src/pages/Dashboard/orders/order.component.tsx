@@ -8,13 +8,13 @@ import { ColumnsType } from "antd/es/table";
 import ModalOrders from "./modalOrders.component";
 import { DashContext } from "../../../context/dashboard.context";
 import dayjs from "dayjs";
+import ModalCloseOfficeHour from "./modal-close-officeHour.component";
 
 export default function Dashboard() {
-  const { corNavPrev, load, dataOrders,loadTables } = useContext(DashContext);
+  const { corNavPrev, load, dataOrders,loadTables,setOpenModal,asUser } = useContext(DashContext);
   const [dataOrder, setDataOrder] = useState<any>();
 
   const orders = dataOrders.map((item: any) => item.order);
-
   const coluns: ColumnsType<any> = [
     {
       title: "Ordem",
@@ -104,7 +104,6 @@ export default function Dashboard() {
       },
     },
   ];
-
   const colunsOrdersFinished: ColumnsType<any> = [
  
     {
@@ -182,8 +181,21 @@ export default function Dashboard() {
     },
   ];
 
+
+  let soma = 0;
+  const ordersFinishedValue:string[] = dataOrders.filter((item:any) => item.status === 'finalizado').map((item:any) => (item?.amoutMoney))
+  for(let i = 0; i < 2; i ++){
+    soma += parseFloat(ordersFinishedValue[i])
+  }
+  const amountOrders = dataOrders.filter((item:any) => item.status === 'finalizado').length
+  const amountvalue = soma
+  const date = (dayjs(new Date()).format('DD/MM/YYYY'))
+  const companyId:string = asUser?.companyId
+
+
   return (
     <>
+    <ModalCloseOfficeHour data={{amountOrders,amountvalue,date,companyId}}></ModalCloseOfficeHour>
       <NavBarComponent btn1={true}></NavBarComponent>
       {load ? (
         <Spin
@@ -223,7 +235,7 @@ export default function Dashboard() {
               <Row style={{ marginTop: "50px" }}>
                 <Col>
                   <Typography.Title level={2}>Realizar Fechamento de expediente</Typography.Title>
-                  <Button style={{ background: corNavPrev }} type="primary">
+                  <Button style={{ background: corNavPrev }} type="primary" onClick={()=>setOpenModal(true)}>
                     Fechar expediente
                   </Button>
                 </Col>
