@@ -69,19 +69,21 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
         <div className="box-style-filter-profile">
           <img
             className="profile"
-            src={fileProfile ? fileProfile : "https://via.placeholder.com/150"}
+            src={fileProfile ? fileProfile : 'https://via.placeholder.com/150'}
             alt=""
           ></img>
-          <p style={{ color: "#fff", fontSize: "17px" }}>Bem vindo {asUser?.name_company}</p>
+          <p style={{ color: '#fff', fontSize: '17px' }}>
+            Bem vindo {asUser?.name_company}
+          </p>
         </div>
       </div>
       <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "10px",
-          alignItems: "center",
-          margin: "0 0 20px 0",
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '10px',
+          alignItems: 'center',
+          margin: '0 0 20px 0',
         }}
       ></div>
       <div className="boxbtnnavdash">
@@ -92,28 +94,28 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
               style={
                 item.active
                   ? {
-                      color: !corNavPrev ? "#5b72f2" : corNavPrev,
-                      fontWeight: "600",
-                      background: "#fff",
-                      height: "40px",
-                      width: "90%",
-                      borderRadius: "5px",
-                      textDecoration: "none",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      fontSize: "20px",
-                      gap: "10px",
+                      color: !corNavPrev ? '#5b72f2' : corNavPrev,
+                      fontWeight: '600',
+                      background: '#fff',
+                      height: '40px',
+                      width: '90%',
+                      borderRadius: '5px',
+                      textDecoration: 'none',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '20px',
+                      gap: '10px',
                     }
                   : {
-                      textDecoration: "none",
-                      color: "#fff",
-                      fontSize: "20px",
-                      transition: "all 1s ease",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      width:"max-content"
+                      textDecoration: 'none',
+                      color: '#fff',
+                      fontSize: '20px',
+                      transition: 'all 1s ease',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 'max-content',
                     }
               }
               key={item.id}

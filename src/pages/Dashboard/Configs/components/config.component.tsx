@@ -39,7 +39,6 @@ export default function Config() {
   const [form] = Form.useForm();
   const { asUser, corNavPrev, load } = useContext(DashContext);
   const [loadForm, setLoadForm] = useState(false);
-  console.log(datacardapio);
 
   async function handleRegisterMenu() {
     setLoadForm(true);

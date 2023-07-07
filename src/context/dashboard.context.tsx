@@ -10,7 +10,7 @@ import { api } from '../services/api';
 export interface ContextTypes {
   asUser?: any;
   setFileProfile?: any;
-  fileProfile?: string;
+  fileProfile: string;
   corNavPrev?: string;
   setCorNav?: any;
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
@@ -46,7 +46,7 @@ export function DashProvider({ children }: any) {
   const [asUser, setAsUser] = useState(
     JSON.parse(localStorage.getItem('@sessionDelivery') as any)
   );
-  const [fileProfile, setFileProfile] = useState('');
+  const [fileProfile, setFileProfile] = useState<string>(asUser?.imgProfile);
   const [corNavPrev, setCorNav] = useState('');
   const [searchParam, setSearchParam] = useState<string | null>('');
   const [load, setLoad] = useState(false);
@@ -58,12 +58,14 @@ export function DashProvider({ children }: any) {
 
   const params = new URLSearchParams(window.location.search);
 
+
   useMemo(() => {
     setLoad(true);
     setAsUser(JSON.parse(localStorage.getItem('@sessionDelivery') as any));
     setCorNav(asUser?.backgroundColor);
+    setFileProfile(asUser?.imgProfile);
     setLoad(false);
-  }, [asUser?.backgroundColor]);
+  }, [asUser?.backgroundColor, asUser?.imgProfile]);
 
   useEffect(() => {
     setLoadTables(true);
