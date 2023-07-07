@@ -1,5 +1,11 @@
-import React, { SetStateAction, createContext, useMemo, useState, useEffect } from "react";
-import { api } from "../services/api";
+import React, {
+  SetStateAction,
+  createContext,
+  useMemo,
+  useState,
+  useEffect,
+} from 'react';
+import { api } from '../services/api';
 
 export interface ContextTypes {
   asUser?: any;
@@ -20,27 +26,29 @@ export interface ContextTypes {
 }
 export const DashContext = createContext<ContextTypes>({
   asUser: null,
-  fileProfile: "",
-  setFileProfile: "",
-  corNavPrev: "",
-  setCorNav: "",
+  fileProfile: '',
+  setFileProfile: '',
+  corNavPrev: '',
+  setCorNav: '',
   setOpenModal: (prevState) => prevState,
   setSearchParam: (prevState) => prevState,
   openModal: false,
   load: false,
   loadTables: false,
   dataCardapio: [],
-  searchParam: "",
+  searchParam: '',
   setLoadTables: (prevState) => prevState,
   dataOrders: [],
   dataOrdersFinished: [],
 });
 
 export function DashProvider({ children }: any) {
-  const [asUser, setAsUser] = useState(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
-  const [fileProfile, setFileProfile] = useState("");
-  const [corNavPrev, setCorNav] = useState("");
-  const [searchParam, setSearchParam] = useState<string | null>("");
+  const [asUser, setAsUser] = useState(
+    JSON.parse(localStorage.getItem('@sessionDelivery') as any)
+  );
+  const [fileProfile, setFileProfile] = useState('');
+  const [corNavPrev, setCorNav] = useState('');
+  const [searchParam, setSearchParam] = useState<string | null>('');
   const [load, setLoad] = useState(false);
   const [loadTables, setLoadTables] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -52,23 +60,22 @@ export function DashProvider({ children }: any) {
 
   useMemo(() => {
     setLoad(true);
-    setAsUser(JSON.parse(localStorage.getItem("@sessionDelivery") as any));
+    setAsUser(JSON.parse(localStorage.getItem('@sessionDelivery') as any));
     setCorNav(asUser?.backgroundColor);
     setLoad(false);
   }, [asUser?.backgroundColor]);
 
   useEffect(() => {
+    setLoadTables(true);
     async function LoadDatacardapioByParamvoid() {
-      setLoadTables(true);
       await api
         .get(
-          `/getallmenu/${asUser?.companyId}?param=${params.get("item") ?? ""}&take=${
-            params.get("take") ?? 100
-          }&skip=${params.get("skip") ?? 0}`
+          `/getallmenu/${asUser?.companyId}?param=${
+            params.get('item') ?? ''
+          }&take=${params.get('take') ?? 100}&skip=${params.get('skip') ?? 0}`
         )
         .then((data) => {
           setDataCardapio(data.data);
-          setLoadTables(false);
         })
         .catch(() => setLoadTables(false));
     }
@@ -76,21 +83,23 @@ export function DashProvider({ children }: any) {
     async function LoadOrdersFinished() {
       setLoadTables(true);
       await api.get(`/ordersFinished/${asUser?.companyId}`).then((data) => {
-        setLoadTables(false);
         setDataOrdersFinished(data.data);
       });
     }
 
     async function LoadOrders() {
-      await api.get(`/findorders?companiesId=${asUser?.companyId}`).then((data) => {
-        setDataOrders(data.data);
-      });
+      await api
+        .get(`/findorders?companiesId=${asUser?.companyId}`)
+        .then((data) => {
+          setDataOrders(data.data);
+        });
     }
-    
-    LoadOrders();
-    LoadDatacardapioByParamvoid();
-    LoadOrdersFinished();
 
+    Promise.all([
+      LoadOrders(),
+      LoadDatacardapioByParamvoid(),
+      LoadOrdersFinished(),
+    ]).finally(() => setLoadTables(false));
   }, [asUser?.companyId]);
 
   return (

@@ -1,14 +1,14 @@
-.box-global-dash{
-    display: flex;
+.box-global-dash {
+  display: flex;
 }
 
-.content-dasboard-pages{
-    width: calc(100% - 250px);
-    min-height: 100vh;
-    margin-left: 250px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: rgb(245, 245, 245);
-    padding-bottom: 2rem;
+.content-dasboard-pages {
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  margin-left: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(245, 245, 245);
+  padding-bottom: 2rem;
 }

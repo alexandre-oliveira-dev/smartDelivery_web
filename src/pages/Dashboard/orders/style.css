@@ -1,13 +1,13 @@
-.box-modalOrders{
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.571);
-    display: none;
-    justify-content: center;
-    align-items: center;
+.box-modalOrders {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.571);
+  display: none;
+  justify-content: center;
+  align-items: center;
 }
-.ModalOrders{
-    width: 600px;
-    min-height: 300px;
+.ModalOrders {
+  width: 600px;
+  min-height: 300px;
 }

@@ -114,18 +114,17 @@ export default function Dashboard() {
     },
   ];
   const colunsOrdersFinished: ColumnsType<any> = [
- 
     {
-      title: "cliente",
-      dataIndex: "client",
-      key: "client",
+      title: 'cliente',
+      dataIndex: 'client',
+      key: 'client',
       render(text, rec, indexx) {
         return <Typography.Text>{rec?.client?.name}</Typography.Text>;
       },
     },
     {
-      title: "Pedido",
-      dataIndex: "orders",
+      title: 'Pedido',
+      dataIndex: 'orders',
       render(text, rec, indexx) {
         return ordersFinished
           .filter((item, index) => index === indexx)
@@ -133,59 +132,62 @@ export default function Dashboard() {
       },
     },
     {
-      title: "Telefone",
-      dataIndex: "client",
-      key: "client",
+      title: 'Telefone',
+      dataIndex: 'client',
+      key: 'client',
       render(text, rec, indexx) {
         return <Typography.Text copyable>{rec?.client?.phone}</Typography.Text>;
       },
     },
     {
-      title: "Valor pago",
-      dataIndex: "amoutMoney",
-      key: "amoutMoney",
+      title: 'Valor pago / à pagar',
+      dataIndex: 'amoutMoney',
+      key: 'amoutMoney',
       render(item) {
         return (
           <Tag color="green">
-            {parseFloat(item).toLocaleString("pt-br", { style: "currency", currency: "BRL" })}
+            {parseFloat(item).toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
           </Tag>
         );
       },
     },
     {
-      title: "Modo de pagamento",
-      dataIndex: "payment_method",
-      key: "payment_method",
+      title: 'Modo de pagamento',
+      dataIndex: 'payment_method',
+      key: 'payment_method',
       render(item) {
         return <Tag color="green">{item}</Tag>;
       },
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
       render(item) {
         return (
           <>
-            {item === "preparando" ? (
+            {item === 'preparando' ? (
               <Tag color="green">{item}</Tag>
-            ) : item === "entrega" ? (
+            ) : item === 'entrega' ? (
               <Tag color="blue">{item}</Tag>
-            ) : item === "cancelado" ? (
+            ) : item === 'cancelado' ? (
               <Tag color="red">{item}</Tag>
             ) : (
-              item === "finalizado" && <Tag color="purple">{item}</Tag>
+              item === 'finalizado' && <Tag color="purple">{item}</Tag>
             )}
           </>
         );
       },
     },
     {
-      title: "Data",
-      dataIndex: "created_at",
-      key: "created_at",
+      title: 'Data',
+      dataIndex: 'created_at',
+      key: 'created_at',
       render(item) {
-        return dayjs(item).format("DD/MM/YYYY");
+        return dayjs(item).format('DD/MM/YYYY');
       },
     },
   ];

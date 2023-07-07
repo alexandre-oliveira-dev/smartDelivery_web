@@ -53,30 +53,30 @@ export default function TableForListItems() {
 
       render(item) {
         return (
-          <div style={{ display: "flex", gap: "10px" }}>
-       <>
-       <Button
-              type="primary"
-              title="Editar"
-              icon={<FiEdit></FiEdit>}
-              style={{ background: "#ffa50a" }}
-            >
-              Editar
-            </Button>
-            <Button
-              type="primary"
-              title="Mais detalhes"
-              icon={<TbListDetails></TbListDetails>}
-              style={{ background: "#0a95ff" }}
-              onClick={()=> {
-                setOpenModal(true)
-                setdataItemDetails(item)
-              }}
-            >
-              Detalhes
-            </Button>
-            <ModalDetailsItem data={dataItemDetails}></ModalDetailsItem>
-       </>
+          <div style={{ display: 'flex', gap: '10px' }}>
+            <>
+              <Button
+                type="primary"
+                title="Editar"
+                icon={<FiEdit></FiEdit>}
+                style={{ background: '#ffa50a' }}
+              >
+                Editar
+              </Button>
+              <Button
+                type="primary"
+                title="Mais detalhes"
+                icon={<TbListDetails></TbListDetails>}
+                style={{ background: '#0a95ff' }}
+                onClick={() => {
+                  setOpenModal(true);
+                  setdataItemDetails(item);
+                }}
+              >
+                Detalhes
+              </Button>
+              <ModalDetailsItem data={dataItemDetails}></ModalDetailsItem>
+            </>
           </div>
         );
       },

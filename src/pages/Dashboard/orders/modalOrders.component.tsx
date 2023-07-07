@@ -13,7 +13,7 @@ export default function ModalOrders({ data }: Datamodal) {
   const { corNavPrev } = useContext(DashContext);
   const [load, setLoad] = useState(false);
 
-  async function handleUpdateStatusOrder(id: string) {
+   async function handleUpdateStatusOrder(id: string) {
     setLoad(true);
     await api
       .put(`/orders/${id}`, {
