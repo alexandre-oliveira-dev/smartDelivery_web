@@ -7,7 +7,7 @@ interface Params {
   file?: string | ArrayBuffer | null;
 }
 
-export default function IframePageCompany({ color, file }: Params) {
+export default function IframePageCompany({ color }: Params) {
   const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
   return (
     <>
@@ -25,7 +25,7 @@ export default function IframePageCompany({ color, file }: Params) {
       >
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <img
-            style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+            style={{ width: "50px", height: "50px", borderRadius: "50%",objectFit:"cover" }}
             src={fileProfile ? fileProfile : "https://via.placeholder.com/150"}
             alt=""
           ></img>
