@@ -70,7 +70,7 @@ export default function ContainerEditMyPage() {
             </div>
             <Row>
               {prevNameFile?.name && (
-                <Tag color="purple">{prevNameFile?.name}</Tag>
+                <Tag color={corNavPrev ?? '#5b72f2'}>{prevNameFile?.name}</Tag>
               )}
             </Row>
           </Row>

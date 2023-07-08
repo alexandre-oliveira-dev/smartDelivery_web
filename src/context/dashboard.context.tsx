@@ -102,7 +102,7 @@ export function DashProvider({ children }: any) {
       LoadDatacardapioByParamvoid(),
       LoadOrdersFinished(),
     ]).finally(() => setLoadTables(false));
-  }, [asUser?.companyId]);
+  }, [asUser?.companyId, params.get('item')]);
 
   return (
     <DashContext.Provider

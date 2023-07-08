@@ -44,51 +44,21 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
       id: 1,
       title: 'Dashboard',
       link: `/dashboard/${asUser?.name_company}/faturamento`,
-      icon: (
-        <MdDashboard
-          color={
-            !corNavPrev
-              ? '#5b72f2'
-              : corNavPrev === '#ffffff' || corNavPrev === 'rgb:255,255,255'
-              ? '#121212'
-              : corNavPrev
-          }
-        ></MdDashboard>
-      ),
+      icon: <MdDashboard color={'#fff'}></MdDashboard>,
       active: btn2,
     },
     {
       id: 2,
       title: 'Meus Pedidos',
       link: `/dashboard/${asUser?.name_company}`,
-      icon: (
-        <FaListAlt
-          color={
-            !corNavPrev
-              ? '#5b72f2'
-              : corNavPrev === '#ffffff' || corNavPrev === 'rgb:255,255,255'
-              ? '#121212'
-              : corNavPrev
-          }
-        ></FaListAlt>
-      ),
+      icon: <FaListAlt color={'#fff'}></FaListAlt>,
       active: btn1,
     },
     {
       id: 3,
       title: 'Configurações',
       link: `/dashboard/${asUser?.name_company}/config`,
-      icon: (
-        <GoGear
-          color={
-            !corNavPrev
-              ? '#5b72f2'
-              : corNavPrev === '#ffffff' || corNavPrev === 'rgb:255,255,255'
-              ? '#121212'
-              : corNavPrev
-          }
-        ></GoGear>
-      ),
+      icon: <GoGear color={'#fff'}></GoGear>,
       active: btn3,
     },
   ];
@@ -126,7 +96,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
                   ? {
                       color: !corNavPrev ? '#5b72f2' : corNavPrev,
                       fontWeight: '600',
-                      background: '#fff',
+                      background: '#ebebeb',
                       height: '40px',
                       width: '90%',
                       borderRadius: '5px',
