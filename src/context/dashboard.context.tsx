@@ -14,8 +14,10 @@ export interface ContextTypes {
   corNavPrev?: string;
   setCorNav?: any;
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
+  setWarnigsOrderFinished: React.Dispatch<SetStateAction<boolean>>;
   setSearchParam: React.Dispatch<SetStateAction<string | null>>;
   openModal: boolean;
+  openModalWarnigsOrderFinished: boolean;
   load: boolean;
   loadTables: boolean;
   dataCardapio: [];
@@ -31,8 +33,10 @@ export const DashContext = createContext<ContextTypes>({
   corNavPrev: '',
   setCorNav: '',
   setOpenModal: (prevState) => prevState,
+  setWarnigsOrderFinished: (prevState) => prevState,
   setSearchParam: (prevState) => prevState,
   openModal: false,
+  openModalWarnigsOrderFinished: false,
   load: false,
   loadTables: false,
   dataCardapio: [],
@@ -52,12 +56,13 @@ export function DashProvider({ children }: any) {
   const [load, setLoad] = useState(false);
   const [loadTables, setLoadTables] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalWarnigsOrderFinished, setWarnigsOrderFinished] =
+    useState(false);
   const [dataCardapio, setDataCardapio] = useState<[]>([]);
   const [dataOrders, setDataOrders] = useState<[]>([]);
   const [dataOrdersFinished, setDataOrdersFinished] = useState<[]>([]);
 
   const params = new URLSearchParams(window.location.search);
-
 
   useMemo(() => {
     setLoad(true);
@@ -122,6 +127,8 @@ export function DashProvider({ children }: any) {
         setLoadTables,
         dataOrders,
         dataOrdersFinished,
+        openModalWarnigsOrderFinished,
+        setWarnigsOrderFinished,
       }}
     >
       {children}

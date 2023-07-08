@@ -94,9 +94,8 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
               style={
                 item.active
                   ? {
-                      color: !corNavPrev ? '#5b72f2' : corNavPrev,
+                      color: '#fff',
                       fontWeight: '600',
-                      background: '#ebebeb',
                       height: '40px',
                       width: '90%',
                       borderRadius: '5px',
@@ -107,6 +106,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
                       fontSize: '20px',
                       gap: '10px',
                       paddingLeft: '10px',
+                      border: '1px solid #fff',
                     }
                   : {
                       textDecoration: 'none',
@@ -119,6 +119,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
                       gap: '10px',
                       width: '90%',
                       paddingLeft: '10px',
+                      height: '40px',
                     }
               }
               key={item.id}

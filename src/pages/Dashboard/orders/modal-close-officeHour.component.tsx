@@ -1,8 +1,8 @@
-import { Modal, Row, Typography } from "antd";
-import React, { useContext } from "react";
-import { DashContext } from "../../../context/dashboard.context";
-import { api } from "../../../services/api";
-import { toast } from "react-toastify";
+import { Modal, Row, Spin, Typography } from 'antd';
+import React, { useContext, useState } from 'react';
+import { DashContext } from '../../../context/dashboard.context';
+import { api } from '../../../services/api';
+import { toast } from 'react-toastify';
 import { AiFillWarning } from 'react-icons/ai';
 
 interface PropsCreateOrderFinished {
@@ -19,13 +19,13 @@ export default function ModalCloseOfficeHour({
 }: PropsCreateOrderFinished) {
   const { setOpenModal, openModal, dataOrders } = useContext(DashContext);
 
+  const [load, setLoad] = useState(false);
   async function handleCreateOrdersFinished() {
-    if (
-      dataOrders.filter((item: any) => item.status !== 'finalizado').length < 1
-    ) {
-      toast.error('Não existe pedidos em preparação ou em entrega no momento!');
+    if (dataOrders.some((item: any) => item.status === 'preparando')) {
+      toast.error('Existe pedidos em preparação no momento!');
       return;
     }
+    setLoad(true);
     await api
       .post(`/ordersFinished`, {
         amountOrders: amountOrders,
@@ -33,8 +33,19 @@ export default function ModalCloseOfficeHour({
         date: date,
         companyId: companyId,
       })
-      .then(() => {
-        toast.success('Expediente fechado com sucesso!');
+      .then(async () => {
+        await api.put(`/allordersbystatus`).then(() => {
+          setLoad(false);
+          toast.success('Expediente fechado com sucesso!');
+          setOpenModal(false);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        });
+      })
+      .catch(() => {
+        toast.error('Fechamento de expediente ja realizado!');
+        setLoad(false);
       });
   }
 
@@ -44,7 +55,7 @@ export default function ModalCloseOfficeHour({
         closable={false}
         onCancel={() => setOpenModal(false)}
         cancelText="cancelar"
-        okText="Confirmar"
+        okText={load ? <Spin></Spin> : 'Confirmar'}
         onOk={handleCreateOrdersFinished}
         open={openModal}
         centered

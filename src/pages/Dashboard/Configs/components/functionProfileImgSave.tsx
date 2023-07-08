@@ -24,12 +24,12 @@ export async function handleSaveChanges(
 
       await api
         .put(`/update/${asUser.companyId}`, {
-          backgroundColor: cor ?? asUser?.backgroundColor,
+          backgroundColor: !cor ? asUser?.backgroundColor : cor,
           imgProfile: data.publicUrl,
         })
         .then(() => {
           let updateLocalstorage = {
-            backgroundColor: cor ?? asUser?.backgroundColor,
+            backgroundColor: !cor ? asUser?.backgroundColor : cor,
             email: asUser?.email,
             id: asUser?.id,
             name_company: asUser?.name_company,

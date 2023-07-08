@@ -34,7 +34,7 @@
 }
 
 .content-box-section1 {
-  width: 33%;
+  width: 50%;
   height: 400px;
   display: flex;
   justify-content: center;
@@ -42,18 +42,23 @@
   padding: 30px;
   border-radius: 10px;
   box-shadow: 5px 5px 20px silver;
-  background: #fff;
+  background: #ffffffd4;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  backdrop-filter: blur(5px);
+  flex-direction: column;
+  gap: 20px;
 }
 
 .item-section1 {
   display: flex;
   align-items: center;
+  justify-content: start;
   gap: 10px;
   width: 100%;
+  
 }
 
 .item-section1 h3 {

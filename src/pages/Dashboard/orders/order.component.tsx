@@ -9,35 +9,48 @@ import ModalOrders from "./modalOrders.component";
 import { DashContext } from "../../../context/dashboard.context";
 import dayjs from "dayjs";
 import ModalCloseOfficeHour from "./modal-close-officeHour.component";
+import { api } from '../../../services/api';
+import ModalWarnigsOrderFinished from './modal-warning-orderFinished.component';
 
 export default function Dashboard() {
-  const { corNavPrev, load, dataOrders,loadTables,setOpenModal,asUser } = useContext(DashContext);
+  const {
+    corNavPrev,
+    load,
+    dataOrders,
+    loadTables,
+    setOpenModal,
+    asUser,
+    setWarnigsOrderFinished,
+  } = useContext(DashContext);
   const [dataOrder, setDataOrder] = useState<any>();
+  const [orderid, setOrderid] = useState<string>('');
 
-  const orders = dataOrders.filter((item:any)=> item.status !== 'finalizado').map((item: any) => item.order);
+  const orders = dataOrders
+    .filter((item: any) => item.status !== 'finalizado')
+    .map((item: any) => item.order);
   const ordersFinished = dataOrders.map((item: any) => item.order);
 
   const coluns: ColumnsType<any> = [
     {
-      title: "Ordem",
-      align: "left",
-      dataIndex: "index",
-      key: "index",
+      title: 'Ordem',
+      align: 'left',
+      dataIndex: 'index',
+      key: 'index',
       render(item, index: number) {
         return <p># {orders.findIndex((i: number) => i === index) + 2}</p>;
       },
     },
     {
-      title: "cliente",
-      dataIndex: "client",
-      key: "client",
+      title: 'cliente',
+      dataIndex: 'client',
+      key: 'client',
       render(text, rec, indexx) {
         return <p>{rec?.client?.name}</p>;
       },
     },
     {
-      title: "Pedido",
-      dataIndex: "order",
+      title: 'Pedido',
+      dataIndex: 'order',
       render(text, rec, indexx) {
         return orders
           .filter((item, index) => index === indexx)
@@ -45,67 +58,76 @@ export default function Dashboard() {
       },
     },
     {
-      title: "Valor",
-      dataIndex: "amoutMoney",
+      title: 'Valor',
+      dataIndex: 'amoutMoney',
       render(rec) {
-        return <Tag color="darkgreen">{parseFloat(rec).toLocaleString('pt-br',{style:'currency',currency:"BRL"})}</Tag>
+        return (
+          <Tag color="darkgreen">
+            {parseFloat(rec).toLocaleString('pt-br', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </Tag>
+        );
       },
     },
     {
-      title: "Endereço",
-      dataIndex: "address",
-      key: "address",
+      title: 'Endereço',
+      dataIndex: 'address',
+      key: 'address',
       render(rec) {
         return <Typography.Text copyable>{rec}</Typography.Text>;
       },
     },
     {
-      title: "Telefone",
-      dataIndex: "client",
-      key: "client",
+      title: 'Telefone',
+      dataIndex: 'client',
+      key: 'client',
       render(text, rec, indexx) {
         return <Typography.Text copyable>{rec?.client?.phone}</Typography.Text>;
       },
     },
     {
-      title: "Modo de pagamento",
-      dataIndex: "payment_method",
-      key: "payment_method",
+      title: 'Modo de pagamento',
+      dataIndex: 'payment_method',
+      key: 'payment_method',
       render(item) {
         return <Tag color="green">{item}</Tag>;
       },
     },
     {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
       render(item) {
         return (
           <>
-            {item === "preparando" ? (
+            {item === 'preparando' ? (
               <Tag color="green">{item}</Tag>
-            ) : item === "entrega" ? (
+            ) : item === 'entrega' ? (
               <Tag color="blue">{item}</Tag>
-            ) : item === "cancelado" ? (
+            ) : item === 'cancelado' ? (
               <Tag color="red">{item}</Tag>
             ) : (
-              item === "finalizado" && <Tag color="purple">{item}</Tag>
+              item === 'finalizado' && <Tag color="purple">{item}</Tag>
             )}
           </>
         );
       },
     },
     {
-      title: "Ações",
+      title: 'Ações',
       render: (text, rec, index) => {
         return (
           <Button
             onClick={() => {
-              document.querySelector(".box-modalOrders")?.setAttribute("style", "display:flex");
+              document
+                .querySelector('.box-modalOrders')
+                ?.setAttribute('style', 'display:flex');
               setDataOrder(rec);
             }}
             type="primary"
-            style={{ color: "#fff", background: corNavPrev }}
+            style={{ color: '#fff', background: corNavPrev }}
           >
             Atualizar pedido
           </Button>
@@ -190,45 +212,89 @@ export default function Dashboard() {
         return dayjs(item).format('DD/MM/YYYY');
       },
     },
+    {
+      title: 'Ações',
+      render(item) {
+        return (
+          <>
+            {item.status !== 'finalizado' && (
+              <Button
+                onClick={() => {
+                  setOrderid(item.id);
+                  setWarnigsOrderFinished(true);
+                }}
+              >
+                {load ? <Spin></Spin> : 'Finalizar'}
+              </Button>
+            )}
+          </>
+        );
+      },
+    },
   ];
 
-
   let soma = 0;
-  const ordersFinishedValue:string[] = dataOrders.filter((item:any) => item.status === 'finalizado').map((item:any) => (item?.amoutMoney))
-  for(let i = 0; i < ordersFinishedValue.length; i ++){
-    soma += parseFloat(ordersFinishedValue[i])
+  const ordersFinishedValue: string[] = dataOrders
+    .filter((item: any) => item.status === 'finalizado')
+    .map((item: any) => item?.amoutMoney);
+  for (let i = 0; i < ordersFinishedValue.length; i++) {
+    soma += parseFloat(ordersFinishedValue[i]);
   }
-  const amountOrders = dataOrders.filter((item:any) => item.status === 'finalizado').length
-  const amountvalue = soma
-  const date = (dayjs(new Date()).format('DD/MM/YYYY'))
-  const companyId:string = asUser?.companyId
+  const amountOrders = dataOrders.filter(
+    (item: any) => item.status === 'finalizado'
+  ).length;
+  const amountvalue = soma;
+  const date = dayjs(new Date()).format('DD/MM/YYYY');
+  const companyId: string = asUser?.companyId;
 
+  const dataTableOrdersFinished = dataOrders.filter(
+    (item: any) => item?.status === 'entrega' || item?.status === 'finalizado'
+  );
 
   return (
     <>
-    <ModalCloseOfficeHour data={{amountOrders,amountvalue,date,companyId}}></ModalCloseOfficeHour>
+      <ModalWarnigsOrderFinished id={orderid}></ModalWarnigsOrderFinished>
+      <ModalCloseOfficeHour
+        data={{ amountOrders, amountvalue, date, companyId }}
+      ></ModalCloseOfficeHour>
       <NavBarComponent btn1={true}></NavBarComponent>
       {load ? (
         <Spin
           size="large"
           style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%,-50%)',
           }}
         ></Spin>
       ) : (
         <div className="box-global-dash">
           <div className="content-dasboard-pages">
-            <Title align="center" color="#fff" size="25px" text="Meus Pedidos"></Title>
+            <Title
+              align="center"
+              color="#fff"
+              size="25px"
+              text="Meus Pedidos"
+            ></Title>
 
-            <div style={{width:"100%",display:"grid",placeItems:"center",gap:"20px" }}>
+            <div
+              style={{
+                width: '100%',
+                display: 'grid',
+                placeItems: 'center',
+                gap: '20px',
+              }}
+            >
               <Typography.Title level={2}>Pedidos</Typography.Title>
               <Table
-              style={{width:"90%"}}
+                style={{ width: '90%' }}
                 size="large"
-                dataSource={dataOrders?.filter((status:any) => status?.status === "preparando" || status?.status === 'cancelado' )}
+                dataSource={dataOrders?.filter(
+                  (status: any) =>
+                    status?.status === 'preparando' ||
+                    status?.status === 'cancelado'
+                )}
                 columns={coluns}
                 loading={loadTables}
               ></Table>
@@ -236,17 +302,26 @@ export default function Dashboard() {
               <Typography.Title level={2}>Pedidos finalizados</Typography.Title>
 
               <Table
-              style={{width:"90%"}}
+                style={{ width: '90%' }}
                 size="large"
                 columns={colunsOrdersFinished}
-                dataSource={dataOrders.filter((status: any) => status?.status === "finalizado" || status?.status === 'entrega')}
+                dataSource={dataTableOrdersFinished.filter(
+                  (item: any) =>
+                    dayjs(item?.created_at).format('DD/MM/YYYY') === date
+                )}
                 loading={loadTables}
               ></Table>
 
-              <Row style={{ marginTop: "50px" }}>
+              <Row style={{ marginTop: '50px' }}>
                 <Col>
-                  <Typography.Title level={2}>Realizar Fechamento de expediente</Typography.Title>
-                  <Button style={{ background: corNavPrev }} type="primary" onClick={()=>setOpenModal(true)}>
+                  <Typography.Title level={2}>
+                    Realizar Fechamento de expediente
+                  </Typography.Title>
+                  <Button
+                    style={{ background: corNavPrev }}
+                    type="primary"
+                    onClick={() => setOpenModal(true)}
+                  >
                     Fechar expediente
                   </Button>
                 </Col>

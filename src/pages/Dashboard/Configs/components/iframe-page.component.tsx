@@ -13,30 +13,35 @@ export default function IframePageCompany({ color }: Params) {
     <>
       <header
         style={{
-          background: color,
-          width: "100%",
-          height: "60px",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          paddingLeft: "20px",
-          paddingRight: "20px",
+          background: !color ? '#5b72f2' : color,
+          width: '100%',
+          height: '60px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingLeft: '20px',
+          paddingRight: '20px',
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
           <img
-            style={{ width: "50px", height: "50px", borderRadius: "50%",objectFit:"cover" }}
-            src={fileProfile ? fileProfile : "https://via.placeholder.com/150"}
+            style={{
+              width: '50px',
+              height: '50px',
+              borderRadius: '50%',
+              objectFit: 'cover',
+            }}
+            src={fileProfile ? fileProfile : 'https://via.placeholder.com/150'}
             alt=""
           ></img>
-          <h4 style={{ color: "#fff" }}>{asUser.name_company}</h4>
+          <h4 style={{ color: '#fff' }}>{asUser.name_company}</h4>
         </div>
         <div
           style={{
-            color: "#fff",
-            display: "flex",
-            gap: "20px",
-            fontSize: "13px",
+            color: '#fff',
+            display: 'flex',
+            gap: '20px',
+            fontSize: '13px',
           }}
         >
           <p>Meus pedidos</p>
@@ -45,15 +50,19 @@ export default function IframePageCompany({ color }: Params) {
       </header>
       <div
         style={{
-          width: "100%",
-          height: "100px",
-          background: "#fff",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
+          width: '100%',
+          height: '100px',
+          background: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
-        <Button type="primary" style={{ background: corNavPrev }} onClick={(()=>window.location.href=``)}>
+        <Button
+          type="primary"
+          style={{ background: corNavPrev }}
+          onClick={() => (window.location.href = ``)}
+        >
           Ver site
         </Button>
       </div>

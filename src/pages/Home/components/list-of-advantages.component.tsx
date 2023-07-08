@@ -7,7 +7,7 @@ import { Button } from "antd";
 
 export default function ListOfadvantages() {
   return (
-    <div className="content-box-section1" style={{ flexDirection: "column", gap: "20px" }}>
+    <div className="content-box-section1">
       <div className="item-section1">
         <div
           style={{
@@ -75,7 +75,7 @@ export default function ListOfadvantages() {
       <Button
         type="primary"
         onClick={() => (window.location.href = "/cadastro")}
-        style={{ width: "100%", height: "40px",fontSize:"18px" }}
+        style={{ width: "200px", height: "40px",fontSize:"18px" }}
       >
         Começar Agora!
       </Button>

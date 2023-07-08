@@ -21,7 +21,11 @@ import { DashContext } from "../../../context/dashboard.context";
 Chart.register(CategoryScale, LinearScale, PointElement, LineElement, title, Tooltip, BarElement);
 
 export default function Faturamento() {
-  const { corNavPrev, load, dataOrdersFinished: datafat, loadTables } = useContext(DashContext);
+  const {
+    corNavPrev,
+    load,
+    dataOrdersFinished: datafat,
+  } = useContext(DashContext);
 
   let soma = 0;
   const amountOrdersArray: string[] = datafat.map((item: any) => item?.amountOrders);

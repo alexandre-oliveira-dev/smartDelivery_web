@@ -1,4 +1,4 @@
-import { Button, Input, Row, Spin, Tag, Typography } from 'antd';
+import { Button, Col, Divider, Input, Row, Spin, Tag, Typography } from 'antd';
 import React, { useState, useContext } from 'react';
 import '../style.css';
 import { DashContext } from '../../../../context/dashboard.context';
@@ -9,6 +9,7 @@ import {
   handleSaveChanges2,
   handleSaveChanges3,
 } from './functionProfileImgSave';
+import { api } from '../../../../services/api';
 
 export default function ContainerEditMyPage() {
   const [cor, setCor] = useState<string>('');
@@ -18,6 +19,31 @@ export default function ContainerEditMyPage() {
   const { setFileProfile, setCorNav, asUser, corNavPrev } =
     useContext(DashContext);
 
+  async function handleBackdefaultColor() {
+    setLoad(true);
+    await api
+      .put(`/update/${asUser?.companyId}`, {
+        backgroundColor: null,
+      })
+      .then(() => {
+        let updateLocalstorage = {
+          backgroundColor: '',
+          email: asUser?.email,
+          id: asUser?.id,
+          name_company: asUser?.name_company,
+          companyId: asUser?.companyId,
+          imgProfile: asUser?.imgProfile,
+        };
+        localStorage.setItem(
+          '@sessionDelivery',
+          JSON.stringify(updateLocalstorage)
+        );
+        setLoad(false);
+
+        window.location.reload();
+      });
+  }
+
   return (
     <>
       <div className="container-edit-loja">
@@ -26,17 +52,31 @@ export default function ContainerEditMyPage() {
             Escolha a cor que pré-dominará no seu ambiente online
           </Typography.Title>
           <Row style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <Input
-              onChange={(color) => {
-                setCorNav(color.target.value);
-                setCor(color.target.value);
-              }}
-              style={{ width: '50px', height: '40px' }}
-              type="color"
-            ></Input>
-            <Typography.Text>
-              cor: {cor && <Tag color="green">{cor}</Tag>}
-            </Typography.Text>
+            <Col>
+              <Row style={{ gap: '10px' }}>
+                <Input
+                  onChange={(color) => {
+                    setCorNav(color.target.value);
+                    setCor(color.target.value);
+                  }}
+                  style={{ width: '50px', height: '40px' }}
+                  type="color"
+                ></Input>
+                <Typography.Text>
+                  cor: {cor && <Tag color="green">{cor}</Tag>}
+                </Typography.Text>
+              </Row>
+              <Divider></Divider>
+              {corNavPrev && (
+                <Button
+                  style={{ width: '200px' }}
+                  type="primary"
+                  onClick={handleBackdefaultColor}
+                >
+                  {load ? <Spin></Spin> : 'Voltar para cor padrão'}
+                </Button>
+              )}
+            </Col>
           </Row>
           <br></br>
           <Typography.Title level={5}>
@@ -62,7 +102,7 @@ export default function ContainerEditMyPage() {
               ></Input>
               <span
                 id="inputFileFake"
-                style={{ background: corNavPrev ?? '#5b72f2' }}
+                style={{ background: !corNavPrev ? '#5b72f2' : corNavPrev }}
               >
                 <AiOutlineUpload color="#fff" size={30}></AiOutlineUpload>
                 Carregue sua logo
@@ -76,9 +116,7 @@ export default function ContainerEditMyPage() {
           </Row>
         </div>
         <div style={{ padding: '20px', width: '50%' }}>
-          {corNavPrev && (
-            <IframePageCompany color={corNavPrev}></IframePageCompany>
-          )}
+          <IframePageCompany color={corNavPrev}></IframePageCompany>
         </div>
       </div>
 
