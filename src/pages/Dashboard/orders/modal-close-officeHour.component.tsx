@@ -4,6 +4,7 @@ import { DashContext } from '../../../context/dashboard.context';
 import { api } from '../../../services/api';
 import { toast } from 'react-toastify';
 import { AiFillWarning } from 'react-icons/ai';
+import dayjs from 'dayjs';
 
 interface PropsCreateOrderFinished {
   data: {
@@ -18,13 +19,25 @@ export default function ModalCloseOfficeHour({
   data: { amountOrders, amountvalue, companyId, date },
 }: PropsCreateOrderFinished) {
   const { setOpenModal, openModal, dataOrders } = useContext(DashContext);
-
   const [load, setLoad] = useState(false);
+
   async function handleCreateOrdersFinished() {
     if (dataOrders.some((item: any) => item.status === 'preparando')) {
       toast.error('Existe pedidos em preparação no momento!');
       return;
     }
+    if (
+      dataOrders.filter(
+        (item: any) =>
+          item.status === 'finalizado' &&
+          dayjs(item.created_at).format('DD/MM/YYYY') ===
+            dayjs(new Date()).format('DD/MM/YYYY')
+      ).length < 1
+    ) {
+      toast.error('Não existem pedidos finalizados no momento!');
+      return;
+    }
+
     setLoad(true);
     await api
       .post(`/ordersFinished`, {

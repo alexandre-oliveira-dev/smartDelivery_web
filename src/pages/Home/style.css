@@ -79,7 +79,7 @@
   height: 50vh;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   flex-direction: column;
   gap: 2rem;
 }
@@ -110,6 +110,7 @@
 
 .animation {
   animation: junp 3s ease infinite;
+  cursor: pointer;
 }
 
 @keyframes junp {
@@ -135,7 +136,9 @@
   flex-direction: column;
   gap: 20px;
 }
-
+.box-stap-information{
+  width: 60%;
+}
 .stap-information {
   display: flex;
   align-items: center;

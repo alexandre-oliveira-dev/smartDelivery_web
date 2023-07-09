@@ -24,12 +24,19 @@
     background-color: transparent;
     color: #fff;
     font-size: 17px;
+    transition: 0.3s ease;
 }
-
+.nav-btns button:hover{
+    color: #b0bcff;
+}
 .header a {
     color: #fff;
     margin-left: 10px;
     text-decoration: none;
+    transition: 0.3s ease;
+}
+.header a:hover{
+    color: #b0bcff;
 }
 
 .header a:first-child {

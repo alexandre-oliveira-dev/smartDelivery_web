@@ -8,8 +8,7 @@ import { ColumnsType } from "antd/es/table";
 import ModalOrders from "./modalOrders.component";
 import { DashContext } from "../../../context/dashboard.context";
 import dayjs from "dayjs";
-import ModalCloseOfficeHour from "./modal-close-officeHour.component";
-import { api } from '../../../services/api';
+import ModalCloseOfficeHour from './modal-close-officeHour.component';
 import ModalWarnigsOrderFinished from './modal-warning-orderFinished.component';
 
 export default function Dashboard() {
@@ -235,20 +234,26 @@ export default function Dashboard() {
 
   let soma = 0;
   const ordersFinishedValue: string[] = dataOrders
-    .filter((item: any) => item.status === 'finalizado')
+    .filter(
+      (item: any) =>
+        item.status === 'finalizado' &&
+        dayjs(item.created_at).format('DD/MM/YYYY') ===
+          dayjs(new Date()).format('DD/MM/YYYY')
+    )
     .map((item: any) => item?.amoutMoney);
   for (let i = 0; i < ordersFinishedValue.length; i++) {
     soma += parseFloat(ordersFinishedValue[i]);
   }
   const amountOrders = dataOrders.filter(
-    (item: any) => item.status === 'finalizado'
+    (item: { status: string }) => item.status === 'finalizado'
   ).length;
   const amountvalue = soma;
   const date = dayjs(new Date()).format('DD/MM/YYYY');
   const companyId: string = asUser?.companyId;
 
   const dataTableOrdersFinished = dataOrders.filter(
-    (item: any) => item?.status === 'entrega' || item?.status === 'finalizado'
+    (item: { status: string }) =>
+      item?.status === 'entrega' || item?.status === 'finalizado'
   );
 
   return (
@@ -289,7 +294,7 @@ export default function Dashboard() {
               <Typography.Title level={2}>Pedidos</Typography.Title>
               <Table
                 style={{ width: '90%' }}
-                size="large"
+                size="middle"
                 dataSource={dataOrders?.filter(
                   (status: any) =>
                     status?.status === 'preparando' ||
@@ -303,7 +308,7 @@ export default function Dashboard() {
 
               <Table
                 style={{ width: '90%' }}
-                size="large"
+                size="middle"
                 columns={colunsOrdersFinished}
                 dataSource={dataTableOrdersFinished.filter(
                   (item: any) =>

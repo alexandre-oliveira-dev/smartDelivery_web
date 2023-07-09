@@ -27,43 +27,55 @@ export default function Faturamento() {
     dataOrdersFinished: datafat,
   } = useContext(DashContext);
 
+  //soma do total de pedidos
   let soma = 0;
-  const amountOrdersArray: string[] = datafat.map((item: any) => item?.amountOrders);
+  const amountOrdersArray: string[] = datafat.map(
+    (item: any) => item?.amountOrders
+  );
   for (let i = 0; i < amountOrdersArray.length; i++) {
     soma += parseFloat(amountOrdersArray[i]);
   }
   const amountOrders: number = soma;
+
+  //soma do total faturado
+  let somavalue = 0;
+  const amountValueArray: number[] = datafat.map(
+    (item: { amountvalue: number }) => item?.amountvalue
+  );
+  for (let i = 0; i < amountValueArray.length; i++) {
+    somavalue += amountValueArray[i];
+  }
+  const amountValue = somavalue;
 
   const options: ChartOptions = {
     scales: {
       y: {
         beginAtZero: true,
       },
-      
     },
   };
 
   const months = [
-    "Janeiro",
-    "Fevereiro",
-    "Março",
-    "Abril",
-    "Maio",
-    "Junho",
-    "julho",
-    "agosto",
-    "setembro",
-    "outubro",
-    "novembro",
-    "dezembro",
+    'Janeiro',
+    'Fevereiro',
+    'Março',
+    'Abril',
+    'Maio',
+    'Junho',
+    'julho',
+    'agosto',
+    'setembro',
+    'outubro',
+    'novembro',
+    'dezembro',
   ];
 
   const nowdate = dayjs(new Date());
-  const daysofmonth = [""];
+  const daysofmonth = [''];
   const totaldays = nowdate.daysInMonth();
 
   for (let dia = 1; dia <= totaldays; dia++) {
-    daysofmonth.push(nowdate.date(dia).format("DD/MM/YYYY"));
+    daysofmonth.push(nowdate.date(dia).format('DD/MM/YYYY'));
   }
 
   const card: React.CSSProperties = {};
@@ -75,16 +87,21 @@ export default function Faturamento() {
         <Spin
           size="large"
           style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%,-50%)",
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%,-50%)',
           }}
         ></Spin>
       ) : (
         <div className="box-global-dash">
           <div className="content-dasboard-pages">
-            <Title align="center" color="#fff" size="25px" text="Faturamento"></Title>
+            <Title
+              align="center"
+              color="#fff"
+              size="25px"
+              text="Faturamento"
+            ></Title>
             <Typography.Title level={2}>Dashboard</Typography.Title>
 
             <Row gutter={20}>
@@ -100,7 +117,7 @@ export default function Faturamento() {
                           backgroundColor: corNavPrev,
                         },
                       ],
-                      yLabels: ["R$"],
+                      yLabels: ['R$'],
                       labels: months,
                     }}
                   ></Bar>
@@ -108,9 +125,11 @@ export default function Faturamento() {
               </Col>
               <Col>
                 <Card style={card}>
-                  <Typography.Title level={4}>Vendas na Semana</Typography.Title>
+                  <Typography.Title level={4}>
+                    Vendas na Semana
+                  </Typography.Title>
                   <Line
-                    options={options as any}  
+                    options={options as any}
                     data={{
                       datasets: [
                         {
@@ -118,10 +137,13 @@ export default function Faturamento() {
                           backgroundColor: corNavPrev,
                         },
                       ],
-                      yLabels: ["R$"],
+                      yLabels: ['R$'],
                       labels: datafat
                         .map((item: any) => item.date)
-                        .slice(datafat.length > 8 ? datafat.length - 8 : 0, datafat.length),
+                        .slice(
+                          datafat.length > 8 ? datafat.length - 8 : 0,
+                          datafat.length
+                        ),
                     }}
                   ></Line>
                 </Card>
@@ -138,7 +160,7 @@ export default function Faturamento() {
                           backgroundColor: corNavPrev,
                         },
                       ],
-                      yLabels: ["R$"],
+                      yLabels: ['R$'],
                       labels: months,
                     }}
                   ></Bar>
@@ -148,14 +170,23 @@ export default function Faturamento() {
             <Row>
               <Col>
                 <Card style={card}>
-                  <Typography.Title level={4}>Total de pedidos</Typography.Title>
+                  <Typography.Title level={4}>
+                    Total de pedidos
+                  </Typography.Title>
                   <Typography.Text>{amountOrders}</Typography.Text>
                 </Card>
               </Col>
               <Col>
                 <Card style={card}>
-                  <Typography.Title level={4}>Faturamento total</Typography.Title>
-                  <Typography.Text>{'R$25000,00'}</Typography.Text>
+                  <Typography.Title level={4}>
+                    Faturamento total
+                  </Typography.Title>
+                  <Typography.Text>
+                    {parseFloat(amountValue.toString()).toLocaleString(
+                      'pt-br',
+                      { style: 'currency', currency: 'BRL' }
+                    )}
+                  </Typography.Text>
                 </Card>
               </Col>
             </Row>
