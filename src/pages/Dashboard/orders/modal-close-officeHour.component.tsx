@@ -78,7 +78,7 @@ export default function ModalCloseOfficeHour({
             level={2}
             style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
           >
-            <AiFillWarning color="red"></AiFillWarning>
+            <AiFillWarning color="gold"></AiFillWarning>
             Atenção!
           </Typography.Title>
         </Row>

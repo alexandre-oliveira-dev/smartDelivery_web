@@ -10,6 +10,7 @@ import { DashContext } from "../../../context/dashboard.context";
 import dayjs from "dayjs";
 import ModalCloseOfficeHour from './modal-close-officeHour.component';
 import ModalWarnigsOrderFinished from './modal-warning-orderFinished.component';
+import SumaryStatusOrdersComponent from './sumary-status-orders.component';
 
 export default function Dashboard() {
   const {
@@ -283,6 +284,7 @@ export default function Dashboard() {
               text="Meus Pedidos"
             ></Title>
 
+            <SumaryStatusOrdersComponent></SumaryStatusOrdersComponent>
             <div
               style={{
                 width: '100%',
@@ -318,12 +320,22 @@ export default function Dashboard() {
               ></Table>
 
               <Row style={{ marginTop: '50px' }}>
-                <Col>
-                  <Typography.Title level={2}>
-                    Realizar Fechamento de expediente
-                  </Typography.Title>
+                <Col style={{ display: 'grid', placeItems: 'center' }}>
+                  <Col>
+                    <Row>
+                      <Typography.Title level={2}>
+                        Realizar Fechamento de expediente
+                      </Typography.Title>
+                    </Row>
+                    <Row>
+                      <Typography.Text>
+                        O fechamento de expediente só pode ser realizado 1x ao
+                        dia.
+                      </Typography.Text>
+                    </Row>
+                  </Col>
                   <Button
-                    style={{ background: corNavPrev }}
+                    style={{ background: corNavPrev, marginTop: '20px' }}
                     type="primary"
                     onClick={() => setOpenModal(true)}
                   >

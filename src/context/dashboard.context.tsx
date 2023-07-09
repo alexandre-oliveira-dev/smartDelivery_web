@@ -88,10 +88,11 @@ export function DashProvider({ children }: any) {
     }
 
     async function LoadOrdersFinished() {
-      setLoadTables(true);
-      await api.get(`/ordersFinished/${asUser?.companyId}`).then((data) => {
-        setDataOrdersFinished(data.data);
-      });
+      await api
+        .get(`/ordersFinished?companyId=${asUser?.companyId}`)
+        .then((data) => {
+          setDataOrdersFinished(data.data);
+        });
     }
 
     async function LoadOrders() {
