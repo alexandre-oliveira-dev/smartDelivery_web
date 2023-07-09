@@ -11,7 +11,7 @@ export default function SumaryStatusOrdersComponent() {
       >
         <Card
           style={{
-            width: '50%',
+            width: '60%',
             margin: '2rem 0 2rem 0',
           }}
           title={
