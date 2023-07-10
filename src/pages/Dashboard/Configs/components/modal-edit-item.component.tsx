@@ -9,7 +9,7 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 import FormItem from 'antd/es/form/FormItem';
 import { Option } from 'antd/es/mentions';
@@ -17,7 +17,7 @@ import { Options } from '../options-categoria-menu';
 import { api } from '../../../../services/api';
 import { toast } from 'react-toastify';
 
-interface Params {
+export interface Params {
   item: {
     amount?: string;
     categoria?: string;
@@ -66,6 +66,7 @@ export default function ModalEditItem({ item }: Params) {
           setOpenModalEdititem(false);
         }}
         centered
+        
         title={
           <>
             <Typography.Title level={3}>Editar item</Typography.Title>

@@ -8,3 +8,7 @@
 button{
   cursor: pointer;
 }
+
+.ant-spin .ant-spin-dot-item{
+  background-color: #fff;
+}
