@@ -293,7 +293,18 @@ export default function Dashboard() {
                 gap: '20px',
               }}
             >
-              <Typography.Title level={2}>Pedidos</Typography.Title>
+              <Row style={{ alignItems: 'center', gap: '20px' }}>
+                <Col>
+                  <Typography.Title level={2}>
+                    Pedidos
+                  </Typography.Title>
+                </Col>
+                <Col>
+                  <Typography.Title level={4}>
+                    {dayjs(new Date()).format('DD/MM/YYYY')}
+                  </Typography.Title>
+                </Col>
+              </Row>
               <Table
                 style={{ width: '90%' }}
                 size="middle"
@@ -306,7 +317,18 @@ export default function Dashboard() {
                 loading={loadTables}
               ></Table>
 
-              <Typography.Title level={2}>Pedidos finalizados</Typography.Title>
+              <Row style={{ alignItems: 'center', gap: '20px' }}>
+                <Col>
+                  <Typography.Title level={2}>
+                    Pedidos finalizados
+                  </Typography.Title>
+                </Col>
+                <Col>
+                  <Typography.Title level={4}>
+                    {dayjs(new Date()).format('DD/MM/YYYY')}
+                  </Typography.Title>
+                </Col>
+              </Row>
 
               <Table
                 style={{ width: '90%' }}

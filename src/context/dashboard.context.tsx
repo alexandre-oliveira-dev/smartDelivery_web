@@ -14,9 +14,11 @@ export interface ContextTypes {
   corNavPrev?: string;
   setCorNav?: any;
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
+  setOpenModalEdititem: React.Dispatch<SetStateAction<boolean>>;
   setWarnigsOrderFinished: React.Dispatch<SetStateAction<boolean>>;
   setSearchParam: React.Dispatch<SetStateAction<string | null>>;
   openModal: boolean;
+  openModalEditItem: boolean;
   openModalWarnigsOrderFinished: boolean;
   load: boolean;
   loadTables: boolean;
@@ -33,9 +35,11 @@ export const DashContext = createContext<ContextTypes>({
   corNavPrev: '',
   setCorNav: '',
   setOpenModal: (prevState) => prevState,
+  setOpenModalEdititem: (prevState) => prevState,
   setWarnigsOrderFinished: (prevState) => prevState,
   setSearchParam: (prevState) => prevState,
   openModal: false,
+  openModalEditItem: false,
   openModalWarnigsOrderFinished: false,
   load: false,
   loadTables: false,
@@ -56,6 +60,7 @@ export function DashProvider({ children }: any) {
   const [load, setLoad] = useState(false);
   const [loadTables, setLoadTables] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalEditItem, setOpenModalEdititem] = useState(false);
   const [openModalWarnigsOrderFinished, setWarnigsOrderFinished] =
     useState(false);
   const [dataCardapio, setDataCardapio] = useState<[]>([]);
@@ -130,6 +135,8 @@ export function DashProvider({ children }: any) {
         dataOrdersFinished,
         openModalWarnigsOrderFinished,
         setWarnigsOrderFinished,
+        openModalEditItem,
+        setOpenModalEdititem
       }}
     >
       {children}

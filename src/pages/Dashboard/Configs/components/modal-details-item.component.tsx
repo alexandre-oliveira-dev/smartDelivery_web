@@ -1,19 +1,20 @@
-import { Col, Modal, Row, Tag } from 'antd'
-import React,{useContext} from 'react'
-import { DashContext } from '../../../../context/dashboard.context'
+import { Col, Divider, Modal, Row, Tag } from 'antd';
+import React, { useContext } from 'react';
+import { DashContext } from '../../../../context/dashboard.context';
+import Typography from 'antd/es/typography';
 
- export type ItemTypes = {
-   data:{
+export type ItemTypes = {
+  data: {
     title: string;
     description: string;
     peoples: string;
     price: string;
     weight: string;
     categoria: string;
-   }
   };
+};
 
-export default function ModalDetailsItem({data}:ItemTypes){
+export default function ModalDetailsItem({ data }: ItemTypes) {
   const { openModal, setOpenModal } = useContext(DashContext);
   return (
     <>
@@ -21,9 +22,15 @@ export default function ModalDetailsItem({data}:ItemTypes){
         open={openModal}
         closable={false}
         onCancel={() => setOpenModal(false)}
-        title="Detalhes do item"
+        title={
+          <>
+            <Typography.Title level={3}>Detalhes do item</Typography.Title>
+            <Divider></Divider>
+          </>
+        }
         okButtonProps={{ style: { display: 'none' } }}
         cancelText="Voltar"
+        centered
       >
         <Col style={{ flexDirection: 'column', gap: '10px', display: 'flex' }}>
           <Row gutter={10}>

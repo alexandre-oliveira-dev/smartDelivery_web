@@ -167,7 +167,7 @@ export default function Faturamento() {
                 </Card>
               </Col>
             </Row>
-            <Row>
+            <Row gutter={[22,22]} style={{marginTop:"20px"}}>
               <Col>
                 <Card style={card}>
                   <Typography.Title level={4}>

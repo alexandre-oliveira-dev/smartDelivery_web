@@ -2,6 +2,7 @@ import { Modal, Row, Spin, Typography } from 'antd';
 import React, { useContext, useState } from 'react';
 import { api } from '../../../services/api';
 import { DashContext } from '../../../context/dashboard.context';
+import { AiFillWarning } from 'react-icons/ai';
 
 interface OrderProps {
   id: string;
@@ -33,7 +34,13 @@ export default function ModalWarnigsOrderFinished({ id }: OrderProps) {
         }}
       >
         <Row>
-          <Typography.Title level={2}>Atenção</Typography.Title>
+          <Typography.Title
+            level={2}
+            style={{ display: 'flex', alignItems: 'center', gap: '10px' }}
+          >
+            <AiFillWarning color="gold"></AiFillWarning>
+            Atenção!
+          </Typography.Title>
         </Row>
         <Row>
           <Typography.Text>

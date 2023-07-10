@@ -8,11 +8,18 @@ import Card from 'antd/es/card/Card';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { Options } from '../options-categoria-menu';
 import ModalDetailsItem from './modal-details-item.component';
+import ModalEditItem from './modal-edit-item.component';
 
 export default function TableForListItems() {
-  const { dataCardapio, corNavPrev, loadTables, setOpenModal } =
-    useContext(DashContext);
+  const {
+    dataCardapio,
+    corNavPrev,
+    loadTables,
+    setOpenModal,
+    setOpenModalEdititem,
+  } = useContext(DashContext);
   const [dataItemDetails, setdataItemDetails] = useState<any>({});
+  const [initialValues, setInitialValues] = useState<any>({});
 
   const coloumns: ColumnsType<any> = [
     {
@@ -61,6 +68,10 @@ export default function TableForListItems() {
                 title="Editar"
                 icon={<FiEdit></FiEdit>}
                 style={{ background: '#ffa50a' }}
+                onClick={() => {
+                  setOpenModalEdititem(true);
+                  setInitialValues(item);
+                }}
               >
                 Editar
               </Button>
@@ -77,6 +88,7 @@ export default function TableForListItems() {
                 Detalhes
               </Button>
               <ModalDetailsItem data={dataItemDetails}></ModalDetailsItem>
+              <ModalEditItem item={initialValues}></ModalEditItem>
             </>
           </div>
         );
