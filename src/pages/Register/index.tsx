@@ -7,13 +7,13 @@ import FormItem from "antd/es/form/FormItem";
 import { api } from "../../services/api";
 import { DashProvider } from "../../context/dashboard.context";
 
-type RegisterValues = {
+export type RegisterValues = {
   name_company: string;
   cnpj: string;
-  payments_methods: [];
+  payments_methods?: [];
   phone: string;
   email: string;
-  password: string;
+  password?: string;
   address: string;
 };
 

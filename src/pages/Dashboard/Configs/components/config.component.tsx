@@ -10,6 +10,7 @@ import Title from "../../components/Title";
 import ContainerEditMyPage from "./container-edit-page.component";
 import { toast } from "react-toastify";
 import TableForListItems from "./table-list-items.component";
+import ContainerEditDataCompany from "./container-edit-dataComany.component";
 
 export type ItemsofMenutypes = {
   item: string;
@@ -490,6 +491,12 @@ export default function Config() {
             <br></br>
             <br></br>
             <ContainerEditMyPage></ContainerEditMyPage>
+            <br />
+            <br />
+            <Typography.Title level={3}>
+              Personalizar meus Dados
+            </Typography.Title>
+            <ContainerEditDataCompany></ContainerEditDataCompany>
           </div>
         </div>
       )}

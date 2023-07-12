@@ -9,7 +9,7 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 import FormItem from 'antd/es/form/FormItem';
 import { Option } from 'antd/es/mentions';
@@ -66,7 +66,6 @@ export default function ModalEditItem({ item }: Params) {
           setOpenModalEdititem(false);
         }}
         centered
-        
         title={
           <>
             <Typography.Title level={3}>Editar item</Typography.Title>
@@ -98,7 +97,7 @@ export default function ModalEditItem({ item }: Params) {
             </Col>
             <Col style={{ width: '50%' }}>
               <label htmlFor="categoria">Categoria do item</label>
-              <FormItem initialValue={item.categoria} name={'categoria'}>
+              <FormItem name={'categoria'}>
                 <Select
                   style={{ width: '100%' }}
                   id="categoria"

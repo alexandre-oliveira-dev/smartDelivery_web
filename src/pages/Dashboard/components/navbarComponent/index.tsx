@@ -21,10 +21,11 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
 
   useEffect(() => {
     if (asUser === undefined || asUser === null) {
-      window.location.href = "/";
+      window.location.href = '/';
     }
-    const nav = document.getElementById("navbardash");
-    nav?.style.setProperty("--backNavBarColor", corNavPrev ?? "#5b72f2");
+    document.title = 'Dashboard';
+    const nav = document.getElementById('navbardash');
+    nav?.style.setProperty('--backNavBarColor', corNavPrev ?? '#5b72f2');
   }, [asUser, corNavPrev]);
 
   async function handleSingout() {
@@ -32,8 +33,8 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
     await api
       .delete(`/singout/${asUser?.id}`)
       .then(() => {
-        localStorage.removeItem("@sessionDelivery");
-        window.location.href = "/";
+        localStorage.removeItem('@sessionDelivery');
+        window.location.href = '/';
         setLoad(false);
       })
       .catch(() => setLoad(false));
@@ -90,6 +91,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
         {navBarBtns.map((item) => {
           return (
             <Link
+              id="hover"
               to={item.link}
               style={
                 item.active
@@ -107,6 +109,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
                       gap: '10px',
                       paddingLeft: '10px',
                       border: '1px solid #fff',
+                      transition: 'all 1s ease',
                     }
                   : {
                       textDecoration: 'none',

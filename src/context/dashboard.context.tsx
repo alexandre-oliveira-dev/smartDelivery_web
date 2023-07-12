@@ -6,6 +6,7 @@ import React, {
   useEffect,
 } from 'react';
 import { api } from '../services/api';
+import { RegisterValues } from '../pages/Register';
 
 export interface ContextTypes {
   asUser?: any;
@@ -23,32 +24,13 @@ export interface ContextTypes {
   load: boolean;
   loadTables: boolean;
   dataCardapio: [];
+  dataCompany: RegisterValues;
   dataOrders: [];
   dataOrdersFinished: [];
   searchParam: string | null;
   setLoadTables: React.Dispatch<SetStateAction<boolean>>;
 }
-export const DashContext = createContext<ContextTypes>({
-  asUser: null,
-  fileProfile: '',
-  setFileProfile: '',
-  corNavPrev: '',
-  setCorNav: '',
-  setOpenModal: (prevState) => prevState,
-  setOpenModalEdititem: (prevState) => prevState,
-  setWarnigsOrderFinished: (prevState) => prevState,
-  setSearchParam: (prevState) => prevState,
-  openModal: false,
-  openModalEditItem: false,
-  openModalWarnigsOrderFinished: false,
-  load: false,
-  loadTables: false,
-  dataCardapio: [],
-  searchParam: '',
-  setLoadTables: (prevState) => prevState,
-  dataOrders: [],
-  dataOrdersFinished: [],
-});
+export const DashContext = createContext<ContextTypes>({} as ContextTypes);
 
 export function DashProvider({ children }: any) {
   const [asUser, setAsUser] = useState(
@@ -66,6 +48,9 @@ export function DashProvider({ children }: any) {
   const [dataCardapio, setDataCardapio] = useState<[]>([]);
   const [dataOrders, setDataOrders] = useState<[]>([]);
   const [dataOrdersFinished, setDataOrdersFinished] = useState<[]>([]);
+  const [dataCompany, setDataCompany] = useState<RegisterValues>(
+    {} as RegisterValues
+  );
 
   const params = new URLSearchParams(window.location.search);
 
@@ -107,11 +92,17 @@ export function DashProvider({ children }: any) {
           setDataOrders(data.data);
         });
     }
+    async function LoadDataCompany() {
+      await api.get(`/find/${asUser?.companyId}`).then((data) => {
+        setDataCompany(data.data);
+      });
+    }
 
     Promise.all([
       LoadOrders(),
       LoadDatacardapioByParamvoid(),
       LoadOrdersFinished(),
+      LoadDataCompany(),
     ]).finally(() => setLoadTables(false));
   }, [asUser?.companyId, params.get('item')]);
 
@@ -136,7 +127,8 @@ export function DashProvider({ children }: any) {
         openModalWarnigsOrderFinished,
         setWarnigsOrderFinished,
         openModalEditItem,
-        setOpenModalEdititem
+        setOpenModalEdititem,
+        dataCompany,
       }}
     >
       {children}
