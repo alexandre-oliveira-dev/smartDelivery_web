@@ -11,6 +11,7 @@ import dayjs from "dayjs";
 import ModalCloseOfficeHour from './modal-close-officeHour.component';
 import ModalWarnigsOrderFinished from './modal-warning-orderFinished.component';
 import SumaryStatusOrdersComponent from './sumary-status-orders.component';
+import OrderCancelComponent from './orderCancel.component';
 
 export default function Dashboard() {
   const {
@@ -24,8 +25,6 @@ export default function Dashboard() {
   } = useContext(DashContext);
   const [dataOrder, setDataOrder] = useState<any>();
   const [orderid, setOrderid] = useState<string>('');
-
-  
 
   const orders = dataOrders
     .filter((item: any) => item.status !== 'finalizado')
@@ -121,18 +120,20 @@ export default function Dashboard() {
       title: 'Ações',
       render: (text, rec, index) => {
         return (
-          <Button
-            onClick={() => {
-              document
-                .querySelector('.box-modalOrders')
-                ?.setAttribute('style', 'display:flex');
-              setDataOrder(rec);
-            }}
-            type="primary"
-            style={{ color: '#fff', background: corNavPrev }}
-          >
-            Atualizar pedido
-          </Button>
+          rec.status !== 'cancelado' && (
+            <Button
+              onClick={() => {
+                document
+                  .querySelector('.box-modalOrders')
+                  ?.setAttribute('style', 'display:flex');
+                setDataOrder(rec);
+              }}
+              type="primary"
+              style={{ color: '#fff', background: corNavPrev }}
+            >
+              Atualizar pedido
+            </Button>
+          )
         );
       },
     },
@@ -219,16 +220,24 @@ export default function Dashboard() {
       render(item) {
         return (
           <>
-            {item.status !== 'finalizado' && (
-              <Button
-                onClick={() => {
-                  setOrderid(item.id);
-                  setWarnigsOrderFinished(true);
-                }}
-              >
-                {load ? <Spin></Spin> : 'Finalizar'}
-              </Button>
-            )}
+            <Row style={{ gap: '10px' }}>
+              {item.status !== 'finalizado' && (
+                <Button
+                  onClick={() => {
+                    setOrderid(item.id);
+                    setWarnigsOrderFinished(true);
+                  }}
+                >
+                  {load ? <Spin></Spin> : 'Finalizar'}
+                </Button>
+              )}
+              {item.status === 'entrega' && item.status !== 'cancelado' && (
+                <OrderCancelComponent
+                  status={item.status}
+                  orderId={item.id}
+                ></OrderCancelComponent>
+              )}
+            </Row>
           </>
         );
       },
@@ -297,9 +306,7 @@ export default function Dashboard() {
             >
               <Row style={{ alignItems: 'center', gap: '20px' }}>
                 <Col>
-                  <Typography.Title level={2}>
-                    Pedidos
-                  </Typography.Title>
+                  <Typography.Title level={2}>Pedidos</Typography.Title>
                 </Col>
                 <Col>
                   <Typography.Title level={4}>
@@ -322,7 +329,7 @@ export default function Dashboard() {
               <Row style={{ alignItems: 'center', gap: '20px' }}>
                 <Col>
                   <Typography.Title level={2}>
-                    Pedidos finalizados
+                    Pedidos finalizados / em rota de entrega
                   </Typography.Title>
                 </Col>
                 <Col>

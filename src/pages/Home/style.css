@@ -34,22 +34,23 @@
 }
 
 .content-box-section1 {
-  width: 50%;
+  width: 70%;
   height: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 30px;
   border-radius: 10px;
-  box-shadow: 5px 5px 20px silver;
-  background: #ffffffd4;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  backdrop-filter: blur(5px);
   flex-direction: column;
   gap: 20px;
+}
+#btnhover:hover{
+background-color: #fff;
+color: #5b72f2;
 }
 
 .item-section1 {

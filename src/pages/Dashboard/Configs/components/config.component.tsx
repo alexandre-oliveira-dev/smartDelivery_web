@@ -494,7 +494,7 @@ export default function Config() {
             <br />
             <br />
             <Typography.Title level={3}>
-              Personalizar meus Dados
+              Editar meus Dados
             </Typography.Title>
             <ContainerEditDataCompany></ContainerEditDataCompany>
           </div>

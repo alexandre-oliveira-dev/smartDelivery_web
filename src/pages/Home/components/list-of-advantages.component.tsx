@@ -3,82 +3,58 @@ import "../style.css";
 import { BsWhatsapp } from "react-icons/bs";
 import { MdAttachMoney, MdDeliveryDining } from "react-icons/md";
 import { BiFoodMenu } from "react-icons/bi";
-import { Button } from "antd";
+import { Button, Col, Row, Typography } from 'antd';
+import { hover } from '@testing-library/user-event/dist/hover';
 
 export default function ListOfadvantages() {
   return (
     <div className="content-box-section1">
-      <div className="item-section1">
-        <div
-          style={{
-            background: "#5B72F2",
-            borderRadius: "50%",
-            width: "40px",
-            height: "40px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <BiFoodMenu color="#fff" size={20}></BiFoodMenu>
-        </div>
-        <h3>Facilite os Pedidos do seu Delivery</h3>
-      </div>
-      <div className="item-section1">
-        <div
-          style={{
-            background: "#5B72F2",
-            borderRadius: "50%",
-            width: "40px",
-            height: "40px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <MdAttachMoney color="#fff" size={20}></MdAttachMoney>
-        </div>
-        <h3>Aumente seu faturamento com uma aplicação própria!</h3>
-      </div>
-      <div className="item-section1">
-        <div
-          style={{
-            background: "#5B72F2",
-            borderRadius: "50%",
-            width: "40px",
-            height: "40px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <MdDeliveryDining color="#fff" size={20}></MdDeliveryDining>
-        </div>
-        <h3>Agilize seu atendimento para fidelizar seus clientes!</h3>
-      </div>
-      <div className="item-section1">
-        <div
-          style={{
-            background: "#5B72F2",
-            borderRadius: "50%",
-            width: "40px",
-            height: "40px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <BsWhatsapp color="#fff" size={20}></BsWhatsapp>
-        </div>
-        <h3>Integre o seu whatsapp com o sistema!</h3>
-      </div>
-      <Button
-        type="primary"
-        onClick={() => (window.location.href = "/cadastro")}
-        style={{ width: "200px", height: "40px",fontSize:"18px" }}
-      >
-        Começar Agora!
-      </Button>
+      <Col>
+        <Row>
+          {' '}
+          <Typography.Title
+            style={{
+              fontWeight: '800',
+              fontSize: '70px',
+              color: '#fff',
+              fontFamily: 'Montserrat,sans-serif',
+            }}
+            level={1}
+          >
+            Tenha um Delivery Próprio
+          </Typography.Title>
+        </Row>
+        <Row>
+          <Typography.Title style={{ color: '#fff' }} level={2}>
+            Venda para seus clientes em uma plataforma personalizada para o seu
+            estabelecimento
+          </Typography.Title>
+        </Row>
+        <Row>
+          <Typography.Title style={{ color: '#fff' }} level={2}>
+            Sem taxas sobre suas vendas, aumente seu faturamento!
+          </Typography.Title>
+        </Row>
+        <Row>
+          <Button
+            type="link"
+            href="/cadastro"
+            id="btnhover"
+            style={{
+              width: '300px',
+              height: '40px',
+              borderRadius: '10px',
+              background: 'transparent',
+              border: '1px solid #fff',
+              color: '#fff',
+              fontSize: '20px',
+              transition: '0.3s ease',
+            }}
+          >
+            Começar Agora!
+          </Button>
+        </Row>
+      </Col>
     </div>
   );
 }

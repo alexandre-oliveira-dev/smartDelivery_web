@@ -48,9 +48,7 @@ export function DashProvider({ children }: any) {
   const [dataCardapio, setDataCardapio] = useState<[]>([]);
   const [dataOrders, setDataOrders] = useState<[]>([]);
   const [dataOrdersFinished, setDataOrdersFinished] = useState<[]>([]);
-  const [dataCompany, setDataCompany] = useState<RegisterValues>(
-    {} as RegisterValues
-  );
+  const [dataCompany, setDataCompany] = useState({} as RegisterValues);
 
   const params = new URLSearchParams(window.location.search);
 
