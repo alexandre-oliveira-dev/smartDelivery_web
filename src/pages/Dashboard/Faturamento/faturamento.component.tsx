@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import NavBarComponent from "../components/navbarComponent";
 import "../styleGlobalDash.css";
-import { Card, Col, Row, Spin, Typography } from "antd";
-import { Bar, Line } from "react-chartjs-2";
+import { Row, Spin, Typography } from 'antd';
 import {
   Chart,
   CategoryScale,
@@ -12,73 +11,33 @@ import {
   Title as title,
   Tooltip,
   BarElement,
-  ChartOptions,
-} from "chart.js";
-import dayjs from "dayjs";
-import Title from "../components/Title";
-import { DashContext } from "../../../context/dashboard.context";
+} from 'chart.js';
+import Title from '../components/Title';
+import { DashContext } from '../../../context/dashboard.context';
+import CardSalesWeeksComponent from './components/card-salesWeeks.component';
+import CardSalesMonthComponent from './components/card-salesMonth.component';
+import CardTotalInfosComponent from './components/card-total-infos.component';
 
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement, title, Tooltip, BarElement);
+Chart.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  title,
+  Tooltip,
+  BarElement
+);
 
 export default function Faturamento() {
-  const {
-    corNavPrev,
-    load,
-    dataOrdersFinished: datafat,
-  } = useContext(DashContext);
+  const { load } = useContext(DashContext);
 
-  //soma do total de pedidos
-  let soma = 0;
-  const amountOrdersArray: string[] = datafat.map(
-    (item: any) => item?.amountOrders
-  );
-  for (let i = 0; i < amountOrdersArray.length; i++) {
-    soma += parseFloat(amountOrdersArray[i]);
-  }
-  const amountOrders: number = soma;
-
-  //soma do total faturado
-  let somavalue = 0;
-  const amountValueArray: number[] = datafat.map(
-    (item: { amountvalue: number }) => item?.amountvalue
-  );
-  for (let i = 0; i < amountValueArray.length; i++) {
-    somavalue += amountValueArray[i];
-  }
-  const amountValue = somavalue;
-
-  const options: ChartOptions = {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
-  const months = [
-    'Janeiro',
-    'Fevereiro',
-    'Março',
-    'Abril',
-    'Maio',
-    'Junho',
-    'julho',
-    'agosto',
-    'setembro',
-    'outubro',
-    'novembro',
-    'dezembro',
-  ];
-
-  const nowdate = dayjs(new Date());
+  /* const nowdate = dayjs(new Date());
   const daysofmonth = [''];
   const totaldays = nowdate.daysInMonth();
 
   for (let dia = 1; dia <= totaldays; dia++) {
     daysofmonth.push(nowdate.date(dia).format('DD/MM/YYYY'));
-  }
-
-  const card: React.CSSProperties = {};
+  }*/
 
   return (
     <>
@@ -105,91 +64,10 @@ export default function Faturamento() {
             <Typography.Title level={2}>Dashboard</Typography.Title>
 
             <Row gutter={20}>
-              <Col>
-                <Card style={card}>
-                  <Typography.Title level={4}>Vendas no mês</Typography.Title>
-                  <Bar
-                    options={options as any}
-                    data={{
-                      datasets: [
-                        {
-                          data: [12, 19, 3, 5, 2, 3],
-                          backgroundColor: corNavPrev,
-                        },
-                      ],
-                      yLabels: ['R$'],
-                      labels: months,
-                    }}
-                  ></Bar>
-                </Card>
-              </Col>
-              <Col>
-                <Card style={card}>
-                  <Typography.Title level={4}>
-                    Vendas na Semana
-                  </Typography.Title>
-                  <Line
-                    options={options as any}
-                    data={{
-                      datasets: [
-                        {
-                          data: datafat.map((item: any) => item?.amountvalue),
-                          backgroundColor: corNavPrev,
-                        },
-                      ],
-                      yLabels: ['R$'],
-                      labels: datafat
-                        .map((item: any) => item.date)
-                        .slice(
-                          datafat.length > 8 ? datafat.length - 8 : 0,
-                          datafat.length
-                        ),
-                    }}
-                  ></Line>
-                </Card>
-              </Col>
-              <Col>
-                <Card style={card}>
-                  <Typography.Title level={4}>Vendas no mês</Typography.Title>
-                  <Bar
-                    options={options as any}
-                    data={{
-                      datasets: [
-                        {
-                          data: [12, 19, 3, 5, 2, 3],
-                          backgroundColor: corNavPrev,
-                        },
-                      ],
-                      yLabels: ['R$'],
-                      labels: months,
-                    }}
-                  ></Bar>
-                </Card>
-              </Col>
+              <CardSalesMonthComponent></CardSalesMonthComponent>
+              <CardSalesWeeksComponent></CardSalesWeeksComponent>
             </Row>
-            <Row gutter={[22,22]} style={{marginTop:"20px"}}>
-              <Col>
-                <Card style={card}>
-                  <Typography.Title level={4}>
-                    Total de pedidos
-                  </Typography.Title>
-                  <Typography.Text>{amountOrders}</Typography.Text>
-                </Card>
-              </Col>
-              <Col>
-                <Card style={card}>
-                  <Typography.Title level={4}>
-                    Faturamento total
-                  </Typography.Title>
-                  <Typography.Text>
-                    {parseFloat(amountValue.toString()).toLocaleString(
-                      'pt-br',
-                      { style: 'currency', currency: 'BRL' }
-                    )}
-                  </Typography.Text>
-                </Card>
-              </Col>
-            </Row>
+            <CardTotalInfosComponent></CardTotalInfosComponent>
           </div>
         </div>
       )}

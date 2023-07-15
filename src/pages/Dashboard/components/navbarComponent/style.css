@@ -65,8 +65,13 @@
     gap: 10px;
 }
 
+.hovericon{
+    transition: 0.3s ease;
+}
 
-
-#hover:hover{
-   color: #5b72f2 !important;
+.hover:hover{
+    color: #5b72f2 !important;
+    .hovericon{
+        color: #5b72f2 !important;
+    }
 }

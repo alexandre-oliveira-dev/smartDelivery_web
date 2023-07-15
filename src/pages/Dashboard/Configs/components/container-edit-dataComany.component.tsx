@@ -8,18 +8,16 @@ const ContainerEditDataCompany = () => {
   const { dataCompany } = useContext(DashContext);
   const [form] = Form.useForm();
 
+  const handleSubmit = () => {
+    // Add logic for saving the form data
+  };
+
   const initialValues: RegisterValues = {
-    name_company: dataCompany?.name_company,
+    name_company: dataCompany.name_company,
     cnpj: dataCompany.cnpj,
     phone: dataCompany.phone,
     email: dataCompany.email,
     address: dataCompany.address,
-  };
-
-  console.log(initialValues);
-
-  const handleSubmit = () => {
-    // Add logic for saving the form data
   };
 
   return (

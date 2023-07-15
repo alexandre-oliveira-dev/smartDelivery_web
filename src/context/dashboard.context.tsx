@@ -26,7 +26,7 @@ export interface ContextTypes {
   dataCardapio: [];
   dataCompany: RegisterValues;
   dataOrders: [];
-  dataOrdersFinished: [];
+  dataOrdersFinished: any[];
   searchParam: string | null;
   setLoadTables: React.Dispatch<SetStateAction<boolean>>;
 }

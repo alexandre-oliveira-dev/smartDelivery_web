@@ -45,21 +45,21 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
       id: 1,
       title: 'Dashboard',
       link: `/dashboard/${asUser?.name_company}/faturamento`,
-      icon: <MdDashboard color={'#fff'}></MdDashboard>,
+      icon: <MdDashboard className="hovericon" color={'#fff'}></MdDashboard>,
       active: btn2,
     },
     {
       id: 2,
       title: 'Meus Pedidos',
       link: `/dashboard/${asUser?.name_company}`,
-      icon: <FaListAlt color={'#fff'}></FaListAlt>,
+      icon: <FaListAlt className="hovericon" color={'#fff'}></FaListAlt>,
       active: btn1,
     },
     {
       id: 3,
       title: 'Configurações',
       link: `/dashboard/${asUser?.name_company}/config`,
-      icon: <GoGear color={'#fff'}></GoGear>,
+      icon: <GoGear className="hovericon" color={'#fff'}></GoGear>,
       active: btn3,
     },
   ];
@@ -91,7 +91,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
         {navBarBtns.map((item) => {
           return (
             <Link
-              id="hover"
+              className="hover"
               to={item.link}
               style={
                 item.active

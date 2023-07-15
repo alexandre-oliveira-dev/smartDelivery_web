@@ -46,7 +46,7 @@ export default function TableForListItems() {
       render(item: string) {
         return (
           <Tag style={{ fontSize: '15px', padding: '2px' }} color="green">
-            {parseFloat(item).toLocaleString('pt-br', {
+            {parseFloat(item.replace(',', '.'))?.toLocaleString('pt-br', {
               style: 'currency',
               currency: 'BRL',
             })}
