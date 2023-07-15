@@ -8,8 +8,8 @@ export default function CardTotalInfosComponent() {
 
   //soma do total de pedidos
   let soma = 0;
-  const amountOrdersArray: string[] = datafat.map(
-    (item: any) => item?.amountOrders
+  const amountOrdersArray: string[] = datafat.map((item) =>
+    String(item?.amountOrders)
   );
   for (let i = 0; i < amountOrdersArray.length; i++) {
     soma += parseFloat(amountOrdersArray[i]);
@@ -18,13 +18,11 @@ export default function CardTotalInfosComponent() {
 
   //soma do total faturado
   let somavalue = 0;
-  const amountValueArray: number[] = datafat.map(
-    (item: { amountvalue: number }) => item?.amountvalue
-  );
+  const amountValueArray: number[] = datafat.map((item) => item?.amountvalue);
   for (let i = 0; i < amountValueArray.length; i++) {
     somavalue += amountValueArray[i];
   }
-  const amountValue = somavalue;
+  const amountValue = String(somavalue);
   return (
     <Row gutter={[22, 22]} style={{ marginTop: '20px' }}>
       <Col>
@@ -37,7 +35,7 @@ export default function CardTotalInfosComponent() {
         <Card style={card}>
           <Typography.Title level={4}>Faturamento total</Typography.Title>
           <Typography.Text>
-            {parseFloat(amountValue.toString()).toLocaleString('pt-br', {
+            {parseFloat(amountValue).toLocaleString('pt-br', {
               style: 'currency',
               currency: 'BRL',
             })}

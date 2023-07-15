@@ -7,17 +7,28 @@ import React, {
 } from 'react';
 import { api } from '../services/api';
 import { RegisterValues } from '../pages/Register';
+import { PropsCreateOrderFinished } from '../pages/Dashboard/orders/modal-close-officeHour.component';
+
+interface AsUserPropsTypes {
+  backgroundColor: string;
+  companyId: string;
+  email: string;
+  id: string;
+  imgProfile: string;
+  name_company: string;
+}
 
 export interface ContextTypes {
-  asUser?: any;
-  setFileProfile?: any;
+  asUser: AsUserPropsTypes;
+  setFileProfile: React.Dispatch<SetStateAction<string | ArrayBuffer | null>>;
   fileProfile: string;
-  corNavPrev?: string;
-  setCorNav?: any;
+  corNavPrev: string;
+  setCorNav: React.Dispatch<SetStateAction<string>>;
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
   setOpenModalEdititem: React.Dispatch<SetStateAction<boolean>>;
   setWarnigsOrderFinished: React.Dispatch<SetStateAction<boolean>>;
   setSearchParam: React.Dispatch<SetStateAction<string | null>>;
+  setPasswordCript: React.Dispatch<SetStateAction<string | null>>;
   openModal: boolean;
   openModalEditItem: boolean;
   openModalWarnigsOrderFinished: boolean;
@@ -28,17 +39,19 @@ export interface ContextTypes {
   dataOrders: [];
   dataOrdersFinished: any[];
   searchParam: string | null;
+  passwordCript: string | null;
   setLoadTables: React.Dispatch<SetStateAction<boolean>>;
 }
 export const DashContext = createContext<ContextTypes>({} as ContextTypes);
 
 export function DashProvider({ children }: any) {
   const [asUser, setAsUser] = useState(
-    JSON.parse(localStorage.getItem('@sessionDelivery') as any)
+    JSON.parse(localStorage.getItem('@sessionDelivery') as string)
   );
-  const [fileProfile, setFileProfile] = useState<string>(asUser?.imgProfile);
+  const [fileProfile, setFileProfile] = useState(asUser?.imgProfile);
   const [corNavPrev, setCorNav] = useState('');
   const [searchParam, setSearchParam] = useState<string | null>('');
+  const [passwordCript, setPasswordCript] = useState<string | null>('');
   const [load, setLoad] = useState(false);
   const [loadTables, setLoadTables] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -127,6 +140,8 @@ export function DashProvider({ children }: any) {
         openModalEditItem,
         setOpenModalEdititem,
         dataCompany,
+        passwordCript,
+        setPasswordCript,
       }}
     >
       {children}

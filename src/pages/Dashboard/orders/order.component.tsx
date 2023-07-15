@@ -273,6 +273,7 @@ export default function Dashboard() {
       <ModalWarnigsOrderFinished id={orderid}></ModalWarnigsOrderFinished>
       <ModalCloseOfficeHour
         data={{ amountOrders, amountvalue, date, companyId }}
+        
       ></ModalCloseOfficeHour>
       <NavBarComponent btn1={true}></NavBarComponent>
       {load ? (

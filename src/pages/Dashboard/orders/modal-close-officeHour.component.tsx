@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { AiFillWarning } from 'react-icons/ai';
 import dayjs from 'dayjs';
 
-interface PropsCreateOrderFinished {
+export interface PropsCreateOrderFinished {
   data: {
     amountOrders: number;
     amountvalue: number;

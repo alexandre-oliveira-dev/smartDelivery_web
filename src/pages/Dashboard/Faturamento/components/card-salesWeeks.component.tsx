@@ -3,6 +3,7 @@ import { ChartOptions } from 'chart.js';
 import React, { useContext } from 'react';
 import { Line } from 'react-chartjs-2';
 import { DashContext } from '../../../../context/dashboard.context';
+import dayjs from 'dayjs';
 
 export default function CardSalesWeeksComponent() {
   const { dataOrdersFinished: datafat, corNavPrev } = useContext(DashContext);
@@ -29,7 +30,7 @@ export default function CardSalesWeeksComponent() {
             ],
             yLabels: ['R$'],
             labels: datafat
-              .map((item: any) => item.date)
+              .map((item: any) => dayjs(item.date).format('DD/MM/YYYY'))
               .slice(
                 datafat.length > 7 ? datafat.length - 7 : 0,
                 datafat.length

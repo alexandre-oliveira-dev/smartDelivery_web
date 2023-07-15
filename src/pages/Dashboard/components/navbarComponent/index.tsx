@@ -4,11 +4,11 @@ import { MdLogout } from "react-icons/md";
 import { api } from "../../../../services/api";
 import { DashContext } from "../../../../context/dashboard.context";
 import { Link } from "react-router-dom";
-import { Spin } from "antd";
+import { Spin, Typography } from 'antd';
 
-import { MdDashboard } from "react-icons/md";
-import { FaListAlt } from "react-icons/fa";
-import { GoGear } from "react-icons/go";
+import { MdDashboard } from 'react-icons/md';
+import { FaListAlt } from 'react-icons/fa';
+import { GoGear } from 'react-icons/go';
 type Activebtntype = {
   btn1?: boolean;
   btn2?: boolean;
@@ -74,8 +74,11 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
             alt=""
           ></img>
           <p style={{ color: '#fff', fontSize: '17px' }}>
-            Bem vindo {asUser?.name_company}
+            Bem vindo {asUser.email}
           </p>
+          <Typography.Text style={{ color: '#fff', fontSize: '17px' }}>
+            {asUser.name_company}
+          </Typography.Text>
         </div>
       </div>
       <div

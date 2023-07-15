@@ -26,3 +26,7 @@
     font-size: 15px;
     gap: 10px;
 }
+
+.ant-row .ant-form-item-row{
+    display: grid !important;
+}
