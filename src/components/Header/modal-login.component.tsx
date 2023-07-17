@@ -7,10 +7,6 @@ import { toast } from "react-toastify";
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { EncryptString } from '../../helpers/ecryptString';
 
-type SinginTypes = {
-  email: string;
-  password: string;
-};
 
 export default function ModalLogin() {
   const [errmessage, setErrmessage] = useState('');

@@ -1,10 +1,6 @@
 import React from "react";
 import "../style.css";
-import { BsWhatsapp } from "react-icons/bs";
-import { MdAttachMoney, MdDeliveryDining } from "react-icons/md";
-import { BiFoodMenu } from "react-icons/bi";
 import { Button, Col, Row, Typography } from 'antd';
-import { hover } from '@testing-library/user-event/dist/hover';
 
 export default function ListOfadvantages() {
   return (

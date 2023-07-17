@@ -15,6 +15,19 @@ export interface AsUserPropsTypes {
   id: string;
   imgProfile: string;
   name_company: string;
+  Menu?: [
+    {
+      id: string;
+      title: string;
+      categoria: string;
+      price: string;
+      weight: string;
+      description: string;
+      amount: string;
+    }
+  ];
+  payments_methods?: string[];
+  phone?: string;
 }
 
 export interface ContextTypes {
