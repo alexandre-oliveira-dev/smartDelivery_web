@@ -7,9 +7,8 @@ import React, {
 } from 'react';
 import { api } from '../services/api';
 import { RegisterValues } from '../pages/Register';
-import { PropsCreateOrderFinished } from '../pages/Dashboard/orders/modal-close-officeHour.component';
 
-interface AsUserPropsTypes {
+export interface AsUserPropsTypes {
   backgroundColor: string;
   companyId: string;
   email: string;

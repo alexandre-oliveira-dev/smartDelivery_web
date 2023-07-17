@@ -5,6 +5,7 @@ import { api } from "../../services/api";
 import { DashContext } from "../../context/dashboard.context";
 import { toast } from "react-toastify";
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
+import { EncryptString } from '../../helpers/ecryptString';
 
 type SinginTypes = {
   email: string;
@@ -17,6 +18,8 @@ export default function ModalLogin() {
   const [load, setLoad] = useState(false);
   const [visible, setVisible] = useState(false);
   const { openModal, setOpenModal } = useContext(DashContext);
+
+  const encryptPassword = new EncryptString();
 
   return (
     <>
@@ -38,7 +41,9 @@ export default function ModalLogin() {
           await api
             .post('/singin', {
               email: form.getFieldValue('email'),
-              password: form.getFieldValue('password'),
+              password: encryptPassword.encryptString({
+                text: form.getFieldValue('password'),
+              }),
             })
             .then((response) => {
               localStorage.setItem(
@@ -63,8 +68,8 @@ export default function ModalLogin() {
           <FormItem name={'email'}>
             <Input placeholder="Digite seu email"></Input>
           </FormItem>
-            <FormItem name={'password'}>
-          <Row>
+          <FormItem name={'password'}>
+            <Row>
               <Input
                 id="pass"
                 prefix={
@@ -91,8 +96,8 @@ export default function ModalLogin() {
                 type="password"
                 placeholder="Digite sua senha"
               ></Input>
-          </Row>
-            </FormItem>
+            </Row>
+          </FormItem>
           <Col>
             <Row>
               <span id="err">{errmessage}</span>

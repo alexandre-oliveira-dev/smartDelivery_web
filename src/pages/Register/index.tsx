@@ -27,14 +27,7 @@ export const acceptPayments = [
     paymentmode: 'débito',
     brand: 'https://img.icons8.com/color/48/mastercard-logo.png',
   },
-  {
-    paymentmode: 'débito',
-    brand: 'https://img.icons8.com/color/48/visa.png',
-  },
-  {
-    paymentmode: 'crédito',
-    brand: 'https://img.icons8.com/color/48/mastercard-logo.png',
-  },
+
   {
     paymentmode: 'crédito',
     brand: 'https://img.icons8.com/color/48/visa.png',

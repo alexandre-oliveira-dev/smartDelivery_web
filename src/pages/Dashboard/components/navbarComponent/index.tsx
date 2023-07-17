@@ -73,7 +73,7 @@ export default function NavBarComponent({ btn1, btn2, btn3 }: Activebtntype) {
             src={fileProfile ? fileProfile : 'https://via.placeholder.com/150'}
             alt=""
           ></img>
-          <p style={{ color: '#fff', fontSize: '17px' }}>
+          <p style={{ color: '#fff', fontSize: '17px', textAlign: 'center' }}>
             Bem vindo {asUser.email}
           </p>
           <Typography.Text style={{ color: '#fff', fontSize: '17px' }}>
