@@ -1,4 +1,4 @@
-import { Col, Input, Row, Select, Typography } from 'antd';
+import { Col, Input, Row, Select, Skeleton, Typography } from 'antd';
 import React, { useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import { dataCompanyContext } from '../../../contexts/dataCompany.context';
@@ -20,45 +20,55 @@ const styles = createUseStyles({
 
 export default function FilterComponent() {
   const { container, selectstyles } = styles();
-  const { dataCompany } = useContext(dataCompanyContext);
+  const { dataCompany, load } = useContext(dataCompanyContext);
 
   const categorias = dataCompany?.Menu?.filter((item) => item);
   return (
     <>
-      <Row className={container}>
-        <Col>
-          <Typography.Title level={4}>Filtrar por:</Typography.Title>
-        </Col>
-        <Col>
-          <Row style={{ gap: '20px' }}>
-            <Col>
-              <Select placeholder="Categoria" className={selectstyles}>
-                {categorias?.map(
-                  (item: { categoria: string }, index: number) => {
-                    return (
-                      <option key={index} value={item.categoria}>
-                        {item.categoria}
-                      </option>
-                    );
-                  }
-                )}
-              </Select>
-            </Col>
-            <Col>
-              <Select placeholder="Preço" className={selectstyles}>
-                <option value="maior">Maior preço</option>
-                <option value="menor">Menor preço</option>
-              </Select>
-            </Col>
-            <Col>
-              <Input
-                prefix={<FiSearch color="silver"></FiSearch>}
-                placeholder="Pesquisar"
-              ></Input>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      {load ? (
+        <Skeleton
+          active
+          paragraph={{
+            rows: 0,
+            width: '100%',
+          }}
+        ></Skeleton>
+      ) : (
+        <Row className={container}>
+          <Col>
+            <Typography.Title level={4}>Filtrar por:</Typography.Title>
+          </Col>
+          <Col>
+            <Row style={{ gap: '20px' }}>
+              <Col>
+                <Select placeholder="Categoria" className={selectstyles}>
+                  {categorias?.map(
+                    (item: { categoria: string }, index: number) => {
+                      return (
+                        <option key={index} value={item.categoria}>
+                          {item.categoria}
+                        </option>
+                      );
+                    }
+                  )}
+                </Select>
+              </Col>
+              <Col>
+                <Select placeholder="Preço" className={selectstyles}>
+                  <option value="maior">Maior preço</option>
+                  <option value="menor">Menor preço</option>
+                </Select>
+              </Col>
+              <Col>
+                <Input
+                  prefix={<FiSearch color="silver"></FiSearch>}
+                  placeholder="Pesquisar"
+                ></Input>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      )}
     </>
   );
 }

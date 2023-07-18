@@ -27,10 +27,11 @@ export function DataCompanyContextProvider({ children }: any) {
   const { name_company } = useParams<UrlParams>();
 
   useEffect(() => {
+    document.title = name_company;
     setLoad(true);
     async function LoadDataCompany() {
       await api
-        .get(`/findbyname/${name_company?.toLowerCase()}`)
+        .get(`/findbyname?name_company=${name_company?.toLowerCase()}`)
         .then((data) => {
           setDataCompany(data.data);
         });

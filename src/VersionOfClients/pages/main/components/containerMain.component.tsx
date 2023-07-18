@@ -1,4 +1,4 @@
-import { Row, Typography } from 'antd';
+import { Divider, Row, Typography } from 'antd';
 import React, { useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import { dataCompanyContext } from '../../../contexts/dataCompany.context';
@@ -29,13 +29,16 @@ export default function ContainerMain() {
         >
           <Typography.Title
             level={2}
-            style={{ color: dataCompany.backgroundColor }}
+            style={{ color: dataCompany?.backgroundColor }}
           >
             Em destaque
           </Typography.Title>
         </Row>
         <Row>
           <ProductInEmphasisComponent></ProductInEmphasisComponent>
+        </Row>
+        <Row style={{ width: '80%' }}>
+          <Divider dashed></Divider>
         </Row>
       </Row>
     </>

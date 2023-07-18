@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../style.css';
 import {
-  Button,
   Card,
   Col,
   Form,
@@ -230,13 +229,19 @@ const ContainerEditDataCompany = () => {
                 <Input id="newpassword" />
               </Form.Item>
             </Row>
-            <Button
-              style={{ width: '200px', background: corNavPrev }}
-              type="primary"
+            <button
+              style={{
+                width: '200px',
+                height: '40px',
+                background: corNavPrev,
+                color: '#fff',
+                borderRadius: '10px',
+              }}
+              type="submit"
               onClick={handleSubmit}
             >
               {load ? <Spin></Spin> : 'Salvar'}
-            </Button>
+            </button>
           </Form>
         </Card>
       )}

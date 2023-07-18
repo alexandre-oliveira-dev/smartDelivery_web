@@ -38,10 +38,12 @@ export interface ContextTypes {
   setCorNav: React.Dispatch<SetStateAction<string>>;
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
   setOpenModalEdititem: React.Dispatch<SetStateAction<boolean>>;
+  setOpenModalConfirmPassword: React.Dispatch<SetStateAction<boolean>>;
   setWarnigsOrderFinished: React.Dispatch<SetStateAction<boolean>>;
   setSearchParam: React.Dispatch<SetStateAction<string | null>>;
   setPasswordCript: React.Dispatch<SetStateAction<string | null>>;
   openModal: boolean;
+  openModalConfirmPassword: boolean;
   openModalEditItem: boolean;
   openModalWarnigsOrderFinished: boolean;
   load: boolean;
@@ -67,6 +69,8 @@ export function DashProvider({ children }: any) {
   const [load, setLoad] = useState(false);
   const [loadTables, setLoadTables] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalConfirmPassword, setOpenModalConfirmPassword] =
+    useState(false);
   const [openModalEditItem, setOpenModalEdititem] = useState(false);
   const [openModalWarnigsOrderFinished, setWarnigsOrderFinished] =
     useState(false);
@@ -154,6 +158,8 @@ export function DashProvider({ children }: any) {
         dataCompany,
         passwordCript,
         setPasswordCript,
+        openModalConfirmPassword,
+        setOpenModalConfirmPassword
       }}
     >
       {children}

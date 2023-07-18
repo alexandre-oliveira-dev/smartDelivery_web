@@ -4,20 +4,22 @@ import '../style.css';
 import { DashContext } from '../../../../context/dashboard.context';
 import IframePageCompany from './iframe-page.component';
 import { AiOutlineUpload } from 'react-icons/ai';
-import {
-  handleSaveChanges,
-  handleSaveChanges2,
-  handleSaveChanges3,
-} from './functionProfileImgSave';
 import { api } from '../../../../services/api';
+import ModalConfirmPassword from './modalConfirmPassword';
 
 export default function ContainerEditMyPage() {
   const [cor, setCor] = useState<string>('');
   const [load, setLoad] = useState<boolean>(false);
   const [prevNameFile, setPrevNameFile] = useState<File>();
 
-  const { setFileProfile, setCorNav, asUser, corNavPrev } =
-    useContext(DashContext);
+  const {
+    setFileProfile,
+    setCorNav,
+    asUser,
+    corNavPrev,
+    setOpenModalConfirmPassword,
+    openModalConfirmPassword,
+  } = useContext(DashContext);
 
   async function handleBackdefaultColor() {
     setLoad(true);
@@ -120,43 +122,25 @@ export default function ContainerEditMyPage() {
         </div>
       </div>
 
-      <Button
-        style={{ width: '200px' }}
-        type="default"
+      <button
+        style={{
+          width: '200px',
+          height: '40px',
+          background: corNavPrev,
+          color: '#fff',
+          borderRadius: '10px',
+        }}
+        type="button"
         onClick={() => {
-          setLoad(true);
-          if (prevNameFile && cor) {
-            handleSaveChanges(prevNameFile, cor, asUser)
-              .then(() => {
-                setLoad(false);
-              })
-              .catch((err) => {
-                console.log(err);
-                setLoad(false);
-              });
-          } else if (!prevNameFile) {
-            handleSaveChanges2(cor, asUser)
-              .then(() => {
-                setLoad(false);
-              })
-              .catch((err) => {
-                console.log(err);
-                setLoad(false);
-              });
-          } else {
-            handleSaveChanges3(prevNameFile, asUser)
-              .then(() => {
-                setLoad(false);
-              })
-              .catch((err) => {
-                console.log(err);
-                setLoad(false);
-              });
-          }
+          setOpenModalConfirmPassword(true);
         }}
       >
         {load ? <Spin className="spin"></Spin> : 'Salvar'}
-      </Button>
+      </button>
+      <ModalConfirmPassword
+        cor={cor}
+        prevNameFile={prevNameFile}
+      ></ModalConfirmPassword>
     </>
   );
 }

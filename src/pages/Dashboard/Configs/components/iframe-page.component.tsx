@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { DashContext } from "../../../../context/dashboard.context";
-import { Button } from "antd";
+import { Link } from 'react-router-dom';
+import { Col, Row, Tag, Typography } from 'antd';
 
 interface Params {
   color?: string | number;
@@ -58,13 +59,31 @@ export default function IframePageCompany({ color }: Params) {
           justifyContent: 'center',
         }}
       >
-        <Button
-          type="primary"
-          style={{ background: corNavPrev }}
-          onClick={() => (window.location.href = ``)}
-        >
-          Ver site
-        </Button>
+        <Col>
+          <Link
+            type="primary"
+            style={{
+              width: 'auto',
+              height: '30px',
+              background: corNavPrev,
+              color: '#fff',
+              borderRadius: '10px',
+              display: 'grid',
+              placeItems: 'center',
+            }}
+            to={`/${asUser.name_company}`}
+            target="_blank"
+          >
+            Ver site
+          </Link>
+          <Row style={{ marginTop: '10px' }}>
+            <Tag color="blue">
+              <Typography.Title copyable level={5}>
+                www.smartdelivery.com/{asUser.name_company}
+              </Typography.Title>
+            </Tag>
+          </Row>
+        </Col>
       </div>
     </>
   );

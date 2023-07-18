@@ -32,7 +32,7 @@ export default function Header() {
   return (
     <>
       <header
-        style={{ background: dataCompany.backgroundColor }}
+        style={{ background: dataCompany?.backgroundColor }}
         className={header}
       >
         {load ? (
@@ -52,11 +52,11 @@ export default function Header() {
               >
                 <Image
                   className={logo}
-                  src={dataCompany.imgProfile}
+                  src={dataCompany?.imgProfile}
                   alt=""
                 ></Image>
                 <Typography.Title style={{ color: '#fff' }} level={4}>
-                  {dataCompany.name_company}
+                  {dataCompany?.name_company}
                 </Typography.Title>
               </Row>
             </Col>

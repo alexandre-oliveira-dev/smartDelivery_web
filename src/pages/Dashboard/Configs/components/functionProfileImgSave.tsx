@@ -12,7 +12,8 @@ export async function handleSaveChanges(
     name_company: string;
     email: string;
     id: string;
-  }
+  },
+  pass: string
 ) {
   await supabase.storage
     .from('filesProfile')
@@ -23,10 +24,18 @@ export async function handleSaveChanges(
         .getPublicUrl(`${asUser?.companyId}/${prevNameFile.name}`);
 
       await api
-        .put(`/update/${asUser.companyId}`, {
-          backgroundColor: !cor ? asUser?.backgroundColor : cor,
-          imgProfile: data.publicUrl,
-        })
+        .put(
+          `/update/${asUser.companyId}`,
+          {
+            backgroundColor: !cor ? asUser?.backgroundColor : cor,
+            imgProfile: data.publicUrl,
+          },
+          {
+            headers: {
+              Authorization: pass,
+            },
+          }
+        )
         .then(() => {
           let updateLocalstorage = {
             backgroundColor: !cor ? asUser?.backgroundColor : cor,
@@ -47,6 +56,7 @@ export async function handleSaveChanges(
         })
         .catch((err: any) => {
           console.log(err);
+          toast.error('Senha inválida');
         });
     })
     .catch((err) => {
@@ -64,13 +74,22 @@ export async function handleSaveChanges2(
     name_company: string;
     email: string;
     id: string;
-  }
+  },
+  pass: string
 ) {
   await api
-    .put(`/update/${asUser.companyId}`, {
-      backgroundColor: cor ?? asUser?.backgroundColor,
-      imgProfile: asUser?.imgProfile,
-    })
+    .put(
+      `/update/${asUser.companyId}`,
+      {
+        backgroundColor: cor ?? asUser?.backgroundColor,
+        imgProfile: asUser?.imgProfile,
+      },
+      {
+        headers: {
+          Authorization: pass,
+        },
+      }
+    )
     .then(() => {
       let updateLocalstorage = {
         backgroundColor: cor ?? asUser?.backgroundColor,
@@ -91,6 +110,7 @@ export async function handleSaveChanges2(
     })
     .catch((err: any) => {
       console.log(err);
+      toast.error('Senha inválida');
     });
 }
 
@@ -103,7 +123,8 @@ export async function handleSaveChanges3(
     name_company: string;
     email: string;
     id: string;
-  }
+  },
+  pass: string
 ) {
   await supabase.storage
     .from('filesProfile')
@@ -114,10 +135,18 @@ export async function handleSaveChanges3(
         .getPublicUrl(`${asUser?.companyId}/${prevNameFile.name}`);
 
       await api
-        .put(`/update/${asUser.companyId}`, {
-          backgroundColor: asUser?.backgroundColor,
-          imgProfile: data.publicUrl,
-        })
+        .put(
+          `/update/${asUser.companyId}`,
+          {
+            backgroundColor: asUser?.backgroundColor,
+            imgProfile: data.publicUrl,
+          },
+          {
+            headers: {
+              Authorization: pass,
+            },
+          }
+        )
         .then(() => {
           let updateLocalstorage = {
             backgroundColor: asUser?.backgroundColor,
@@ -137,6 +166,7 @@ export async function handleSaveChanges3(
           }, 2000);
         })
         .catch((err: any) => {
+          toast.error('Senha inválida');
           console.log(err);
         });
     })
