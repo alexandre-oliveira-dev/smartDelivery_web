@@ -3,6 +3,7 @@ import React, { useContext } from 'react';
 import { createUseStyles } from 'react-jss';
 import { dataCompanyContext } from '../../../contexts/dataCompany.context';
 import ProductInEmphasisComponent from './productsInEmphasis.component';
+import TabCategoria from './tabs-categorias';
 
 const styles = createUseStyles({
   container: {
@@ -39,6 +40,9 @@ export default function ContainerMain() {
         </Row>
         <Row style={{ width: '80%' }}>
           <Divider dashed></Divider>
+        </Row>
+        <Row style={{ width: '80%' }}>
+          <TabCategoria></TabCategoria>
         </Row>
       </Row>
     </>
