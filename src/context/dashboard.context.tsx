@@ -15,7 +15,7 @@ export interface AsUserPropsTypes {
   id: string;
   imgProfile: string;
   name_company: string;
-  Menu?: [
+  Menu: [
     {
       id: string;
       title: string;

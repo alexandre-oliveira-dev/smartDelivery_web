@@ -98,7 +98,7 @@ const ContainerEditDataCompany = () => {
   function handleRemovePaymentsMethods(item: string, index: number) {
     setPayment_methods(
       payment_methods?.filter(
-        (i: any, position: number) => i !== item || position === index
+        (i: any, position: number) => i !== item || position !== index
       )
     );
   }

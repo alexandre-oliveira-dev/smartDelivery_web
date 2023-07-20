@@ -174,7 +174,7 @@ export default function TableForListItems() {
         </Card>
         <Table
           style={{ width: '90%' }}
-          dataSource={dataCardapio}
+          dataSource={dataCardapio.reverse()}
           columns={coloumns}
           loading={loadTables}
           size="small"
