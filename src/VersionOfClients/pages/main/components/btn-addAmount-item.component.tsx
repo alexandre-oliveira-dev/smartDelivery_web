@@ -1,5 +1,5 @@
 import { Row } from 'antd';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { dataCompanyContext } from '../../../contexts/dataCompany.context';
 const { useDispatch } = require('react-redux');
@@ -26,39 +26,59 @@ export interface ItemParams {
     amount: string;
   };
   index: number;
+  companyId: string;
+  type?: string;
 }
 
-export default function BtnAddAmountItem({ item, index }: ItemParams) {
-  const { dataCompany } = useContext(dataCompanyContext);
+export default function BtnAddAmountItem({
+  item,
+  companyId,
+  index,
+}: ItemParams) {
+  const { dataCompany, setDataCart } = useContext(dataCompanyContext);
   const { btnamount } = style();
   const dispatch = useDispatch();
+  const [amountnumber, setAmountnumber] = useState(0);
+
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem('@cart') as string) || [];
+    setAmountnumber(
+      items.map((i: any) => i.order[0].qtd)[
+        items.findIndex((id: any) => id.id === item.id)
+      ] || 0
+    );
+  }, []);
 
   function handleAddItem() {
-    if (!JSON.parse(localStorage.getItem('@Order') as any)) {
-      localStorage.setItem(
-        '@Order',
-        JSON.stringify({
-          companiesId: dataCompany?.companyId,
-          address: '',
-          amount: 1,
-          amoutMoney: 0,
-          payment_method: '',
-          status: '',
-          order: [
-            {
-              item: '',
-              qtd: 0,
-            },
-          ],
-        })
-      );
-    }
     dispatch({
       type: 'ADD_ITEM',
-      item: item,
+      item,
       index,
-      companyId: dataCompany?.companyId,
+      companyId,
     });
+    const items = JSON.parse(localStorage.getItem('@cart') as string) || [];
+    setAmountnumber(
+      items.map((i: any) => i.order[0].qtd)[
+        items.findIndex((id: any) => id.id === item.id)
+      ] || 0
+    );
+    setDataCart(items);
+    console.log(dataCompany.Menu.findIndex((id: any) => id.id === item.id));
+  }
+  function handleRemoveItem() {
+    dispatch({
+      type: 'REMOVE_ITEM',
+      item,
+      index,
+      companyId,
+    });
+    const items = JSON.parse(localStorage.getItem('@cart') as string) || [];
+    setAmountnumber(
+      items.map((i: any) => i.order[0].qtd)[
+        items.findIndex((id: any) => id.id === item.id)
+      ] || 0
+    );
+    setDataCart(items);
   }
 
   return (
@@ -75,10 +95,11 @@ export default function BtnAddAmountItem({ item, index }: ItemParams) {
         <button
           className={btnamount}
           style={{ background: dataCompany?.backgroundColor }}
+          onClick={handleRemoveItem}
         >
           -
         </button>
-        0
+        {amountnumber}
         <button
           onClick={handleAddItem}
           className={btnamount}

@@ -3,6 +3,7 @@ import React, { useContext, useMemo, useState } from 'react';
 import { dataCompanyContext } from '../../../../contexts/dataCompany.context';
 import { createUseStyles } from 'react-jss';
 import { PriceFormater } from '../../../../../helpers/priceFormater';
+import BtnAddAmountItem from '../btn-addAmount-item.component';
 
 const style = createUseStyles({
   tab: {
@@ -37,7 +38,7 @@ const style = createUseStyles({
 });
 
 export default function TabCategoria() {
-  const { dataCompany, load } = useContext(dataCompanyContext);
+  const { dataCompany, dataCart } = useContext(dataCompanyContext);
   const { tab, btntab, card, contentCard } = style();
 
   const [current, setCurrent] = useState<{
@@ -103,7 +104,7 @@ export default function TabCategoria() {
       >
         {dataCompany?.Menu?.filter((item) => {
           return item.categoria === current.item;
-        }).map((item) => {
+        }).map((item, index) => {
           return (
             <>
               <Card className={card}>
@@ -140,7 +141,20 @@ export default function TabCategoria() {
                       </Typography.Text>
                     </Row>
                   </Col>
+                  <Col
+                    style={{
+                      flex: 1,
 
+                      display: 'flex',
+                      justifyContent: 'flex-start',
+                    }}
+                  >
+                    <BtnAddAmountItem
+                      companyId={dataCompany.id}
+                      index={index}
+                      item={item}
+                    ></BtnAddAmountItem>
+                  </Col>
                   <Row style={{ flex: '1', gap: '30px' }}>
                     <Col
                       style={{
@@ -164,7 +178,15 @@ export default function TabCategoria() {
                       }}
                     >
                       <Typography.Title level={5} style={{ color: '#04B400' }}>
-                        {format.formater({ price: item.price })}
+                        {!dataCart.map((item) => item.order[0].qtd)[
+                          dataCart.findIndex((i) => i.id === item.id)
+                        ]
+                          ? format.formater({ price: item.price })
+                          : format.formater({
+                              price: dataCart.map((item) => item.amoutMoney)[
+                                dataCart.findIndex((i) => i.id === item.id)
+                              ],
+                            })}
                       </Typography.Title>
                     </Col>
                   </Row>

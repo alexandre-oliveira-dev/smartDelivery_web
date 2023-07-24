@@ -18,15 +18,22 @@ export default function ContainerEditMyPage() {
     asUser,
     corNavPrev,
     setOpenModalConfirmPassword,
-    openModalConfirmPassword,
   } = useContext(DashContext);
 
   async function handleBackdefaultColor() {
     setLoad(true);
     await api
-      .put(`/update/${asUser?.companyId}`, {
-        backgroundColor: null,
-      })
+      .put(
+        `/update/${asUser?.companyId}`,
+        {
+          backgroundColor: null,
+        },
+        {
+          headers: {
+            Authorization: '1f6f7a3f-cc7a-40be-84bc-078a34d83904',
+          },
+        }
+      )
       .then(() => {
         let updateLocalstorage = {
           backgroundColor: '',

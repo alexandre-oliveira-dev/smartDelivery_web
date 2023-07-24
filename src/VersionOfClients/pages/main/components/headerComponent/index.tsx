@@ -27,8 +27,8 @@ const styles = createUseStyles({
 });
 export default function Header() {
   const { header, logo, containerHeader } = styles();
-  const { dataCompany, load } = useContext(dataCompanyContext);
-  
+  const { dataCompany, load, dataCart } = useContext(dataCompanyContext);
+
   return (
     <>
       <header
@@ -66,7 +66,7 @@ export default function Header() {
               >
                 <Link to={'#'}>
                   <Typography.Title level={4} style={{ color: '#fff' }}>
-                    Meus pedidos
+                    Meus pedidos {dataCart?.length}
                   </Typography.Title>
                 </Link>
                 <Button

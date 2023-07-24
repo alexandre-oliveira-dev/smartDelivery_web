@@ -70,6 +70,7 @@ export default function ProductInEmphasisComponent() {
                     </Row>
                     <BtnAddAmountItem
                       item={item}
+                      companyId={dataCompany.id}
                       index={index}
                     ></BtnAddAmountItem>
                     <Row
