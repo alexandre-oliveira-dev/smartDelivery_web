@@ -12,8 +12,10 @@ import { OrdersParams } from '../store/modules/cart.redux';
 interface PropsOfCompanys {
   dataCompany: AsUserPropsTypes;
   setLoad: React.Dispatch<SetStateAction<boolean>>;
+  setCurrent: React.Dispatch<SetStateAction<any>>;
   setDataCart: React.Dispatch<SetStateAction<OrdersParams[]>>;
   load: boolean;
+  current: any;
   dataCart: OrdersParams[];
 }
 interface UrlParams {
@@ -29,6 +31,13 @@ export function DataCompanyContextProvider({ children }: any) {
   const [load, setLoad] = useState(false);
   const [dataCart, setDataCart] = useState<OrdersParams[]>([]);
   const { name_company } = useParams<UrlParams>();
+  const [current, setCurrent] = useState<{
+    item: string;
+    index: number;
+  }>({
+    item: '',
+    index: 0,
+  });
 
   useEffect(() => {
     const localstorage: OrdersParams[] =
@@ -57,6 +66,8 @@ export function DataCompanyContextProvider({ children }: any) {
         setLoad,
         dataCart,
         setDataCart,
+        current,
+        setCurrent,
       }}
     >
       {children}

@@ -4,26 +4,9 @@ import { dataCompanyContext } from '../../../../contexts/dataCompany.context';
 import { createUseStyles } from 'react-jss';
 import { PriceFormater } from '../../../../../helpers/priceFormater';
 import BtnAddAmountItem from '../btn-addAmount-item.component';
+import Tab from './tab.component';
 
 const style = createUseStyles({
-  tab: {
-    width: '100%',
-    height: '60px',
-    background: '#fff',
-    flexWrap: 'nowrap',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
-    padding: '10px 0 10px 0',
-  },
-  btntab: {
-    background: 'transparent',
-    border: '0',
-    fontWeight: '400',
-    fontSize: '17px',
-    boxShadow: 'none',
-    color: '#121212',
-    textTransform: 'capitalize',
-  },
   card: {
     width: '100% !important',
     marginTop: '10px',
@@ -38,16 +21,9 @@ const style = createUseStyles({
 });
 
 export default function TabCategoria() {
-  const { dataCompany, dataCart } = useContext(dataCompanyContext);
-  const { tab, btntab, card, contentCard } = style();
-
-  const [current, setCurrent] = useState<{
-    item: string;
-    index: number;
-  }>({
-    item: '',
-    index: 0,
-  });
+  const { dataCompany, dataCart, current, setCurrent } =
+    useContext(dataCompanyContext);
+  const { card, contentCard } = style();
 
   const format = new PriceFormater();
 
@@ -58,47 +34,9 @@ export default function TabCategoria() {
     });
   }, [dataCompany]);
 
-  const cat = dataCompany?.Menu?.map(
-    (item: { categoria: string }) => item.categoria
-  ) as [];
-
   return (
     <>
-      <Row className={tab}>
-        {cat
-          ?.filter((item, index) => {
-            return cat.indexOf(item) === index;
-          })
-          .map((item: any, index) => {
-            return (
-              <>
-                <Col key={index}>
-                  <button
-                    className={btntab}
-                    onClick={() => {
-                      setCurrent({ item: item, index: index });
-                    }}
-                  >
-                    <Typography.Text>{item}</Typography.Text>
-                  </button>
-                  <span
-                    style={
-                      current.index === index
-                        ? {
-                            background: dataCompany.backgroundColor,
-                            height: '2px',
-                            display: 'grid',
-                            placeItems: 'center',
-                            transition: '0.3s ease',
-                          }
-                        : { color: dataCompany.backgroundColor }
-                    }
-                  ></span>
-                </Col>
-              </>
-            );
-          })}
-      </Row>
+      <Tab></Tab>
       <Row
         style={{ width: '100%', alignItems: 'center', transition: '0.3s ease' }}
       >
@@ -107,7 +45,7 @@ export default function TabCategoria() {
         }).map((item, index) => {
           return (
             <>
-              <Card className={card}>
+              <Card className={card} key={index}>
                 <Row className={contentCard}>
                   <Col
                     style={{
@@ -151,7 +89,7 @@ export default function TabCategoria() {
                   >
                     <BtnAddAmountItem
                       companyId={dataCompany.id}
-                      index={index}
+                      index={}
                       item={item}
                     ></BtnAddAmountItem>
                   </Col>

@@ -2,7 +2,7 @@ import { Card, Col, Row, Skeleton, Typography } from 'antd';
 import React, { useContext, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { dataCompanyContext } from '../../../contexts/dataCompany.context';
-import BtnAddAmountItem from './btn-addAmount-item.component';
+import { PriceFormater } from '../../../../helpers/priceFormater';
 
 const styles = createUseStyles({
   container: {
@@ -20,7 +20,9 @@ const styles = createUseStyles({
 
 export default function ProductInEmphasisComponent() {
   const { container, card } = styles();
-  const { dataCompany, load } = useContext(dataCompanyContext);
+  const { dataCompany, load, dataCart } = useContext(dataCompanyContext);
+  const format = new PriceFormater();
+
   if (!dataCompany) return <Skeleton></Skeleton>;
   return (
     <>
@@ -34,8 +36,9 @@ export default function ProductInEmphasisComponent() {
         ></Skeleton>
       ) : (
         <Row className={container}>
-          {dataCompany.Menu?.slice(0, 4).map(
-            (item: (typeof dataCompany.Menu)[0], index: number) => {
+          {dataCompany.Menu?.reverse()
+            .slice(0, 4)
+            .map((item: (typeof dataCompany.Menu)[0], index: number) => {
               return (
                 <Card bordered key={index} className={card}>
                   <Col>
@@ -62,17 +65,18 @@ export default function ProductInEmphasisComponent() {
                           fontSize: '20px',
                         }}
                       >
-                        {parseFloat(item.price)?.toLocaleString('pt-br', {
-                          style: 'currency',
-                          currency: 'brl',
-                        })}
+                        {!dataCart.map((item) => item.order[0].qtd)[
+                          dataCart.findIndex((i) => i.id === item.id)
+                        ]
+                          ? format.formater({ price: item.price })
+                          : format.formater({
+                              price: dataCart.map((item) => item.amoutMoney)[
+                                dataCart.findIndex((i) => i.id === item.id)
+                              ],
+                            })}
                       </Typography.Text>
                     </Row>
-                    <BtnAddAmountItem
-                      item={item}
-                      companyId={dataCompany.id}
-                      index={index}
-                    ></BtnAddAmountItem>
+
                     <Row
                       style={{
                         width: '100%',
@@ -86,8 +90,7 @@ export default function ProductInEmphasisComponent() {
                   </Col>
                 </Card>
               );
-            }
-          )}
+            })}
         </Row>
       )}
     </>
