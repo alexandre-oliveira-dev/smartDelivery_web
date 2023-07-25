@@ -133,7 +133,7 @@ export default function ContainerEditMyPage() {
         style={{
           width: '200px',
           height: '40px',
-          background: corNavPrev,
+          background: !corNavPrev ? '#5b72f2' : corNavPrev,
           color: '#fff',
           borderRadius: '10px',
         }}

@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { createUseStyles } from 'react-jss';
 import { dataCompanyContext } from '../../../contexts/dataCompany.context';
 import { PriceFormater } from '../../../../helpers/priceFormater';
+import BtnAddAmountItem from './btn-addAmount-item.component';
 
 const styles = createUseStyles({
   container: {
@@ -76,7 +77,11 @@ export default function ProductInEmphasisComponent() {
                             })}
                       </Typography.Text>
                     </Row>
-
+                    <BtnAddAmountItem
+                      companyId={dataCompany.id}
+                      index={index}
+                      item={item}
+                    ></BtnAddAmountItem>
                     <Row
                       style={{
                         width: '100%',

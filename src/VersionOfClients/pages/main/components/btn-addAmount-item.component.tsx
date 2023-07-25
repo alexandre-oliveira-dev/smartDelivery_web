@@ -43,11 +43,12 @@ export default function BtnAddAmountItem({
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('@cart') as string) || [];
     setAmountnumber(
-      items.map((i: any) => i.order[0].qtd)[
-        items.findIndex((id: any) => id.id === item.id)
-      ] || 0
+      items
+        .filter((it: any) => it.id === item.id)
+        .map((i: any) => i.order[0].qtd)
     );
-  }, []);
+    setDataCart(items);
+  }, [handleAddItem]);
 
   function handleAddItem() {
     dispatch({
@@ -56,14 +57,6 @@ export default function BtnAddAmountItem({
       index,
       companyId,
     });
-    const items = JSON.parse(localStorage.getItem('@cart') as string) || [];
-    setAmountnumber(
-      items.map((i: any) => i.order[0].qtd)[
-        items.findIndex((id: any) => id.id === item.id)
-      ] || 0
-    );
-    setDataCart(items);
-    console.log(dataCompany.Menu.findIndex((id: any) => id.id === item.id));
   }
   function handleRemoveItem() {
     dispatch({
@@ -72,13 +65,6 @@ export default function BtnAddAmountItem({
       index,
       companyId,
     });
-    const items = JSON.parse(localStorage.getItem('@cart') as string) || [];
-    setAmountnumber(
-      items.map((i: any) => i.order[0].qtd)[
-        items.findIndex((id: any) => id.id === item.id)
-      ] || 0
-    );
-    setDataCart(items);
   }
 
   return (

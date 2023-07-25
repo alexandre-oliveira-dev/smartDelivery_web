@@ -21,8 +21,8 @@
 
 
 .profile {
-    width: 60px;
-    height: 60px;
+    width: 60px !important;
+    height: 60px !important;
     border-radius: 50%;
     background-color: aliceblue;
     object-fit: cover;
@@ -70,8 +70,8 @@
 }
 
 .hover:hover{
-    color: #5b72f2 !important;
+    color: #bdbdbd !important;
     .hovericon{
-        color: #5b72f2 !important;
+        color: #bdbdbd !important;
     }
 }

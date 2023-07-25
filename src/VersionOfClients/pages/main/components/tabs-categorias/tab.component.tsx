@@ -16,11 +16,18 @@ const style = createUseStyles({
   btntab: {
     background: 'transparent',
     border: '0',
-    fontWeight: '400',
+    fontWeight: '600',
     fontSize: '17px',
     boxShadow: 'none',
     color: '#121212',
     textTransform: 'capitalize',
+    padding: '5px',
+    transition: '0.3s ease',
+    '&:hover': {
+      background: '#F0F0F0',
+      padding: '5px',
+      borderRadius: '4px',
+    },
   },
 });
 

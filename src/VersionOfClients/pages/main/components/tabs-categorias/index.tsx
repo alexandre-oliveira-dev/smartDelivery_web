@@ -89,7 +89,7 @@ export default function TabCategoria() {
                   >
                     <BtnAddAmountItem
                       companyId={dataCompany.id}
-                      index={}
+                      index={index}
                       item={item}
                     ></BtnAddAmountItem>
                   </Col>

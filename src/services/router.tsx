@@ -9,6 +9,7 @@ import ConfigComponent from "../pages/Dashboard/Configs";
 import FaturamentoComponent from "../pages/Dashboard/Faturamento";
 import DashboardComponent from "../pages/Dashboard/orders";
 import MainPageComponentIndex from '../VersionOfClients/pages/main';
+import MyPlaincomponent from '../pages/Dashboard/MyPlain';
 
 export default function RouterApp() {
   return (
@@ -29,6 +30,11 @@ export default function RouterApp() {
           exact
           path={'/dashboard/:company/faturamento'}
           component={FaturamentoComponent}
+        ></Route>
+        <Route
+          exact
+          path={'/dashboard/:company/meuPlano'}
+          component={MyPlaincomponent}
         ></Route>
         <Route exact path={'/cadastro'} component={Register}></Route>
         <Route exact path={'/sobrenos'} component={AboutUs}></Route>

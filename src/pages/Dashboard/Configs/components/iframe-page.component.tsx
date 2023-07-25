@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { DashContext } from "../../../../context/dashboard.context";
 import { Link } from 'react-router-dom';
-import { Col, Row, Tag, Typography } from 'antd';
+import { Col, Image, Row, Tag, Typography } from 'antd';
 
 interface Params {
   color?: string | number;
@@ -25,16 +25,14 @@ export default function IframePageCompany({ color }: Params) {
         }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <img
+          <Image
             style={{
-              width: '50px',
-              height: '50px',
               borderRadius: '50%',
               objectFit: 'cover',
             }}
             src={fileProfile ? fileProfile : 'https://via.placeholder.com/150'}
             alt=""
-          ></img>
+          ></Image>
           <h4 style={{ color: '#fff' }}>{asUser.name_company}</h4>
         </div>
         <div
