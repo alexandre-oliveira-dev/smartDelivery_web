@@ -1,3 +1,6 @@
 [submodule "ClientVersion_web"]
 	path = ClientVersion_web
 	url = https://github.com/Alexandretecsomobi/ClientVersion_web.git
+[submodule "src/ClientVersion_web"]
+	path = src/ClientVersion_web
+	url = https://github.com/Alexandretecsomobi/ClientVersion_web.git
