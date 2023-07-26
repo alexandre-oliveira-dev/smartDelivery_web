@@ -93,10 +93,10 @@ export default function NavBarComponent({
             alt=""
           ></Image>
           <p style={{ color: '#fff', fontSize: '17px', textAlign: 'center' }}>
-            Bem vindo {asUser.email}
+            Bem vindo {asUser?.email}
           </p>
           <Typography.Text style={{ color: '#fff', fontSize: '17px' }}>
-            {asUser.name_company}
+            {asUser?.name_company}
           </Typography.Text>
         </div>
       </div>
