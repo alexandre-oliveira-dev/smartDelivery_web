@@ -219,7 +219,7 @@ export default function Config() {
                             <Typography.Text>{index + 1}°</Typography.Text>
                             <Button
                               style={{ position: 'absolute', right: '20px' }}
-                              type="ghost"
+                              type="default"
                               onClick={() => {
                                 setDatacardapio(
                                   datacardapio.filter(
@@ -243,7 +243,7 @@ export default function Config() {
                                   </Typography.Title>
                                   <Typography.Text
                                     editable={{
-                                      onChange: (value) => {
+                                      onChange: (value: any) => {
                                         const currentData: ItemsofMenutypes =
                                           datacardapio?.filter(
                                             (item: any, ind: number) =>
@@ -277,7 +277,7 @@ export default function Config() {
                                   </Typography.Title>
                                   <Typography.Text
                                     editable={{
-                                      onChange: (value) => {
+                                      onChange: (value: any) => {
                                         const currentData: ItemsofMenutypes =
                                           datacardapio?.filter(
                                             (item: any, ind: number) =>
@@ -313,7 +313,7 @@ export default function Config() {
                                   </Typography.Title>
                                   <Typography.Text
                                     editable={{
-                                      onChange: (value) => {
+                                      onChange: (value: any) => {
                                         const currentData: ItemsofMenutypes =
                                           datacardapio?.filter(
                                             (item: any, ind: number) =>
@@ -347,7 +347,7 @@ export default function Config() {
                                   </Typography.Title>
                                   <Typography.Text
                                     editable={{
-                                      onChange: (value) => {
+                                      onChange: (value: any) => {
                                         const currentData: ItemsofMenutypes =
                                           datacardapio?.filter(
                                             (item: any, ind: number) =>
@@ -390,7 +390,7 @@ export default function Config() {
                                 </Typography.Title>
                                 <Typography.Text
                                   editable={{
-                                    onChange: (value) => {
+                                    onChange: (value: any) => {
                                       const currentData: ItemsofMenutypes =
                                         datacardapio?.filter(
                                           (item: any, ind: number) =>
@@ -423,7 +423,7 @@ export default function Config() {
                                 </Typography.Title>
                                 <Typography.Text
                                   editable={{
-                                    onChange: (value) => {
+                                    onChange: (value: any) => {
                                       const currentData: ItemsofMenutypes =
                                         datacardapio?.filter(
                                           (item: any, ind: number) =>
