@@ -23,13 +23,15 @@ export default function NavBarComponent({
   btn3,
   btn4,
 }: Activebtntype) {
-  const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
+  const { asUser, corNavPrev, fileProfile, dataCompany } =
+    useContext(DashContext);
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
     if (asUser === undefined || asUser === null) {
       window.location.href = '/';
     }
+
     document.title = 'Dashboard';
     const nav = document.getElementById('navbardash');
     nav?.style.setProperty('--backNavBarColor', corNavPrev ?? '#5b72f2');
@@ -54,6 +56,7 @@ export default function NavBarComponent({
       link: `/dashboard/${asUser?.name_company}/faturamento`,
       icon: <MdDashboard className="hovericon" color={'#fff'}></MdDashboard>,
       active: btn2,
+      disable: !dataCompany?.isSubiscriber ? true : false,
     },
     {
       id: 2,
@@ -61,6 +64,7 @@ export default function NavBarComponent({
       link: `/dashboard/${asUser?.name_company}`,
       icon: <FaListAlt className="hovericon" color={'#fff'}></FaListAlt>,
       active: btn1,
+      disable: !dataCompany?.isSubiscriber ? true : false,
     },
     {
       id: 3,
@@ -68,6 +72,7 @@ export default function NavBarComponent({
       link: `/dashboard/${asUser?.name_company}/config`,
       icon: <GoGear className="hovericon" color={'#fff'}></GoGear>,
       active: btn3,
+      disable: !dataCompany?.isSubiscriber ? true : false,
     },
     {
       id: 4,
@@ -112,9 +117,10 @@ export default function NavBarComponent({
       <div className="boxbtnnavdash">
         {navBarBtns.map((item) => {
           return (
-            <Link
+            <Typography.Link
+              disabled={item.disable}
               className="hover"
-              to={item.link}
+              href={item.link}
               style={
                 item.active
                   ? {
@@ -150,7 +156,7 @@ export default function NavBarComponent({
               key={item.id}
             >
               {item.icon} {item.title}
-            </Link>
+            </Typography.Link>
           );
         })}
       </div>

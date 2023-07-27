@@ -72,19 +72,22 @@ export default function IframePageCompany({ color }: Params) {
             to={`/${asUser.name_company}`}
             target="_blank"
           >
-            Ver site
+            <Row style={{ marginTop: '20px' }}>
+              <Tag color="blue">
+                <Typography.Title
+                  copyable
+                  level={5}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    color: '#47a1e6',
+                  }}
+                >
+                  www.smartdelivery.com/{asUser.name_company}
+                </Typography.Title>
+              </Tag>
+            </Row>
           </Link>
-          <Row style={{ marginTop: '20px' }}>
-            <Tag color="blue">
-              <Typography.Title
-                copyable
-                level={5}
-                style={{ display: 'flex', alignItems: 'center' }}
-              >
-                www.smartdelivery.com/{asUser.name_company}
-              </Typography.Title>
-            </Tag>
-          </Row>
         </Col>
       </div>
     </>

@@ -16,6 +16,7 @@ export type RegisterValues = {
   password?: string;
   address: string;
   newpassword?: string;
+  isSubiscriber?: boolean;
 };
 
 export const acceptPayments = [

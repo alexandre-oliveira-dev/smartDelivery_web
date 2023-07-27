@@ -27,6 +27,7 @@ const ContainerEditDataCompany = () => {
 
   const encryptPassword = new EncryptString();
 
+
   useEffect(() => {
     function loadPaymentsMethods() {
       setPayment_methods(dataCompany.payments_methods as []);

@@ -11,6 +11,7 @@ import ContainerEditMyPage from "./container-edit-page.component";
 import { toast } from "react-toastify";
 import TableForListItems from "./table-list-items.component";
 import ContainerEditDataCompany from "./container-edit-dataComany.component";
+import { FiTrash } from 'react-icons/fi';
 
 export type ItemsofMenutypes = {
   item: string;
@@ -218,7 +219,7 @@ export default function Config() {
                           <Row style={{ width: '100%', position: 'relative' }}>
                             <Typography.Text>{index + 1}°</Typography.Text>
                             <Button
-                              style={{ position: 'absolute', right: '20px' }}
+                              style={{ position: 'absolute', right: '0px' }}
                               type="default"
                               onClick={() => {
                                 setDatacardapio(
@@ -229,7 +230,7 @@ export default function Config() {
                                 );
                               }}
                             >
-                              x
+                              <FiTrash color="red"></FiTrash>
                             </Button>
                           </Row>
                           <Row key={index}>
@@ -493,9 +494,7 @@ export default function Config() {
             <ContainerEditMyPage></ContainerEditMyPage>
             <br />
             <br />
-            <Typography.Title level={3}>
-              Editar meus Dados
-            </Typography.Title>
+            <Typography.Title level={3}>Editar meus Dados</Typography.Title>
             <ContainerEditDataCompany></ContainerEditDataCompany>
           </div>
         </div>
