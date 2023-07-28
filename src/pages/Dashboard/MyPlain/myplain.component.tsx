@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import Title from '../components/Title';
 import NavBarComponent from '../components/navbarComponent';
-import { Button, Card, Col, Row, Tag, Typography } from 'antd';
+import { Button, Card, Col, Row, Skeleton, Tag, Typography } from 'antd';
 import { DashContext } from '../../../context/dashboard.context';
 import { RegisterValues } from '../../Register';
 
@@ -54,7 +54,7 @@ const ContentCard = ({ dataCompany }: PropsTypes) => {
 };
 
 export default function MyPlain() {
-  const { dataCompany } = useContext(DashContext);
+  const { dataCompany, loadTables } = useContext(DashContext);
 
   return (
     <>
@@ -68,45 +68,56 @@ export default function MyPlain() {
             color="#fff"
           ></Title>
 
-          <Card
-            style={{
-              width: '80%',
-            }}
-            title={
-              <Row style={{ alignItems: 'center', gap: '20px' }}>
-                <Col>
-                  <Typography.Title level={3}>Status:</Typography.Title>
-                </Col>
-                <Col>
-                  {dataCompany?.isSubiscriber ? (
-                    <Tag
-                      style={{
-                        height: 'min-content',
-                        fontSize: '20px',
-                        padding: '4px',
-                      }}
-                      color="green"
-                    >
-                      Ativo
-                    </Tag>
-                  ) : (
-                    <Tag
-                      style={{
-                        height: 'min-content',
-                        fontSize: '20px',
-                        padding: '4px',
-                      }}
-                      color="red"
-                    >
-                      Inativo
-                    </Tag>
-                  )}
-                </Col>
-              </Row>
-            }
-          >
-            <ContentCard dataCompany={dataCompany}></ContentCard>
-          </Card>
+          {loadTables ? (
+            <Skeleton
+              style={{ width: '80%' }}
+              active
+              paragraph={{
+                //rows: 3,
+                width: '70%',
+              }}
+            ></Skeleton>
+          ) : (
+            <Card
+              style={{
+                width: '80%',
+              }}
+              title={
+                <Row style={{ alignItems: 'center', gap: '20px' }}>
+                  <Col>
+                    <Typography.Title level={3}>Status:</Typography.Title>
+                  </Col>
+                  <Col>
+                    {dataCompany?.isSubiscriber ? (
+                      <Tag
+                        style={{
+                          height: 'min-content',
+                          fontSize: '20px',
+                          padding: '4px',
+                        }}
+                        color="green"
+                      >
+                        Ativo
+                      </Tag>
+                    ) : (
+                      <Tag
+                        style={{
+                          height: 'min-content',
+                          fontSize: '20px',
+                          padding: '4px',
+                        }}
+                        color="red"
+                      >
+                        Inativo
+                      </Tag>
+                    )}
+                  </Col>
+                </Row>
+              }
+            >
+              <ContentCard dataCompany={dataCompany}></ContentCard>
+            </Card>
+          )}
         </div>
       </div>
     </>
