@@ -3,6 +3,55 @@ import Title from '../components/Title';
 import NavBarComponent from '../components/navbarComponent';
 import { Button, Card, Col, Row, Tag, Typography } from 'antd';
 import { DashContext } from '../../../context/dashboard.context';
+import { RegisterValues } from '../../Register';
+
+interface PropsTypes {
+  dataCompany: RegisterValues;
+}
+
+const ContentCard = ({ dataCompany }: PropsTypes) => {
+  return (
+    <>
+      {dataCompany?.isSubiscriber ? (
+        <Col>
+          <Row style={{ alignItems: 'center', gap: '20px' }}>
+            <Row>
+              <Typography.Title level={3}>
+                Parabéns seu plano está ativo 🎉🥳
+              </Typography.Title>
+            </Row>
+            <Row>
+              <Typography.Title level={5}>
+                Próxima cobrança: <Tag color="silver">05/08/2023</Tag>
+              </Typography.Title>
+            </Row>
+          </Row>
+          <Row>
+            <Button type="primary" style={{ background: 'red' }}>
+              Cancelar meu plano
+            </Button>
+          </Row>
+        </Col>
+      ) : (
+        <Col>
+          <Row>
+            <Typography.Title level={3}>
+              Seu plano não está ativo! 😕
+            </Typography.Title>
+          </Row>
+          <Row>
+            <Typography.Paragraph>
+              Assine o plano para liberar o sistema!
+            </Typography.Paragraph>
+          </Row>
+          <Row>
+            <Button type="primary">Assinar agora!</Button>
+          </Row>
+        </Col>
+      )}
+    </>
+  );
+};
 
 export default function MyPlain() {
   const { dataCompany } = useContext(DashContext);
@@ -56,43 +105,7 @@ export default function MyPlain() {
               </Row>
             }
           >
-            {dataCompany?.isSubiscriber ? (
-              <Col>
-                <Row style={{ alignItems: 'center', gap: '20px' }}>
-                  <Row>
-                    <Typography.Title level={3}>
-                      Parabéns seu plano está ativo 🎉🥳
-                    </Typography.Title>
-                  </Row>
-                  <Row>
-                    <Typography.Title level={5}>
-                      Próxima cobrança: <Tag color="silver">05/08/2023</Tag>
-                    </Typography.Title>
-                  </Row>
-                </Row>
-                <Row>
-                  <Button type="primary" style={{ background: 'red' }}>
-                    Cancelar meu plano
-                  </Button>
-                </Row>
-              </Col>
-            ) : (
-              <Col>
-                <Row>
-                  <Typography.Title level={3}>
-                    Seu plano não está ativo! 😕
-                  </Typography.Title>
-                </Row>
-                <Row>
-                  <Typography.Paragraph>
-                    Assine o plano para liberar o sistema!
-                  </Typography.Paragraph>
-                </Row>
-                <Row>
-                  <Button type="primary">Assinar agora!</Button>
-                </Row>
-              </Col>
-            )}
+            <ContentCard dataCompany={dataCompany}></ContentCard>
           </Card>
         </div>
       </div>

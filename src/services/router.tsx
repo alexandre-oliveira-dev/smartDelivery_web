@@ -2,6 +2,10 @@ import React from "react";
 import { Switch } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactRouter5Adapter } from 'use-query-params/adapters/react-router-5';
+import { DashProvider } from '../context/dashboard.context';
+import Route from '../services/middleware';
+
+//Pages
 import Home from '../pages/Home';
 import Register from '../pages/Register';
 import AboutUs from '../pages/aboutUs';
@@ -10,8 +14,6 @@ import FaturamentoComponent from '../pages/Dashboard/Faturamento';
 import DashboardComponent from '../pages/Dashboard/orders';
 import MyPlaincomponent from '../pages/Dashboard/MyPlain';
 import MainPageComponentIndex from '../ClientVersion_web/src/pages/main';
-import Route from '../services/middleware';
-import { DashProvider } from '../context/dashboard.context';
 
 export default function RouterApp() {
   return (
