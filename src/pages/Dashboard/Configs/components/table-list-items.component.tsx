@@ -2,19 +2,22 @@ import React, { useContext,useState } from "react";
 import { DashContext } from "../../../../context/dashboard.context";
 import { Button, Col, Input, Row, Table, Tag, Typography } from "antd";
 import { ColumnsType } from "antd/es/table";
-import { FiEdit, FiSearch } from 'react-icons/fi';
+import { FiEdit, FiSearch, FiTrash } from 'react-icons/fi';
 import { TbListDetails } from 'react-icons/tb';
 import Card from 'antd/es/card/Card';
 import { useQueryParam, StringParam } from 'use-query-params';
 import { Options } from '../options-categoria-menu';
 import ModalDetailsItem from './modal-details-item.component';
 import ModalEditItem from './modal-edit-item.component';
+import { api } from '../../../../services/api';
+import { toast } from 'react-toastify';
 
 export default function TableForListItems() {
   const {
     dataCardapio,
     corNavPrev,
     loadTables,
+    setLoadTables,
     setOpenModal,
     setOpenModalEdititem,
   } = useContext(DashContext);
@@ -86,6 +89,25 @@ export default function TableForListItems() {
                 }}
               >
                 Detalhes
+              </Button>
+              <Button
+                type="text"
+                onClick={async () => {
+                  await api
+                    .delete(`/deletemenu/${item.id}`)
+                    .then(() => {
+                      toast.success('Item excluido com sucesso!');
+                      setLoadTables(true);
+                      setTimeout(() => {
+                        window.location.reload();
+                      }, 2000);
+                    })
+                    .catch(() => {
+                      toast.error('Ops tente novamente mais tarde!');
+                    });
+                }}
+              >
+                <FiTrash color="red"></FiTrash>
               </Button>
               <ModalDetailsItem data={dataItemDetails}></ModalDetailsItem>
               <ModalEditItem item={initialValues}></ModalEditItem>

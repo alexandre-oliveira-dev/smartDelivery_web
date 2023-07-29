@@ -74,10 +74,15 @@ export default function ModalOrders({ data }: Datamodal) {
             <Typography.Title level={5}>Metodo de pagamento:</Typography.Title>
             <Typography.Paragraph>{data?.payment_method}</Typography.Paragraph>
             <Typography.Title level={5}>Pedido:</Typography.Title>
-            {data?.order.map((item: any) => (
-              <Typography.Paragraph>
-                <Tag>{item}</Tag>
-              </Typography.Paragraph>
+            {data?.order.map((item: { item: string; qtd: number }) => (
+              <Tag color="purple">
+                {
+                  <Row style={{ gap: '10px' }}>
+                    <p>{item.item}</p>
+                    <p>{item.qtd}</p>
+                  </Row>
+                }
+              </Tag>
             ))}
           </Col>
         </Row>

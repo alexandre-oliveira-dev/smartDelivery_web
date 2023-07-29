@@ -39,6 +39,7 @@ export interface ContextTypes {
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
   setOpenModalEdititem: React.Dispatch<SetStateAction<boolean>>;
   setOpenModalConfirmPassword: React.Dispatch<SetStateAction<boolean>>;
+  setOpenModalDetailsOrders: React.Dispatch<SetStateAction<boolean>>;
   setWarnigsOrderFinished: React.Dispatch<SetStateAction<boolean>>;
   setSearchParam: React.Dispatch<SetStateAction<string | null>>;
   setPasswordCript: React.Dispatch<SetStateAction<string | null>>;
@@ -46,6 +47,7 @@ export interface ContextTypes {
   openModalConfirmPassword: boolean;
   openModalEditItem: boolean;
   openModalWarnigsOrderFinished: boolean;
+  openModalDetailsOrders: boolean;
   load: boolean;
   loadTables: boolean;
   dataCardapio: [];
@@ -69,6 +71,7 @@ export function DashProvider({ children }: any) {
   const [load, setLoad] = useState(false);
   const [loadTables, setLoadTables] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [openModalDetailsOrders, setOpenModalDetailsOrders] = useState(false);
   const [openModalConfirmPassword, setOpenModalConfirmPassword] =
     useState(false);
   const [openModalEditItem, setOpenModalEdititem] = useState(false);
@@ -159,7 +162,9 @@ export function DashProvider({ children }: any) {
         passwordCript,
         setPasswordCript,
         openModalConfirmPassword,
-        setOpenModalConfirmPassword
+        setOpenModalConfirmPassword,
+        openModalDetailsOrders,
+        setOpenModalDetailsOrders,
       }}
     >
       {children}

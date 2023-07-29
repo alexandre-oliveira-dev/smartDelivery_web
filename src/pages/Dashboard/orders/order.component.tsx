@@ -12,6 +12,8 @@ import ModalCloseOfficeHour from './modal-close-officeHour.component';
 import ModalWarnigsOrderFinished from './modal-warning-orderFinished.component';
 import SumaryStatusOrdersComponent from './sumary-status-orders.component';
 import OrderCancelComponent from './orderCancel.component';
+import { TbDetails, TbListDetails } from 'react-icons/tb';
+import ModalDetailsOrders from './modal-details-order.component';
 
 export default function Dashboard() {
   const {
@@ -22,6 +24,7 @@ export default function Dashboard() {
     setOpenModal,
     asUser,
     setWarnigsOrderFinished,
+    setOpenModalDetailsOrders,
   } = useContext(DashContext);
   const [dataOrder, setDataOrder] = useState<any>();
   const [orderid, setOrderid] = useState<string>('');
@@ -50,12 +53,31 @@ export default function Dashboard() {
       },
     },
     {
-      title: 'Pedido',
+      title: (
+        <Row>
+          <Typography.Title level={5}>Pedido</Typography.Title>
+        </Row>
+      ),
       dataIndex: 'order',
       render(text, rec, indexx) {
         return orders
           .filter((item, index) => index === indexx)
-          .map((item) => item.map((i: string) => <p>{i}</p>));
+          .map(
+            (item) =>
+              item.map((i: { item: string; qtd: number }) => (
+                <Row style={{ gap: '10px' }}>
+                  <Row style={{ gap: '10px' }}>
+                    <p>{i.item}</p>
+                    <p>{i.qtd}</p>
+                  </Row>
+                  +
+                  <Tag title={(i.item, String(i.qtd))} color="purple">
+                    {Number(item.length) - 1}
+                    pedido(s)
+                  </Tag>
+                </Row>
+              ))[0]
+          );
       },
     },
     {
@@ -121,18 +143,27 @@ export default function Dashboard() {
       render: (text, rec, index) => {
         return (
           rec.status !== 'cancelado' && (
-            <Button
-              onClick={() => {
-                document
-                  .querySelector('.box-modalOrders')
-                  ?.setAttribute('style', 'display:flex');
-                setDataOrder(rec);
-              }}
-              type="primary"
-              style={{ color: '#fff', background: corNavPrev }}
-            >
-              Atualizar pedido
-            </Button>
+            <Row style={{ gap: '10px' }}>
+              <Button
+                onClick={() => {
+                  document
+                    .querySelector('.box-modalOrders')
+                    ?.setAttribute('style', 'display:flex');
+                  setDataOrder(rec);
+                }}
+                type="primary"
+                style={{ color: '#fff', background: corNavPrev }}
+              >
+                Atualizar pedido
+              </Button>
+              <Button
+                type="text"
+                onClick={() => setOpenModalDetailsOrders(true)}
+              >
+                <TbListDetails color=""></TbListDetails>
+              </Button>
+              <ModalDetailsOrders data={orders[0]}></ModalDetailsOrders>
+            </Row>
           )
         );
       },
@@ -153,7 +184,22 @@ export default function Dashboard() {
       render(text, rec, indexx) {
         return ordersFinished
           .filter((item, index) => index === indexx)
-          .map((item) => item.map((i: string) => <p>{i}</p>));
+          .map(
+            (item) =>
+              item.map((i: { item: string; qtd: number }) => (
+                <Row style={{ gap: '10px' }}>
+                  <Row style={{ gap: '10px' }}>
+                    <p>{i.item}</p>
+                    <p>{i.qtd}</p>
+                  </Row>
+                  +
+                  <Tag color="purple">
+                    {Number(item.length) - 1}
+                    pedido(s)
+                  </Tag>
+                </Row>
+              ))[0]
+          );
       },
     },
     {
@@ -273,7 +319,6 @@ export default function Dashboard() {
       <ModalWarnigsOrderFinished id={orderid}></ModalWarnigsOrderFinished>
       <ModalCloseOfficeHour
         data={{ amountOrders, amountvalue, date, companyId }}
-        
       ></ModalCloseOfficeHour>
       <NavBarComponent btn1={true}></NavBarComponent>
       {load ? (
