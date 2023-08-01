@@ -10,7 +10,11 @@ export default function RouteWrapper({
   // indica as outras props do Router
   ...rest
 }: any) {
-  const { dataCompany } = useContext(DashContext);
+  const { dataCompany, asUser } = useContext(DashContext);
+
+  if (!asUser && isPrivate) {
+    window.location.href = '/';
+  }
   if (dataCompany?.isSubiscriber === false && isPrivate) {
     window.location.href = `/dashboard/${dataCompany?.name_company}/meuPlano`;
   }

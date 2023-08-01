@@ -28,9 +28,9 @@ export default function NavBarComponent({
   const [load, setLoad] = useState(false);
 
   useEffect(() => {
-    if (asUser === undefined || asUser === null) {
+    /* if (asUser === undefined || asUser === null) {
       window.location.href = '/';
-    }
+    }*/
 
     document.title = 'Dashboard';
     const nav = document.getElementById('navbardash');
