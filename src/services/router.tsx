@@ -14,6 +14,7 @@ import FaturamentoComponent from '../pages/Dashboard/Faturamento';
 import DashboardComponent from '../pages/Dashboard/orders';
 import MyPlaincomponent from '../pages/Dashboard/MyPlain';
 import MainPageComponentIndex from '../ClientVersion_web/src/pages/main';
+import Cart from '../ClientVersion_web/src/pages/cart';
 
 export default function RouterApp() {
   return (
@@ -46,13 +47,16 @@ export default function RouterApp() {
           ></Route>
           <Route exact path={'/cadastro'} component={Register}></Route>
           <Route exact path={'/sobrenos'} component={AboutUs}></Route>
-          <Switch>
-            <Route
-              exact
-              path={'/:name_company'}
-              component={MainPageComponentIndex}
-            ></Route>
-          </Switch>{' '}
+          <Route
+            exact
+            path={'/:name_company'}
+            component={MainPageComponentIndex}
+          ></Route>
+          <Route
+            exact
+            path={'/:name_company/meu carrinho'}
+            component={Cart}
+          ></Route>
         </Switch>
       </DashProvider>
     </QueryParamProvider>
