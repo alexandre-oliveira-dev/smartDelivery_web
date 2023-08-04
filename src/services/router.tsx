@@ -15,6 +15,7 @@ import DashboardComponent from '../pages/Dashboard/orders';
 import MyPlaincomponent from '../pages/Dashboard/MyPlain';
 import MainPageComponentIndex from '../ClientVersion_web/src/pages/main';
 import Cart from '../ClientVersion_web/src/pages/cart';
+import DetailsPage from "../ClientVersion_web/src/pages/itemDetails";
 
 export default function RouterApp() {
   return (
@@ -56,6 +57,11 @@ export default function RouterApp() {
             exact
             path={'/:name_company/meu carrinho'}
             component={Cart}
+          ></Route>
+          <Route
+            exact
+            path={'/:name_company/detalhes/:id'}
+            component={DetailsPage}
           ></Route>
         </Switch>
       </DashProvider>
