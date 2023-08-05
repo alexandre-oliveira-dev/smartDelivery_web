@@ -39,7 +39,7 @@ export default function SectionInformationStaps() {
           <h2>
             Personalize seu espaço online e obtenha seu link de compartilhamento
             do seu delivery, para divulgar e mandar para seus clientes, ex:{' '}
-            <Tag style={{ fontSize: '15px' }} color="blue">
+            <Tag className="responsiveTag" style={{ fontSize: '15px' }} color="blue">
               https://smartdelivery.com/nomedoseurestaurante
             </Tag>
           </h2>

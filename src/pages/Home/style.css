@@ -13,7 +13,7 @@
   justify-content: center;
   gap: 20px;
   padding: 0 30px 0 30px;
-  background-image: url("../../assets//people-taking-photos-food.jpg");
+  background-image: url('../../assets//people-taking-photos-food.jpg');
   background-size: cover;
   background-position: center;
   filter: brightness(0.5);
@@ -48,9 +48,9 @@
   flex-direction: column;
   gap: 20px;
 }
-#btnhover:hover{
-background-color: #fff;
-color: #5b72f2;
+#btnhover:hover {
+  background-color: #fff;
+  color: #5b72f2;
 }
 
 .item-section1 {
@@ -59,7 +59,6 @@ color: #5b72f2;
   justify-content: start;
   gap: 10px;
   width: 100%;
-  
 }
 
 .item-section1 h3 {
@@ -137,7 +136,7 @@ color: #5b72f2;
   flex-direction: column;
   gap: 20px;
 }
-.box-stap-information{
+.box-stap-information {
   width: 60%;
 }
 .stap-information {
@@ -148,7 +147,7 @@ color: #5b72f2;
 }
 
 .stap-information #span::after {
-  content: "";
+  content: '';
   display: block;
   width: 2px;
   height: 20px;
@@ -192,8 +191,7 @@ color: #5b72f2;
   margin-top: 10px;
 }
 
-
-.sectionAskquestions{
+.sectionAskquestions {
   width: 100%;
   padding: 20px;
   background-color: #fff;
@@ -205,12 +203,70 @@ color: #5b72f2;
   min-height: 200px;
 }
 
-.detailsask{
+.detailsask {
   width: 50%;
 }
-.detailsask summary{
+.detailsask summary {
   color: #5b72f2;
 }
-.detailsask p{
+.detailsask p {
   padding: 10px;
+}
+
+@media (max-width: 500px) {
+  .content-box-section1 {
+    width: 100%;
+    top: 35%;
+  }
+  .responsivetitlesection1 {
+    font-size: 55px !important;
+  }
+  #btnhover {
+    width: 90% !important;
+  }
+  .responsiveBoxbtn {
+    width: 100% !important;
+    justify-content: center !important;
+    margin-top: 20px;
+  }
+  .section2 {
+    flex-direction: column;
+    height: auto !important;
+    padding: 10px;
+  }
+  .box-text-info {
+    height: auto;
+    width: auto;
+    text-align: center;
+  }
+  .animation {
+    display: none;
+  }
+  .ilu2 {
+    width: 65%;
+  }
+  .section3 {
+    padding: 1rem 2rem 1rem 1rem;
+  }
+  .box-stap-information {
+    width: 100%;
+  }
+  .stap-information h2 {
+    font-size: 14px;
+    width: 90%;
+  }
+  .detailsask {
+    width: 100%;
+  }
+  .stap-information #span {
+    width: 30px;
+    height: 30px;
+  }
+  .responsiveTag{
+    font-size:12px !important ;
+  }
+  #btn-comecaragr{
+    width: 95%;
+    font-size: 18px;
+  }
 }

@@ -25,6 +25,7 @@ export default function Header() {
         <Row style={{ alignItems: 'center' }}>
           <Image src={logo} preview={false}></Image>
           <Typography.Title
+            className="hiddenformobile"
             onClick={() => (window.location.href = '/')}
             level={2}
             style={{ color: '#fff', cursor: 'pointer' }}
@@ -39,7 +40,7 @@ export default function Header() {
           </button>
           <button>Ajuda</button>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
+        <div className="responsiveBtnsareaLogin" style={{ display: 'flex', alignItems: 'center' }}>
           <div
             style={{
               position: 'relative',

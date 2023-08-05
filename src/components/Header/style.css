@@ -63,3 +63,16 @@
         rotate: 1turn;
     }
 }
+
+@media(max-width:500px){
+    .hiddenformobile{
+        font-size: 18px !important;
+    }
+    .nav-btns{
+        display: none;
+    }
+    .responsiveBtnsareaLogin{
+        display: none !important;
+    }
+  
+}

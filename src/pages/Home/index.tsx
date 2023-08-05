@@ -18,7 +18,7 @@ export default function Home() {
       </DashProvider>
 
       <div className="container-home">
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative', overflow: 'hidden' }}>
           <section className="section1"></section>
           <ListOfadvantages></ListOfadvantages>
         </div>

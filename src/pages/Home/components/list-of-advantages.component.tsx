@@ -9,6 +9,7 @@ export default function ListOfadvantages() {
         <Row>
           {' '}
           <Typography.Title
+            className="responsivetitlesection1"
             style={{
               fontWeight: '800',
               fontSize: '70px',
@@ -31,7 +32,7 @@ export default function ListOfadvantages() {
             Sem taxas sobre suas vendas, aumente seu faturamento!
           </Typography.Title>
         </Row>
-        <Row>
+        <Row className="responsiveBoxbtn">
           <Button
             type="link"
             href="/cadastro"

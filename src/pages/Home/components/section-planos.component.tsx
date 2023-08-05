@@ -45,6 +45,7 @@ export default function SectionPlains() {
           </Typography.Text>
           <br />
           <Button
+            id="btn-comecaragr"
             style={{ background: '#5B72F2', color: '#fff', marginTop: '10px' }}
             type="link"
             href="/cadastro"

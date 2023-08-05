@@ -52,7 +52,7 @@ export default function Footer() {
           ></img>
         </Col>
       </Row>
-      <Row>
+      <Row className="responsiveCopyright">
         <Typography.Paragraph style={{ color: '#fff' }}>
           ©️ {new Date().getFullYear()} - SmartDelivery - Soluções para
           Restaurantes e Lanchonetes.
