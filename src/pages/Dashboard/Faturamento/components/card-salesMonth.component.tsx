@@ -32,7 +32,7 @@ export default function CardSalesMonthComponent() {
             datasets: [
               {
                 data: [12, 19, 3, 5, 2, 50, 65],
-                backgroundColor: corNavPrev,
+                backgroundColor: !corNavPrev ? '#5B72F2' : corNavPrev,
               },
             ],
             yLabels: [],
