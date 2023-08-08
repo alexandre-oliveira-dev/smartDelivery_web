@@ -16,6 +16,7 @@ import MyPlaincomponent from '../pages/Dashboard/MyPlain';
 import MainPageComponentIndex from '../ClientVersion_web/src/pages/main';
 import Cart from '../ClientVersion_web/src/pages/cart';
 import DetailsPage from "../ClientVersion_web/src/pages/itemDetails";
+import OrdersComponent from '../ClientVersion_web/src/pages/orders';
 
 export default function RouterApp() {
   return (
@@ -62,6 +63,11 @@ export default function RouterApp() {
             exact
             path={'/:name_company/detalhes/:id'}
             component={DetailsPage}
+          ></Route>
+          <Route
+            exact
+            path={'/:name_company/meusPedidos/:id'}
+            component={OrdersComponent}
           ></Route>
         </Switch>
       </DashProvider>
