@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
 import '../style.css';
 import {
+  Button,
   Card,
   Col,
   Form,
   Input,
   Row,
+  Select,
   Spin,
   Tag,
   Typography,
@@ -14,7 +16,12 @@ import {
   AsUserPropsTypes,
   DashContext,
 } from '../../../../context/dashboard.context';
-import { RegisterValues, acceptPayments } from '../../../Register';
+import {
+  RegisterValues,
+  acceptPayments,
+  daysOfWeeks,
+  horarios,
+} from '../../../Register';
 import { api } from '../../../../services/api';
 import { toast } from 'react-toastify';
 import { EncryptString } from '../../../../helpers/ecryptString';
@@ -24,16 +31,20 @@ const ContainerEditDataCompany = () => {
   const [form] = Form.useForm();
   const [load, setLoad] = useState(false);
   const [payment_methods, setPayment_methods] = useState<string[]>([]);
+  const [daysAndWeeks, setDaysAndWeeks] = useState<any[]>([]);
+  const [day, setDay] = useState<string>('');
+  const [open, setOpen] = useState<string>('');
+  const [close, setClose] = useState<string>('');
 
   const encryptPassword = new EncryptString();
 
-
   useEffect(() => {
-    function loadPaymentsMethods() {
-      setPayment_methods(dataCompany.payments_methods as []);
+    function load() {
+      setPayment_methods(dataCompany?.payments_methods as []);
+      setDaysAndWeeks(dataCompany?.daysOfWeeks as []);
     }
-    loadPaymentsMethods();
-  }, [dataCompany.payments_methods]);
+    load();
+  }, [dataCompany?.payments_methods, dataCompany?.daysOfWeeks]);
 
   const initialValues: RegisterValues = {
     name_company: dataCompany.name_company,
@@ -63,6 +74,7 @@ const ContainerEditDataCompany = () => {
           address: fieldsValues.address,
           password: fieldsValues.newpassword,
           payments_methods: payment_methods,
+          daysOfWeeks: daysAndWeeks,
         },
         {
           headers: {
@@ -98,9 +110,14 @@ const ContainerEditDataCompany = () => {
 
   function handleRemovePaymentsMethods(item: string, index: number) {
     setPayment_methods(
-      payment_methods?.filter(
-        (i: any, position: number) => i !== item || position !== index
+      payment_methods.filter(
+        (i: string, position: number) => i !== item || position !== index
       )
+    );
+  }
+  function handleRemoveDays(item: string, index: number) {
+    setDaysAndWeeks(
+      daysAndWeeks.filter((i: string, position: number) => position !== index)
     );
   }
 
@@ -158,7 +175,6 @@ const ContainerEditDataCompany = () => {
                 <Input id="address" />
               </Form.Item>
             </Row>
-
             <Row>
               <Col style={{ gap: '20px' }}>
                 <Typography.Title level={4}>
@@ -167,30 +183,30 @@ const ContainerEditDataCompany = () => {
 
                 {
                   <Row style={{ gap: 10 }}>
-                    <select
+                    <Select
                       onChange={(e) => {
-                        payment_methods?.push(e.target.value);
+                        payment_methods?.push(e);
                         setPayment_methods([...payment_methods]);
                       }}
                       style={{
                         width: '200px',
-                        outline: 'none',
-                        border: '1px solid silver',
-                        padding: '10px',
                       }}
                       placeholder="Selecione"
                     >
                       <option>selecione</option>
                       {acceptPayments.map(
-                        (payment: { paymentmode: string }) => {
+                        (payment: { paymentmode: string }, index) => {
                           return (
-                            <option value={payment.paymentmode}>
+                            <Select.Option
+                              key={index}
+                              value={payment.paymentmode}
+                            >
                               {payment.paymentmode}
-                            </option>
+                            </Select.Option>
                           );
                         }
                       )}
-                    </select>
+                    </Select>
                     {payment_methods?.map((item: string, index: number) => {
                       return (
                         <div key={index}>
@@ -210,8 +226,109 @@ const ContainerEditDataCompany = () => {
                 }
               </Col>
             </Row>
+            <br />
+            <Row>
+              <Col style={{ gap: '20px' }}>
+                <Typography.Title level={4}>
+                  Dias da semanas e horários de funcionamento:
+                </Typography.Title>
 
-            <Row style={{ width: '100%', gap: '10px', flexWrap: 'nowrap' }}>
+                {
+                  <>
+                    <Row style={{ gap: 10 }}>
+                      <Select
+                        placeholder="Dia"
+                        onChange={(e) => setDay(e)}
+                        style={{ width: '100px' }}
+                      >
+                        {daysOfWeeks.map((item: string, index: number) => {
+                          return (
+                            <Select.Option key={index} value={item}>
+                              {item}
+                            </Select.Option>
+                          );
+                        })}
+                      </Select>
+                      <Select
+                        placeholder="Abertura"
+                        onChange={(e) => setOpen(e)}
+                      >
+                        {horarios.map((item: string, index: number) => {
+                          return (
+                            <Select.Option key={index} value={item}>
+                              {item}
+                            </Select.Option>
+                          );
+                        })}
+                      </Select>
+                      <Select
+                        placeholder="Fechamento"
+                        onChange={(e) => setClose(e)}
+                      >
+                        {horarios.map((item: string, index: number) => {
+                          return (
+                            <Select.Option key={index} value={item}>
+                              {item}
+                            </Select.Option>
+                          );
+                        })}
+                      </Select>
+                      <Button
+                        style={{ marginBottom: '-6px' }}
+                        type="default"
+                        onClick={() => {
+                          if (!day || !open || !close) return;
+                          if (daysAndWeeks.length === 7) {
+                            toast.info('Todos os dias estão cadastrados!');
+                            return;
+                          }
+                          const object = {
+                            day: day,
+                            open: open,
+                            close: close,
+                          };
+
+                          daysAndWeeks.push(object);
+                          setDaysAndWeeks([...daysAndWeeks]);
+                        }}
+                      >
+                        +
+                      </Button>
+                      {daysAndWeeks?.map(
+                        (
+                          item: { day: string; open: string; close: string },
+                          index: number
+                        ) => {
+                          return (
+                            <div key={index}>
+                              <Tag
+                                style={{ cursor: 'pointer' }}
+                                color="blue"
+                                onClick={() =>
+                                  handleRemoveDays(item.day, index)
+                                }
+                              >
+                                Dia: {item.day} abre: {item.open} fecha:{' '}
+                                {item.close} X
+                              </Tag>
+                            </div>
+                          );
+                        }
+                      )}
+                    </Row>
+                  </>
+                }
+              </Col>
+            </Row>
+
+            <Row
+              style={{
+                width: '100%',
+                gap: '10px',
+                flexWrap: 'nowrap',
+                marginTop: '20px',
+              }}
+            >
               <Form.Item
                 required
                 labelAlign="left"

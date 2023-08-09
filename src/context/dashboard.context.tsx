@@ -28,6 +28,7 @@ export interface AsUserPropsTypes {
   ];
   payments_methods?: string[];
   phone?: string;
+  daysOfWeeks?: [{ day: string; open: string; close: string }];
 }
 
 export interface ContextTypes {

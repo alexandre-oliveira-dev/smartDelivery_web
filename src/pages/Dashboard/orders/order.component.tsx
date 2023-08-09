@@ -65,16 +65,18 @@ export default function Dashboard() {
           .map(
             (item) =>
               item.map((i: { item: string; qtd: number }) => (
-                <Row style={{ gap: '10px' }}>
-                  <Row style={{ gap: '10px' }}>
+                <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
+                  <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
+                    <p>{i.qtd}x</p>
                     <p>{i.item}</p>
-                    <p>{i.qtd}</p>
                   </Row>
-                  +
-                  <Tag title={(i.item, String(i.qtd))} color="purple">
-                    {Number(item.length) - 1}
-                    pedido(s)
-                  </Tag>
+                  {item.length > 1 &&
+                    +(
+                      <Tag title={(i.item, String(i.qtd))} color="purple">
+                        {Number(item.length) - 1}
+                        pedido(s)
+                      </Tag>
+                    )}
                 </Row>
               ))[0]
           );
@@ -126,7 +128,9 @@ export default function Dashboard() {
         return (
           <>
             {item === 'preparando' ? (
-              <Tag color="green">{item}</Tag>
+              <Tag color="green">
+                {item} <Spin size="small"></Spin>
+              </Tag>
             ) : item === 'entrega' ? (
               <Tag color="blue">{item}</Tag>
             ) : item === 'cancelado' ? (
@@ -143,7 +147,7 @@ export default function Dashboard() {
       render: (text, rec, index) => {
         return (
           rec.status !== 'cancelado' && (
-            <Row style={{ gap: '10px' }}>
+            <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
               <Button
                 onClick={() => {
                   document
@@ -188,15 +192,17 @@ export default function Dashboard() {
             (item) =>
               item.map((i: { item: string; qtd: number }) => (
                 <Row style={{ gap: '10px' }}>
-                  <Row style={{ gap: '10px' }}>
+                  <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
+                    <p>{i.qtd}x</p>
                     <p>{i.item}</p>
-                    <p>{i.qtd}</p>
                   </Row>
-                  +
-                  <Tag color="purple">
-                    {Number(item.length) - 1}
-                    pedido(s)
-                  </Tag>
+                  {item.length > 1 &&
+                    +(
+                      <Tag color="purple">
+                        {Number(item.length) - 1}
+                        pedido(s)
+                      </Tag>
+                    )}
                 </Row>
               ))[0]
           );
@@ -243,7 +249,9 @@ export default function Dashboard() {
             {item === 'preparando' ? (
               <Tag color="green">{item}</Tag>
             ) : item === 'entrega' ? (
-              <Tag color="blue">{item}</Tag>
+              <Tag color="blue">
+                Pedido em rota de entrga <Spin size="small"></Spin>
+              </Tag>
             ) : item === 'cancelado' ? (
               <Tag color="red">{item}</Tag>
             ) : (
@@ -266,7 +274,7 @@ export default function Dashboard() {
       render(item) {
         return (
           <>
-            <Row style={{ gap: '10px' }}>
+            <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
               {item.status !== 'finalizado' && (
                 <Button
                   onClick={() => {

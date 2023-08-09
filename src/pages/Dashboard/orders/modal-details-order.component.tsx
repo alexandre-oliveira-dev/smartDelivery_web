@@ -31,7 +31,7 @@ export default function ModalDetailsOrders({ data }: Props) {
               <>
                 <Col>
                   <Tag style={{ marginTop: '10px' }} color="purple">
-                    {x.item}, {x.qtd}
+                    {x.qtd}x {x.item}
                   </Tag>
                 </Col>
               </>

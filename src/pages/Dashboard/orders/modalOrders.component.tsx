@@ -78,8 +78,8 @@ export default function ModalOrders({ data }: Datamodal) {
               <Tag color="purple">
                 {
                   <Row style={{ gap: '10px' }}>
+                    <p>{item.qtd}x</p>
                     <p>{item.item}</p>
-                    <p>{item.qtd}</p>
                   </Row>
                 }
               </Tag>

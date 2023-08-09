@@ -1,11 +1,21 @@
-import React, { useState } from "react";
-import "./style.css";
-import Header from "../../components/Header";
-import { Col, Form, Input, Row, Tabs, Typography } from "antd";
-import TabPane from "antd/es/tabs/TabPane";
-import FormItem from "antd/es/form/FormItem";
-import { api } from "../../services/api";
-import { DashProvider } from "../../context/dashboard.context";
+import React, { useEffect, useState } from 'react';
+import './style.css';
+import Header from '../../components/Header';
+import {
+  Button,
+  Col,
+  Form,
+  Input,
+  Row,
+  Select,
+  Tabs,
+  Tag,
+  Typography,
+} from 'antd';
+import TabPane from 'antd/es/tabs/TabPane';
+import FormItem from 'antd/es/form/FormItem';
+import { api } from '../../services/api';
+import { DashProvider } from '../../context/dashboard.context';
 
 export type RegisterValues = {
   name_company: string;
@@ -17,6 +27,7 @@ export type RegisterValues = {
   address: string;
   newpassword?: string;
   isSubiscriber?: boolean;
+  daysOfWeeks?: [];
 };
 
 export const acceptPayments = [
@@ -41,14 +52,52 @@ export const acceptPayments = [
     paymentmode: 'ticket refeição',
     brand: 'https://img.icons8.com/office/16/bank-card-back-side.png',
   },
-  {
-    paymentmode: 'todas as marcas de vale refeição',
-    brand: 'https://img.icons8.com/office/16/bank-card-back-side.png',
-  },
+];
+
+export const horarios = [
+  '08:00',
+  '09:00',
+  '10:00',
+  '11:00',
+  '12:00',
+  '13:00',
+  '14:00',
+  '15:00',
+  '16:00',
+  '17:00',
+  '18:00',
+  '19:00',
+  '20:00',
+  '21:00',
+  '22:00',
+  '23:00',
+  '00:00',
+  '01:00',
+  '02:00',
+  '03:00',
+  '04:00',
+  '05:00',
+  '06:00',
+  '07:00',
+];
+
+export const daysOfWeeks = [
+  'Domingo',
+  'Segunda-feira',
+  'Terça-feira',
+  'Quarta-feira',
+  'Quinta-feira',
+  'Sexta-feira',
+  'Sábado',
 ];
 export default function Register() {
   const [payment_modes, setPaymentModes] = useState<any>([]);
   const [load, setLoad] = useState(false);
+  const [daysAndHors, setDaysAndHors] = useState<any[]>([]);
+
+  useEffect(() => {
+    setDaysAndHors([...daysAndHors]);
+  }, []);
 
   const [form] = Form.useForm();
 
@@ -62,163 +111,311 @@ export default function Register() {
     address: '',
   };
 
+  function handleRemoveDay(
+    item: { day: string; open: string; close: string },
+    index: Number
+  ) {
+    setDaysAndHors(
+      daysAndHors.filter(
+        (i: { day: string; open: string; close: string }, ind: Number) =>
+          ind !== index
+      )
+    );
+  }
+
   return (
-    <div>
-      <Form
-        form={form}
-        initialValues={initialvalues}
-        onFinish={async (data: RegisterValues) => {
-          setLoad(true);
-          form.setFieldValue('payments_methods', [...payment_modes]);
-          await api
-            .post('/create', {
-              data: {
-                name_company: data.name_company,
-                address: data.address,
-                cnpj: data.cnpj,
-                email: data.email,
-                payments_methods: payment_modes,
-                password: data.password,
-                phone: data.phone,
-              },
-            })
-            .then(() => {
-              window.location.href = '/';
-              setLoad(false);
-            })
-            .catch((err) => {
-              alert('ops usuario já existe');
-              console.log(err);
-              setLoad(false);
-            });
-        }}
-      >
-        <DashProvider>
-          <Header></Header>
-        </DashProvider>
-        <br />
-        <br />
-        <div className="box-register">
-          <Typography.Title level={2}>Cadastro</Typography.Title>
-          <Tabs className="tab">
-            <TabPane key={1} tab="Dados do estabelecimento">
-              <Row style={{ width: '100%' }}>
-                <Col style={{ width: '100%' }}>
-                  <label htmlFor="name_company">Nome do estabelecimento:</label>
-                  <FormItem name={'name_company'}>
-                    <Input></Input>
-                  </FormItem>
-                  <label htmlFor="cnpj">Cnpj:</label>
-                  <FormItem name={'cnpj'}>
-                    <Input></Input>
-                  </FormItem>
-                  <label htmlFor="email">E-mail:</label>
-                  <FormItem name={'email'}>
-                    <Input></Input>
-                  </FormItem>
-                  <label htmlFor="phone">Telefone:</label>
-                  <FormItem name={'phone'}>
-                    <Input></Input>
-                  </FormItem>
-                  <label htmlFor="password">escolha uma senha:</label>
-                  <FormItem name={'password'}>
-                    <Input></Input>
-                  </FormItem>
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane key={2} tab="Formas de pagamento aceitas">
-              <Row style={{ width: '100%' }}>
-                <Col style={{ width: '100%' }}>
-                  <label htmlFor="payments_methods">
-                    Formas de pagamento que você aceita:
-                  </label>
-                  <FormItem name={'payments_methods'}>
+    <>
+      <DashProvider>
+        <Header></Header>
+      </DashProvider>
+      <div className="bodystyleRegister">
+        <Form
+          form={form}
+          initialValues={initialvalues}
+          onFinish={async (data: RegisterValues) => {
+            setLoad(true);
+            form.setFieldValue('payments_methods', [...payment_modes]);
+
+            await api
+              .post('/create', {
+                data: {
+                  name_company: data.name_company,
+                  address: data.address,
+                  cnpj: data.cnpj,
+                  email: data.email,
+                  payments_methods: payment_modes,
+                  password: data.password,
+                  phone: data.phone,
+                  daysOfWeeks: daysAndHors,
+                },
+              })
+              .then(() => {
+                window.location.href = '/';
+                setLoad(false);
+              })
+              .catch((err) => {
+                alert('ops usuario já existe');
+                console.log(err);
+                setLoad(false);
+              });
+          }}
+        >
+          <br />
+          <br />
+          <div className="box-register">
+            <Typography.Title level={2}>Cadastro</Typography.Title>
+            <Tabs className="tab">
+              <TabPane key={1} tab="Dados do estabelecimento">
+                <Row style={{ width: '100%' }}>
+                  <Col style={{ width: '100%' }}>
+                    <Row style={{ gap: 10 }}>
+                      <FormItem
+                        style={{ flex: 1 }}
+                        label="Nome do estabelecimento:"
+                        labelAlign="left"
+                        name={'name_company'}
+                      >
+                        <Input></Input>
+                      </FormItem>
+                      <FormItem
+                        style={{ flex: 1 }}
+                        label="Cnpj:"
+                        labelAlign="left"
+                        name={'cnpj'}
+                      >
+                        <Input></Input>
+                      </FormItem>
+                    </Row>
+
+                    <FormItem
+                      style={{ flex: 1 }}
+                      label="E-mail:"
+                      labelAlign="left"
+                      name={'email'}
+                    >
+                      <Input></Input>
+                    </FormItem>
+                    <FormItem
+                      style={{ flex: 1 }}
+                      label="Telefone:"
+                      labelAlign="left"
+                      name={'phone'}
+                    >
+                      <Input></Input>
+                    </FormItem>
                     <Row
                       style={{
-                        display: 'flex',
-                        gap: '10px',
+                        gap: 10,
+                        alignItems: 'center',
+                        border: '1px solid silver',
+                        padding: '10px',
+                        marginBottom: '10px',
                         flexDirection: 'column',
                       }}
                     >
-                      {acceptPayments.map(
-                        (item: (typeof acceptPayments)[0], index) => {
-                          return (
-                            <Row
-                              key={index}
-                              style={{
-                                display: 'flex',
-                                gap: '10px',
-                                justifyContent: 'space-between',
-                              }}
-                            >
-                              <Input
-                                prefix={
-                                  <Row>
-                                    <label
-                                      htmlFor="payment_mode"
-                                      style={{ width: '300px' }}
-                                    >
-                                      Cartão de {item.paymentmode}
-                                    </label>
-                                    <img
-                                      style={{
-                                        width: '20px',
-                                        marginLeft: '30px',
-                                      }}
-                                      src={item.brand}
-                                      alt=""
-                                    ></img>
-                                  </Row>
-                                }
-                                style={{ width: '100%' }}
-                                type="checkbox"
-                                value={item.paymentmode}
-                                onChange={(e) => {
-                                  if (e.target.checked) {
-                                    setPaymentModes(
-                                      (prev: typeof payment_modes) => [
-                                        ...prev,
-                                        e.target.value,
-                                      ]
-                                    );
-                                  } else {
-                                    setPaymentModes(
-                                      payment_modes.filter(
-                                        (item: string) =>
-                                          item !== e.target.value
-                                      )
-                                    );
-                                  }
-                                }}
-                              ></Input>
-                            </Row>
-                          );
-                        }
-                      )}
+                      <label htmlFor="">
+                        Adicione os dias e horários de funcionamento
+                      </label>
+                      <Row
+                        style={{
+                          gap: 10,
+                          alignItems: 'center',
+                          width: '100%',
+                        }}
+                      >
+                        <FormItem
+                          style={{ flex: 1 }}
+                          label="Dia da semana"
+                          labelAlign="left"
+                          name="day"
+                        >
+                          <Select placeholder="Selecione">
+                            {daysOfWeeks.map((item: string, index: number) => {
+                              return (
+                                <Select.Option key={index} value={item}>
+                                  {item}
+                                </Select.Option>
+                              );
+                            })}
+                          </Select>
+                        </FormItem>
+                        <FormItem
+                          style={{ flex: 1 }}
+                          label="Início"
+                          labelAlign="left"
+                          name="openHors"
+                        >
+                          <Select placeholder="Selecione">
+                            {horarios.map((item: string, index: number) => {
+                              return (
+                                <Select.Option key={index} value={item}>
+                                  {item}
+                                </Select.Option>
+                              );
+                            })}
+                          </Select>
+                        </FormItem>
+                        <FormItem
+                          style={{ flex: 1 }}
+                          label="Término"
+                          labelAlign="left"
+                          name="closeHors"
+                        >
+                          <Select placeholder="Selecione">
+                            {horarios.map((item: string, index: number) => {
+                              return (
+                                <Select.Option key={index} value={item}>
+                                  {item}
+                                </Select.Option>
+                              );
+                            })}
+                          </Select>
+                        </FormItem>
+
+                        <Button
+                          style={{ marginBottom: '-6px' }}
+                          type="default"
+                          onClick={() => {
+                            let dia = form.getFieldValue('day');
+                            let hora = form.getFieldValue('openHors');
+                            let closeHors = form.getFieldValue('closeHors');
+                            const object = {
+                              day: dia,
+                              open: hora,
+                              close: closeHors,
+                            };
+                            daysAndHors.push(object);
+                            setDaysAndHors([...daysAndHors]);
+                            form.resetFields(['day', 'hors']);
+                          }}
+                        >
+                          +
+                        </Button>
+                      </Row>
+                      <Row style={{ width: '100%', gap: 5 }}>
+                        {daysAndHors.map(
+                          (
+                            item: {
+                              day: string;
+                              open: string;
+                              close: string;
+                            },
+                            index
+                          ) => {
+                            return (
+                              <Tag
+                                color="blue"
+                                onClick={() => handleRemoveDay(item, index)}
+                              >
+                                Dia: {item.day} abre: {item.open} fecha:{' '}
+                                {item.close} X
+                              </Tag>
+                            );
+                          }
+                        )}
+                      </Row>
                     </Row>
-                  </FormItem>
-                </Col>
-              </Row>
-            </TabPane>
-            <TabPane key={3} tab="Informações de endereço">
-              <Row style={{ width: '100%' }}>
-                <Col style={{ width: '100%' }}>
-                  <label htmlFor="address">
-                    Endereço do seu estabelecimento:
-                  </label>
-                  <FormItem name={'address'}>
-                    <Input placeholder="ex: av paulista 2049"></Input>
-                  </FormItem>
-                  <button disabled={load} id="finshbtn" type="submit">
-                    {load ? 'Cadastrando...' : 'Finalizar'}
-                  </button>
-                </Col>
-              </Row>
-            </TabPane>
-          </Tabs>
-        </div>
-      </Form>
-    </div>
+
+                    <label htmlFor="password">escolha uma senha:</label>
+                    <FormItem name={'password'}>
+                      <Input></Input>
+                    </FormItem>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane key={2} tab="Formas de pagamento aceitas">
+                <Row style={{ width: '100%' }}>
+                  <Col style={{ width: '100%' }}>
+                    <label htmlFor="payments_methods">
+                      Formas de pagamento que você aceita:
+                    </label>
+                    <FormItem name={'payments_methods'}>
+                      <Row
+                        style={{
+                          display: 'flex',
+                          gap: '10px',
+                          flexDirection: 'column',
+                        }}
+                      >
+                        {acceptPayments.map(
+                          (item: (typeof acceptPayments)[0], index) => {
+                            return (
+                              <Row
+                                key={index}
+                                style={{
+                                  display: 'flex',
+                                  gap: '10px',
+                                  justifyContent: 'space-between',
+                                }}
+                              >
+                                <Input
+                                  prefix={
+                                    <Row>
+                                      <label
+                                        htmlFor="payment_mode"
+                                        style={{ width: '300px' }}
+                                      >
+                                        Cartão de {item.paymentmode}
+                                      </label>
+                                      <img
+                                        style={{
+                                          width: '20px',
+                                          marginLeft: '30px',
+                                        }}
+                                        src={item.brand}
+                                        alt=""
+                                      ></img>
+                                    </Row>
+                                  }
+                                  style={{ width: '100%' }}
+                                  type="checkbox"
+                                  value={item.paymentmode}
+                                  onChange={(e) => {
+                                    if (e.target.checked) {
+                                      setPaymentModes(
+                                        (prev: typeof payment_modes) => [
+                                          ...prev,
+                                          e.target.value,
+                                        ]
+                                      );
+                                    } else {
+                                      setPaymentModes(
+                                        payment_modes.filter(
+                                          (item: string) =>
+                                            item !== e.target.value
+                                        )
+                                      );
+                                    }
+                                  }}
+                                ></Input>
+                              </Row>
+                            );
+                          }
+                        )}
+                      </Row>
+                    </FormItem>
+                  </Col>
+                </Row>
+              </TabPane>
+              <TabPane key={3} tab="Informações de endereço">
+                <Row style={{ width: '100%' }}>
+                  <Col style={{ width: '100%' }}>
+                    <label htmlFor="address">
+                      Endereço do seu estabelecimento:
+                    </label>
+                    <FormItem name={'address'}>
+                      <Input placeholder="ex: av paulista 2049"></Input>
+                    </FormItem>
+                    <button disabled={load} id="finshbtn" type="submit">
+                      {load ? 'Cadastrando...' : 'Finalizar'}
+                    </button>
+                  </Col>
+                </Row>
+              </TabPane>
+            </Tabs>
+          </div>
+        </Form>
+      </div>
+    </>
   );
 }
