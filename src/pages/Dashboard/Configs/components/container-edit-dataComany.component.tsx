@@ -25,6 +25,7 @@ import {
 import { api } from '../../../../services/api';
 import { toast } from 'react-toastify';
 import { EncryptString } from '../../../../helpers/ecryptString';
+import { FiTrash } from 'react-icons/fi';
 
 const ContainerEditDataCompany = () => {
   const { dataCompany, corNavPrev, asUser } = useContext(DashContext);
@@ -52,6 +53,8 @@ const ContainerEditDataCompany = () => {
     phone: dataCompany.phone,
     email: dataCompany.email,
     address: dataCompany.address,
+    pixKey: dataCompany?.pixKey,
+    pixType: dataCompany?.pixType,
   };
 
   const handleSubmit = async () => {
@@ -75,6 +78,8 @@ const ContainerEditDataCompany = () => {
           password: fieldsValues.newpassword,
           payments_methods: payment_methods,
           daysOfWeeks: daysAndWeeks,
+          pixKey: fieldsValues.pixKey,
+          pixType: fieldsValues.pixType,
         },
         {
           headers: {
@@ -115,7 +120,7 @@ const ContainerEditDataCompany = () => {
       )
     );
   }
-  function handleRemoveDays(item: string, index: number) {
+  function handleRemoveDays(index: number) {
     setDaysAndWeeks(
       daysAndWeeks.filter((i: string, position: number) => position !== index)
     );
@@ -175,6 +180,37 @@ const ContainerEditDataCompany = () => {
                 <Input id="address" />
               </Form.Item>
             </Row>
+            <Row style={{ width: '100%', gap: '10px', flexWrap: 'nowrap' }}>
+              <Form.Item
+                labelAlign="left"
+                label="Tipo de chave pix"
+                name="pixType"
+                style={{ width: '100%' }}
+              >
+                <Select placeholder="Selecione">
+                  <Select.Option key={1} value={'cpf'}>
+                    {'Cpf'}
+                  </Select.Option>
+                  <Select.Option key={1} value={'Cnpj'}>
+                    {'Cnpj'}
+                  </Select.Option>
+                  <Select.Option key={1} value={'telefone'}>
+                    {'Telefone'}
+                  </Select.Option>
+                  <Select.Option key={1} value={'aleatoria'}>
+                    {'Aleatória'}
+                  </Select.Option>
+                </Select>
+              </Form.Item>
+              <Form.Item
+                labelAlign="left"
+                label="Digite sua chve"
+                name="pixKey"
+                style={{ width: '100%' }}
+              >
+                <Input />
+              </Form.Item>
+            </Row>
             <Row>
               <Col style={{ gap: '20px' }}>
                 <Typography.Title level={4}>
@@ -217,7 +253,7 @@ const ContainerEditDataCompany = () => {
                               handleRemovePaymentsMethods(item, index)
                             }
                           >
-                            {item} X
+                            {item} <FiTrash></FiTrash>
                           </Tag>
                         </div>
                       );
@@ -241,13 +277,21 @@ const ContainerEditDataCompany = () => {
                         onChange={(e) => setDay(e)}
                         style={{ width: '100px' }}
                       >
-                        {daysOfWeeks.map((item: string, index: number) => {
-                          return (
-                            <Select.Option key={index} value={item}>
-                              {item}
-                            </Select.Option>
-                          );
-                        })}
+                        {daysOfWeeks.map(
+                          (
+                            item: { d: number; name: string },
+                            index: number
+                          ) => {
+                            return (
+                              <Select.Option
+                                key={index}
+                                value={JSON.stringify(item)}
+                              >
+                                {item.name}
+                              </Select.Option>
+                            );
+                          }
+                        )}
                       </Select>
                       <Select
                         placeholder="Abertura"
@@ -282,21 +326,28 @@ const ContainerEditDataCompany = () => {
                             toast.info('Todos os dias estão cadastrados!');
                             return;
                           }
+
                           const object = {
-                            day: day,
+                            day: JSON.parse(day),
                             open: open,
                             close: close,
                           };
 
                           daysAndWeeks.push(object);
                           setDaysAndWeeks([...daysAndWeeks]);
+
+                          console.log(daysAndWeeks);
                         }}
                       >
                         +
                       </Button>
                       {daysAndWeeks?.map(
                         (
-                          item: { day: string; open: string; close: string },
+                          item: {
+                            day: { d: number; name: string };
+                            open: string;
+                            close: string;
+                          },
                           index: number
                         ) => {
                           return (
@@ -304,12 +355,10 @@ const ContainerEditDataCompany = () => {
                               <Tag
                                 style={{ cursor: 'pointer' }}
                                 color="blue"
-                                onClick={() =>
-                                  handleRemoveDays(item.day, index)
-                                }
+                                onClick={() => handleRemoveDays(index)}
                               >
-                                Dia: {item.day} abre: {item.open} fecha:{' '}
-                                {item.close} X
+                                Dia: {item.day.name} abre: {item.open} fecha:{' '}
+                                {item.close} <FiTrash></FiTrash>
                               </Tag>
                             </div>
                           );

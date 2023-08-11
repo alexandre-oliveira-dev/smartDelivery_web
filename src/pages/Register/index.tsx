@@ -28,6 +28,8 @@ export type RegisterValues = {
   newpassword?: string;
   isSubiscriber?: boolean;
   daysOfWeeks?: [];
+  pixType?: string;
+  pixKey?: string;
 };
 
 export const acceptPayments = [
@@ -82,13 +84,13 @@ export const horarios = [
 ];
 
 export const daysOfWeeks = [
-  'Domingo',
-  'Segunda-feira',
-  'Terça-feira',
-  'Quarta-feira',
-  'Quinta-feira',
-  'Sexta-feira',
-  'Sábado',
+  { d: 0, name: 'Domingo' },
+  { d: 1, name: 'Segunda-feira' },
+  { d: 2, name: 'Terça-feira' },
+  { d: 3, name: 'Quarta-feira' },
+  { d: 4, name: 'Quinta-feira' },
+  { d: 5, name: 'Sexta-feira' },
+  { d: 6, name: 'Sábado' },
 ];
 export default function Register() {
   const [payment_modes, setPaymentModes] = useState<any>([]);
@@ -111,10 +113,7 @@ export default function Register() {
     address: '',
   };
 
-  function handleRemoveDay(
-    item: { day: string; open: string; close: string },
-    index: Number
-  ) {
+  function handleRemoveDay(index: Number) {
     setDaysAndHors(
       daysAndHors.filter(
         (i: { day: string; open: string; close: string }, ind: Number) =>
@@ -230,13 +229,21 @@ export default function Register() {
                           name="day"
                         >
                           <Select placeholder="Selecione">
-                            {daysOfWeeks.map((item: string, index: number) => {
-                              return (
-                                <Select.Option key={index} value={item}>
-                                  {item}
-                                </Select.Option>
-                              );
-                            })}
+                            {daysOfWeeks.map(
+                              (
+                                item: { d: number; name: string },
+                                index: number
+                              ) => {
+                                return (
+                                  <Select.Option
+                                    key={index}
+                                    value={JSON.stringify(item)}
+                                  >
+                                    {item.name}
+                                  </Select.Option>
+                                );
+                              }
+                            )}
                           </Select>
                         </FormItem>
                         <FormItem
@@ -279,8 +286,10 @@ export default function Register() {
                             let dia = form.getFieldValue('day');
                             let hora = form.getFieldValue('openHors');
                             let closeHors = form.getFieldValue('closeHors');
+
+                            console.log(JSON.parse(dia));
                             const object = {
-                              day: dia,
+                              day: JSON.parse(dia),
                               open: hora,
                               close: closeHors,
                             };
@@ -296,7 +305,7 @@ export default function Register() {
                         {daysAndHors.map(
                           (
                             item: {
-                              day: string;
+                              day: { n: number; name: string };
                               open: string;
                               close: string;
                             },
@@ -305,9 +314,9 @@ export default function Register() {
                             return (
                               <Tag
                                 color="blue"
-                                onClick={() => handleRemoveDay(item, index)}
+                                onClick={() => handleRemoveDay(index)}
                               >
-                                Dia: {item.day} abre: {item.open} fecha:{' '}
+                                Dia: {item.day.name} abre: {item.open} fecha:{' '}
                                 {item.close} X
                               </Tag>
                             );

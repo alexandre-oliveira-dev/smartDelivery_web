@@ -117,7 +117,7 @@ export default function FormCreateCardapio() {
                       labelAlign="left"
                       name="categoria"
                     >
-                      <Select placeholder="categoria">
+                      <Select showSearch placeholder="categoria">
                         {Options.map((item: Optionstype) => {
                           return (
                             <option key={item.id} value={item.value}>
