@@ -27,6 +27,11 @@ import { toast } from 'react-toastify';
 import { EncryptString } from '../../../../helpers/ecryptString';
 import { FiTrash } from 'react-icons/fi';
 
+interface DayObjectParamsType {
+  d: number;
+  name: string;
+}
+
 const ContainerEditDataCompany = () => {
   const { dataCompany, corNavPrev, asUser } = useContext(DashContext);
   const [form] = Form.useForm();
@@ -57,7 +62,7 @@ const ContainerEditDataCompany = () => {
     pixType: dataCompany?.pixType,
   };
 
-  const handleSubmit = async () => {
+  const handleSubmitUpdate = async () => {
     setLoad(true);
     const fieldsValues: RegisterValues = form.getFieldsValue();
     if (!fieldsValues.password) {
@@ -278,10 +283,7 @@ const ContainerEditDataCompany = () => {
                         style={{ width: '100px' }}
                       >
                         {daysOfWeeks.map(
-                          (
-                            item: { d: number; name: string },
-                            index: number
-                          ) => {
+                          (item: DayObjectParamsType, index: number) => {
                             return (
                               <Select.Option
                                 key={index}
@@ -344,7 +346,7 @@ const ContainerEditDataCompany = () => {
                       {daysAndWeeks?.map(
                         (
                           item: {
-                            day: { d: number; name: string };
+                            day: DayObjectParamsType;
                             open: string;
                             close: string;
                           },
@@ -405,7 +407,7 @@ const ContainerEditDataCompany = () => {
                 borderRadius: '10px',
               }}
               type="submit"
-              onClick={handleSubmit}
+              onClick={handleSubmitUpdate}
             >
               {load ? <Spin></Spin> : 'Salvar'}
             </button>

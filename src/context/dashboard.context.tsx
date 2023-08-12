@@ -32,10 +32,7 @@ export interface AsUserPropsTypes {
 }
 
 export interface ContextTypes {
-  asUser: AsUserPropsTypes;
   setFileProfile: React.Dispatch<SetStateAction<string | ArrayBuffer | null>>;
-  fileProfile: string;
-  corNavPrev: string;
   setCorNav: React.Dispatch<SetStateAction<string>>;
   setOpenModal: React.Dispatch<SetStateAction<boolean>>;
   setOpenModalEdititem: React.Dispatch<SetStateAction<boolean>>;
@@ -44,6 +41,10 @@ export interface ContextTypes {
   setWarnigsOrderFinished: React.Dispatch<SetStateAction<boolean>>;
   setSearchParam: React.Dispatch<SetStateAction<string | null>>;
   setPasswordCript: React.Dispatch<SetStateAction<string | null>>;
+  setLoadTables: React.Dispatch<SetStateAction<boolean>>;
+  asUser: AsUserPropsTypes;
+  fileProfile: string;
+  corNavPrev: string;
   openModal: boolean;
   openModalConfirmPassword: boolean;
   openModalEditItem: boolean;
@@ -57,7 +58,6 @@ export interface ContextTypes {
   dataOrdersFinished: any[];
   searchParam: string | null;
   passwordCript: string | null;
-  setLoadTables: React.Dispatch<SetStateAction<boolean>>;
 }
 export const DashContext = createContext<ContextTypes>({} as ContextTypes);
 
