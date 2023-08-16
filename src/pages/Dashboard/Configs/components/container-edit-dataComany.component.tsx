@@ -337,8 +337,6 @@ const ContainerEditDataCompany = () => {
 
                           daysAndWeeks.push(object);
                           setDaysAndWeeks([...daysAndWeeks]);
-
-                          console.log(daysAndWeeks);
                         }}
                       >
                         +

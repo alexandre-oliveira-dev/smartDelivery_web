@@ -11,6 +11,7 @@ import ModalDetailsItem from './modal-details-item.component';
 import ModalEditItem from './modal-edit-item.component';
 import { api } from '../../../../services/api';
 import { toast } from 'react-toastify';
+import { PriceFormater } from '../../../../helpers/priceFormater';
 
 export default function TableForListItems() {
   const {
@@ -23,8 +24,9 @@ export default function TableForListItems() {
   } = useContext(DashContext);
   const [dataItemDetails, setdataItemDetails] = useState<any>({});
   const [initialValues, setInitialValues] = useState<any>({});
+  const format = new PriceFormater();
 
-  const coloumns: ColumnsType<any> = [
+  const columns: ColumnsType<any> = [
     {
       title: 'Title',
       dataIndex: 'title',
@@ -49,10 +51,7 @@ export default function TableForListItems() {
       render(item: string) {
         return (
           <Tag style={{ fontSize: '15px', padding: '2px' }} color="green">
-            {parseFloat(item.replace(',', '.'))?.toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
+            {format.formater({ price: item })}
           </Tag>
         );
       },
@@ -197,7 +196,7 @@ export default function TableForListItems() {
         <Table
           style={{ width: '90%' }}
           dataSource={dataCardapio.reverse()}
-          columns={coloumns}
+          columns={columns}
           loading={loadTables}
           size="small"
           pagination={{

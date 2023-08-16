@@ -9,7 +9,7 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 import FormItem from 'antd/es/form/FormItem';
 import { Option } from 'antd/es/mentions';
@@ -30,9 +30,19 @@ export interface Params {
 }
 
 export default function ModalEditItem({ item }: Params) {
-  const { openModalEditItem, setOpenModalEdititem } = useContext(DashContext);
   const [form] = Form.useForm();
+  const { openModalEditItem, setOpenModalEdititem } = useContext(DashContext);
   const [load, setLoad] = useState(false);
+  useEffect(() => {
+    form.setFieldsValue({
+      title: item.title,
+      categoria: item.categoria,
+      weight: item.weight,
+      amount: item.amount,
+      price: item.price,
+      description: item.description,
+    });
+  }, [item, form]);
 
   async function handleUpdateItem() {
     setLoad(true);
@@ -52,6 +62,7 @@ export default function ModalEditItem({ item }: Params) {
       .then(() => {
         setLoad(false);
         toast.success('item atualizado com sucesso!');
+        Modal.destroyAll();
         window.location.reload();
       });
   }
@@ -64,6 +75,7 @@ export default function ModalEditItem({ item }: Params) {
         okText={load ? <Spin></Spin> : 'Atualizar'}
         onCancel={() => {
           setOpenModalEdititem(false);
+          Modal.destroyAll();
         }}
         centered
         title={
@@ -73,17 +85,7 @@ export default function ModalEditItem({ item }: Params) {
           </>
         }
       >
-        <Form
-          initialValues={{
-            title: item.title,
-            categoria: item.categoria,
-            weight: item.weight,
-            amount: item.amount,
-            price: item.price,
-            description: item.description,
-          }}
-          form={form}
-        >
+        <Form form={form}>
           <Row style={{ width: '100%', flexWrap: 'nowrap', gap: '10px' }}>
             <Col style={{ width: '50%' }}>
               <label htmlFor="title">Titulo do item</label>
