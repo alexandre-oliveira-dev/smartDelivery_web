@@ -74,5 +74,9 @@
     .responsiveBtnsareaLogin{
         display: none !important;
     }
+    .header{
+        width: 100% !important;
+        border-radius: 0;
+    }
   
 }

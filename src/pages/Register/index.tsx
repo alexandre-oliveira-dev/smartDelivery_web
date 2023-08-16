@@ -164,7 +164,7 @@ export default function Register() {
           <div className="box-register">
             <Typography.Title level={2}>Cadastro</Typography.Title>
             <Tabs className="tab">
-              <TabPane key={1} tab="Dados do estabelecimento">
+              <TabPane className='responsivetabpane' key={1} tab="Dados do estabelecimento">
                 <Row style={{ width: '100%' }}>
                   <Col style={{ width: '100%' }}>
                     <Row style={{ gap: 10 }}>
@@ -203,10 +203,11 @@ export default function Register() {
                       <Input></Input>
                     </FormItem>
                     <Row
+                      className='responsiveboxadddays'
                       style={{
                         gap: 10,
                         alignItems: 'center',
-                        border: '1px solid silver',
+                        //border: '1px solid silver',
                         padding: '10px',
                         marginBottom: '10px',
                         flexDirection: 'column',
@@ -280,6 +281,7 @@ export default function Register() {
                         </FormItem>
 
                         <Button
+                          className='responsivebtnaddmoredays'
                           style={{ marginBottom: '-6px' }}
                           type="default"
                           onClick={() => {
@@ -369,7 +371,7 @@ export default function Register() {
                                       <img
                                         style={{
                                           width: '20px',
-                                          marginLeft: '30px',
+                                          //marginLeft: '30px',
                                         }}
                                         src={item.brand}
                                         alt=""

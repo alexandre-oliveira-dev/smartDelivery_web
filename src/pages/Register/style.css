@@ -39,3 +39,25 @@
   width: 0;
   height: 0;
 }
+
+@media(max-width:500px){
+  .bodystyleRegister{
+    width: 100% !important;
+    display: block;
+  }
+  .box-register{
+    width: 100% !important;
+    border-radius: 0;
+    padding: 1rem;
+  }
+  .tab{
+    width: 100% !important;
+  }
+  .responsivetabpane{
+    width: 100% !important;
+
+  }
+.responsivebtnaddmoredays{
+  margin-bottom: -15px !important;
+}
+}

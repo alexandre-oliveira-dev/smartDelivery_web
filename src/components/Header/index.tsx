@@ -8,16 +8,18 @@ const logo = require('../../assets/logo.png');
 export default function Header() {
   const { asUser, setOpenModal } = useContext(DashContext);
 
-  window.addEventListener('scroll', function () {
-    const scrollPosition = window.scrollY;
-    if (scrollPosition !== 0) {
-      document
-        .querySelector('.header')
-        ?.setAttribute('style', 'width:100%;border-radius:0');
-    } else {
-      document.querySelector('.header')?.setAttribute('style', 'width:80%');
-    }
-  });
+  if (window.screen.width > 500) {
+    window.addEventListener('scroll', function () {
+      const scrollPosition = window.scrollY;
+      if (scrollPosition !== 0) {
+        document
+          .querySelector('.header')
+          ?.setAttribute('style', 'width:100%;border-radius:0');
+      } else {
+        document.querySelector('.header')?.setAttribute('style', 'width:80%');
+      }
+    });
+  }
 
   return (
     <header className="box-header">

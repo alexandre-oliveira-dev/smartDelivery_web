@@ -1,0 +1,27 @@
+
+
+@media(max-width:500px){
+    .responsivecontaineraboutus{
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    .responsivecontainerilustrationanddescription{
+        width: 100% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    .responsiveilustration{
+        width: 100% !important;
+    }
+    .responsivebtnstartnow{
+        width: 100% !important;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 20px;
+        background-color: #5B72F2;
+        color: #fff;
+    }
+}
