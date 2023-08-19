@@ -1,7 +1,7 @@
 import React, { useContext,useState } from "react";
 import { DashContext } from "../../../../context/dashboard.context";
-import { Button, Col, Input, Row, Table, Tag, Typography } from "antd";
-import { ColumnsType } from "antd/es/table";
+import { Button, Col, Input, Row, Select, Table, Tag, Typography } from 'antd';
+import { ColumnsType } from 'antd/es/table';
 import { FiEdit, FiSearch, FiTrash } from 'react-icons/fi';
 import { TbListDetails } from 'react-icons/tb';
 import Card from 'antd/es/card/Card';
@@ -16,7 +16,6 @@ import { PriceFormater } from '../../../../helpers/priceFormater';
 export default function TableForListItems() {
   const {
     dataCardapio,
-    corNavPrev,
     loadTables,
     setLoadTables,
     setOpenModal,
@@ -135,13 +134,7 @@ export default function TableForListItems() {
         </Row>
         <Card style={{ width: '90%', marginBottom: '20px' }}>
           <Row justify={'end'}>
-            <Button
-              onClick={() => {
-                window.location.href = window.location.pathname;
-              }}
-            >
-              Limpar
-            </Button>
+            <Button onClick={() => setItem('')}>Limpar</Button>
           </Row>
           <Row gutter={[22, 22]}>
             <Col>
@@ -163,32 +156,26 @@ export default function TableForListItems() {
                 Catagoria do item
               </label>
               <div>
-                <select
+                <Select
                   id="Categoria"
                   style={{
                     width: '200px',
-                    height: '30px',
-                    outlineColor: corNavPrev,
-                    border: '1px solid silver',
-                    borderRadius: '5px',
-                    color: 'silver',
                   }}
                   placeholder="Selecione"
                   onChange={(event) => {
-                    setItem(event.target?.value);
+                    setItem(event);
                   }}
                 >
-                  <option>Selecione</option>
                   <>
-                    {Options.map((item: any) => {
+                    {Options.map((item) => {
                       return (
-                        <option key={item.id} value={item.value}>
+                        <Select.Option key={item.id} value={item.value}>
                           {item.value}
-                        </option>
+                        </Select.Option>
                       );
                     })}
                   </>
-                </select>
+                </Select>
               </div>
             </Col>
           </Row>
