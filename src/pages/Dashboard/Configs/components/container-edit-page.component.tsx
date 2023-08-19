@@ -2,7 +2,7 @@ import { Button, Col, Divider, Input, Row, Spin, Tag, Typography } from 'antd';
 import React, { useState, useContext } from 'react';
 import '../style.css';
 import { DashContext } from '../../../../context/dashboard.context';
-import IframePageCompany from './iframe-page.component';
+import IframePreviewPageCompany from './iframe-preview-page.component';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { api } from '../../../../services/api';
 import ModalConfirmPassword from './modalConfirmPassword';
@@ -125,7 +125,9 @@ export default function ContainerEditMyPage() {
           </Row>
         </div>
         <div style={{ padding: '20px', width: '50%' }}>
-          <IframePageCompany color={corNavPrev}></IframePageCompany>
+          <IframePreviewPageCompany
+            color={corNavPrev}
+          ></IframePreviewPageCompany>
         </div>
       </div>
 

@@ -108,8 +108,6 @@ export default function TableForListItems() {
               >
                 <FiTrash color="red"></FiTrash>
               </Button>
-              <ModalDetailsItem data={dataItemDetails}></ModalDetailsItem>
-              <ModalEditItem item={initialValues}></ModalEditItem>
             </>
           </div>
         );
@@ -121,6 +119,8 @@ export default function TableForListItems() {
 
   return (
     <>
+      <ModalDetailsItem data={dataItemDetails}></ModalDetailsItem>
+      <ModalEditItem item={initialValues}></ModalEditItem>
       <div
         style={{
           width: '100%',

@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { DashContext } from "../../../../context/dashboard.context";
+import React, { useContext } from 'react';
+import { DashContext } from '../../../../context/dashboard.context';
 import { Link } from 'react-router-dom';
 import { Col, Image, Row, Tag, Typography } from 'antd';
 
@@ -8,7 +8,7 @@ interface Params {
   file?: string | ArrayBuffer | null;
 }
 
-export default function IframePageCompany({ color }: Params) {
+export default function IframePreviewPageCompany({ color }: Params) {
   const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
   return (
     <>
