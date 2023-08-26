@@ -191,11 +191,21 @@ export default function FormCreateCardapio() {
                       boxShadow: '5px 5px 10px silver',
                     }}
                   >
-                    <Row style={{ width: '100%', position: 'relative' }}>
+                    <Row
+                      style={{
+                        width: '100%',
+                        position: 'relative',
+                        marginBottom: '20px',
+                      }}
+                    >
                       <Typography.Text>{index + 1}°</Typography.Text>
                       <Button
-                        style={{ position: 'absolute', right: '0px' }}
-                        type="default"
+                        style={{
+                          position: 'absolute',
+                          right: '0px',
+                          border: '0 !important',
+                        }}
+                        type="text"
                         onClick={() => {
                           setDatacardapio(
                             datacardapio.filter(

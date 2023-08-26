@@ -1,7 +1,8 @@
 import { Button, Modal, Row, Typography } from 'antd';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { MdWarning } from 'react-icons/md';
 import { api } from '../../../services/api';
+import { OrdersStatus } from '../../../types';
 
 interface OrdersParamsTytpe {
   orderId: string;
@@ -16,7 +17,7 @@ export default function OrderCancelComponent({
   async function handleCancelOrder() {
     await api
       .put(`/orders/${orderId}`, {
-        status: 'cancelado',
+        status: OrdersStatus.Cancelado,
       })
       .then(() => {
         window.location.reload();
@@ -24,7 +25,7 @@ export default function OrderCancelComponent({
   }
   return (
     <>
-      {status !== 'cancelado' && (
+      {status !== OrdersStatus.Cancelado && (
         <Button
           style={{ background: 'red', color: '#fff' }}
           onClick={() => setOpen(true)}

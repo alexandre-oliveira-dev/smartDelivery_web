@@ -5,9 +5,10 @@ import { DashContext } from "../../../context/dashboard.context";
 import { api } from "../../../services/api";
 import { toast } from "react-toastify";
 import OrderCancelComponent from './orderCancel.component';
+import { Orders, OrdersStatus } from '../../../types';
 
 type Datamodal = {
-  data?: any;
+  data: Orders;
 };
 
 export default function ModalOrders({ data }: Datamodal) {
@@ -18,7 +19,7 @@ export default function ModalOrders({ data }: Datamodal) {
     setLoad(true);
     await api
       .put(`/orders/${id}`, {
-        status: 'entrega',
+        status: OrdersStatus.Entrega,
       })
       .then(() => {
         setLoad(false);
@@ -60,7 +61,7 @@ export default function ModalOrders({ data }: Datamodal) {
             <Typography.Title key={data?.id} level={5}>
               Nome:
             </Typography.Title>
-            <Typography.Paragraph>{data?.client.name}</Typography.Paragraph>
+            <Typography.Paragraph>{data?.client?.name}</Typography.Paragraph>
             <Typography.Title level={5}>Endereço:</Typography.Title>
             <Typography.Paragraph copyable={true}>
               {data?.address}
@@ -74,7 +75,7 @@ export default function ModalOrders({ data }: Datamodal) {
             <Typography.Title level={5}>Metodo de pagamento:</Typography.Title>
             <Typography.Paragraph>{data?.payment_method}</Typography.Paragraph>
             <Typography.Title level={5}>Pedido:</Typography.Title>
-            {data?.order.map((item: { item: string; qtd: number }) => (
+            {data?.order?.map((item: { item: string; qtd: number }) => (
               <Tag color="purple">
                 {
                   <Row style={{ gap: '10px' }}>

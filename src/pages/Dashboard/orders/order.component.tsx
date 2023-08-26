@@ -1,19 +1,20 @@
-import React, { useContext, useState } from "react";
-import NavBarComponent from "../components/navbarComponent";
-import Title from "../components/Title";
-import "./style.css";
-import "../styleGlobalDash.css";
-import { Table, Button, Typography, Col, Row, Spin, Tag } from "antd";
-import { ColumnsType } from "antd/es/table";
-import ModalOrders from "./modalOrders.component";
-import { DashContext } from "../../../context/dashboard.context";
-import dayjs from "dayjs";
+import React, { useContext, useState } from 'react';
+import NavBarComponent from '../components/navbarComponent';
+import Title from '../components/Title';
+import './style.css';
+import '../styleGlobalDash.css';
+import { Table, Button, Typography, Col, Row, Spin, Tag } from 'antd';
+import { ColumnsType } from 'antd/es/table';
+import ModalOrders from './modalOrders.component';
+import { DashContext } from '../../../context/dashboard.context';
+import dayjs from 'dayjs';
 import ModalCloseOfficeHour from './modal-close-officeHour.component';
 import ModalWarnigsOrderFinished from './modal-warning-orderFinished.component';
 import SumaryStatusOrdersComponent from './sumary-status-orders.component';
 import OrderCancelComponent from './orderCancel.component';
-import { TbDetails, TbListDetails } from 'react-icons/tb';
+import { TbListDetails } from 'react-icons/tb';
 import ModalDetailsOrders from './modal-details-order.component';
+import { Orders, OrdersStatus } from '../../../types';
 
 export default function Dashboard() {
   const {
@@ -26,21 +27,20 @@ export default function Dashboard() {
     setWarnigsOrderFinished,
     setOpenModalDetailsOrders,
   } = useContext(DashContext);
-  const [dataOrder, setDataOrder] = useState<any>();
+  const [dataOrder, setDataOrder] = useState<Orders>({} as Orders);
   const [orderid, setOrderid] = useState<string>('');
 
   const orders = dataOrders
-    .filter((item: any) => item.status !== 'finalizado')
+    .filter((item: any) => item.status !== OrdersStatus.Finalizado)
     .map((item: any) => item.order);
   const ordersFinished = dataOrders.map((item: any) => item.order);
 
-  const coluns: ColumnsType<any> = [
+  const coluns: ColumnsType<Orders> = [
     {
       title: 'Ordem',
       align: 'left',
-      dataIndex: 'index',
       key: 'index',
-      render(item, index: number) {
+      render(item, rec, index: number) {
         return <p># {orders.findIndex((i: number) => i === index) + 2}</p>;
       },
     },
@@ -127,16 +127,18 @@ export default function Dashboard() {
       render(item) {
         return (
           <>
-            {item === 'preparando' ? (
+            {item === OrdersStatus.Preparando ? (
               <Tag color="green">
                 {item} <Spin size="small"></Spin>
               </Tag>
-            ) : item === 'entrega' ? (
+            ) : item === OrdersStatus.Entrega ? (
               <Tag color="blue">{item}</Tag>
-            ) : item === 'cancelado' ? (
+            ) : item === OrdersStatus.Cancelado ? (
               <Tag color="red">{item}</Tag>
             ) : (
-              item === 'finalizado' && <Tag color="purple">{item}</Tag>
+              item === OrdersStatus.Finalizado && (
+                <Tag color="purple">{item}</Tag>
+              )
             )}
           </>
         );
@@ -146,7 +148,7 @@ export default function Dashboard() {
       title: 'Ações',
       render: (text, rec, index) => {
         return (
-          rec.status !== 'cancelado' && (
+          rec.status !== OrdersStatus.Cancelado && (
             <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
               <Button
                 onClick={() => {
@@ -164,7 +166,7 @@ export default function Dashboard() {
                 type="text"
                 onClick={() => setOpenModalDetailsOrders(true)}
               >
-                <TbListDetails color=""></TbListDetails>
+                <TbListDetails></TbListDetails>
               </Button>
               <ModalDetailsOrders data={orders[0]}></ModalDetailsOrders>
             </Row>
@@ -173,18 +175,22 @@ export default function Dashboard() {
       },
     },
   ];
-  const colunsOrdersFinished: ColumnsType<any> = [
+  const colunsOrdersFinished: ColumnsType<Orders> = [
     {
       title: 'cliente',
-      dataIndex: 'client',
       key: 'client',
       render(text, rec, indexx) {
-        return <Typography.Text>{rec?.client?.name}</Typography.Text>;
+        return (
+          <Typography.Text
+            style={{ display: 'flex', width: 'max-content', maxWidth: '200px' }}
+          >
+            {rec?.client?.name}
+          </Typography.Text>
+        );
       },
     },
     {
       title: 'Pedido',
-      dataIndex: 'orders',
       render(text, rec, indexx) {
         return ordersFinished
           .filter((item, index) => index === indexx)
@@ -210,10 +216,16 @@ export default function Dashboard() {
     },
     {
       title: 'Telefone',
-      dataIndex: 'client',
-      key: 'client',
+      key: 'phone',
       render(text, rec, indexx) {
-        return <Typography.Text copyable>{rec?.client?.phone}</Typography.Text>;
+        return (
+          <Typography.Text
+            style={{ display: 'flex', width: 'max-content' }}
+            copyable
+          >
+            {rec?.client?.phone}
+          </Typography.Text>
+        );
       },
     },
     {
@@ -246,16 +258,18 @@ export default function Dashboard() {
       render(item) {
         return (
           <>
-            {item === 'preparando' ? (
+            {item === OrdersStatus.Preparando ? (
               <Tag color="green">{item}</Tag>
-            ) : item === 'entrega' ? (
+            ) : item === OrdersStatus.Entrega ? (
               <Tag color="blue">
                 Pedido em rota de entrga <Spin size="small"></Spin>
               </Tag>
-            ) : item === 'cancelado' ? (
+            ) : item === OrdersStatus.Cancelado ? (
               <Tag color="red">{item}</Tag>
             ) : (
-              item === 'finalizado' && <Tag color="purple">{item}</Tag>
+              item === OrdersStatus.Finalizado && (
+                <Tag color="purple">{item}</Tag>
+              )
             )}
           </>
         );
@@ -263,32 +277,31 @@ export default function Dashboard() {
     },
     {
       title: 'Data',
-      dataIndex: 'created_at',
       key: 'created_at',
-      render(item) {
-        return dayjs(item).format('DD/MM/YYYY');
+      render(item, rec, index) {
+        return dayjs(rec.created_at).format('DD/MM/YYYY');
       },
     },
     {
       title: 'Ações',
-      render(item) {
+      render(item, rec, index) {
         return (
           <>
             <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
-              {item.status !== 'finalizado' && (
+              {rec.status !== OrdersStatus.Finalizado && (
                 <Button
                   onClick={() => {
-                    setOrderid(item.id);
+                    setOrderid(rec.id);
                     setWarnigsOrderFinished(true);
                   }}
                 >
                   {load ? <Spin></Spin> : 'Finalizar'}
                 </Button>
               )}
-              {item.status === 'entrega' && item.status !== 'cancelado' && (
+              {rec.status === OrdersStatus.Entrega && (
                 <OrderCancelComponent
-                  status={item.status}
-                  orderId={item.id}
+                  status={rec.status}
+                  orderId={rec.id}
                 ></OrderCancelComponent>
               )}
             </Row>
@@ -302,7 +315,7 @@ export default function Dashboard() {
   const ordersFinishedValue: string[] = dataOrders
     .filter(
       (item: any) =>
-        item.status === 'finalizado' &&
+        item.status === OrdersStatus.Finalizado &&
         dayjs(item.created_at).format('DD/MM/YYYY') ===
           dayjs(new Date()).format('DD/MM/YYYY')
     )
@@ -311,7 +324,7 @@ export default function Dashboard() {
     soma += parseFloat(ordersFinishedValue[i]);
   }
   const amountOrders = dataOrders.filter(
-    (item: { status: string }) => item.status === 'finalizado'
+    (item: { status: string }) => item.status === OrdersStatus.Finalizado
   ).length;
   const amountvalue = soma;
   const date = dayjs(new Date()).format('DD/MM/YYYY');
@@ -319,7 +332,8 @@ export default function Dashboard() {
 
   const dataTableOrdersFinished = dataOrders.filter(
     (item: { status: string }) =>
-      item?.status === 'entrega' || item?.status === 'finalizado'
+      item?.status === OrdersStatus.Entrega ||
+      item?.status === OrdersStatus.Finalizado
   );
 
   return (
@@ -352,7 +366,6 @@ export default function Dashboard() {
             <SumaryStatusOrdersComponent></SumaryStatusOrdersComponent>
             <div
               style={{
-                width: '100%',
                 display: 'grid',
                 placeItems: 'center',
                 gap: '20px',
@@ -370,11 +383,11 @@ export default function Dashboard() {
               </Row>
               <Table
                 style={{ width: '90%' }}
-                size="middle"
+                size="small"
                 dataSource={dataOrders?.filter(
                   (status: any) =>
-                    status?.status === 'preparando' ||
-                    status?.status === 'cancelado'
+                    status?.status === OrdersStatus.Preparando ||
+                    status?.status === OrdersStatus.Cancelado
                 )}
                 columns={coluns}
                 loading={loadTables}
@@ -395,7 +408,8 @@ export default function Dashboard() {
 
               <Table
                 style={{ width: '90%' }}
-                size="middle"
+                size="small"
+                tableLayout="auto"
                 columns={colunsOrdersFinished}
                 dataSource={dataTableOrdersFinished.filter(
                   (item: any) =>
