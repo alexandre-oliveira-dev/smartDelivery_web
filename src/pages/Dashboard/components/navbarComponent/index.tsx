@@ -3,7 +3,6 @@ import "./style.css";
 import { MdLogout } from "react-icons/md";
 import { api } from "../../../../services/api";
 import { DashContext } from "../../../../context/dashboard.context";
-import { Link } from "react-router-dom";
 import { Image, Spin, Typography } from 'antd';
 
 import { MdDashboard } from 'react-icons/md';

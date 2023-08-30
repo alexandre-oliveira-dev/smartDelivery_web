@@ -164,7 +164,11 @@ export default function Register() {
           <div className="box-register">
             <Typography.Title level={2}>Cadastro</Typography.Title>
             <Tabs className="tab">
-              <TabPane className='responsivetabpane' key={1} tab="Dados do estabelecimento">
+              <TabPane
+                className="responsivetabpane"
+                key={1}
+                tab="Dados do estabelecimento"
+              >
                 <Row style={{ width: '100%' }}>
                   <Col style={{ width: '100%' }}>
                     <Row style={{ gap: 10 }}>
@@ -203,7 +207,7 @@ export default function Register() {
                       <Input></Input>
                     </FormItem>
                     <Row
-                      className='responsiveboxadddays'
+                      className="responsiveboxadddays"
                       style={{
                         gap: 10,
                         alignItems: 'center',
@@ -281,7 +285,7 @@ export default function Register() {
                         </FormItem>
 
                         <Button
-                          className='responsivebtnaddmoredays'
+                          className="responsivebtnaddmoredays"
                           style={{ marginBottom: '-6px' }}
                           type="default"
                           onClick={() => {
@@ -366,7 +370,11 @@ export default function Register() {
                                         htmlFor="payment_mode"
                                         style={{ width: '300px' }}
                                       >
-                                        Cartão de {item.paymentmode}
+                                        {item.paymentmode === 'Dinheiro'
+                                          ? item.paymentmode
+                                          : item.paymentmode === 'Pix'
+                                          ? item.paymentmode
+                                          : 'Cartão de ' + item.paymentmode}
                                       </label>
                                       <img
                                         style={{

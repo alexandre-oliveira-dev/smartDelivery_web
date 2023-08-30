@@ -53,11 +53,11 @@ const ContainerEditDataCompany = () => {
   }, [dataCompany?.payments_methods, dataCompany?.daysOfWeeks]);
 
   const initialValues: RegisterValues = {
-    name_company: dataCompany.name_company,
-    cnpj: dataCompany.cnpj,
-    phone: dataCompany.phone,
-    email: dataCompany.email,
-    address: dataCompany.address,
+    name_company: dataCompany?.name_company,
+    cnpj: dataCompany?.cnpj,
+    phone: dataCompany?.phone,
+    email: dataCompany?.email,
+    address: dataCompany?.address,
     pixKey: dataCompany?.pixKey,
     pixType: dataCompany?.pixType,
   };
@@ -73,7 +73,7 @@ const ContainerEditDataCompany = () => {
 
     await api
       .put(
-        `update/${asUser.companyId}`,
+        `update/${asUser?.companyId}`,
         {
           name_company: fieldsValues.name_company,
           cnpj: fieldsValues.cnpj,

@@ -47,9 +47,9 @@ export default function FormCreateCardapio() {
       await api.post('/createmenu', {
         title: String(item.item),
         price: String(item.price),
-        amount: String(item.quantidade),
+        amount: String(item.peoples),
         companiesId: String(asUser.companyId),
-        weight: String(item.peoples),
+        weight: String(item.quantidade),
         categoria: String(item.categoria),
         description: String(item.descricao),
       });
@@ -65,6 +65,7 @@ export default function FormCreateCardapio() {
       })
       .catch(() => setLoadForm(false));
   }
+
   return (
     <>
       <div style={{ display: 'flex', width: '100%' }}>

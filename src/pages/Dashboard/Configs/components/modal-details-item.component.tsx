@@ -7,7 +7,7 @@ export type ItemTypes = {
   data: {
     title: string;
     description: string;
-    peoples: string;
+    amount: string;
     price: string;
     weight: string;
     categoria: string;
@@ -16,6 +16,8 @@ export type ItemTypes = {
 
 export default function ModalDetailsItem({ data }: ItemTypes) {
   const { openModal, setOpenModal } = useContext(DashContext);
+
+  console.log('==>',data)
   return (
     <>
       <Modal
@@ -46,7 +48,7 @@ export default function ModalDetailsItem({ data }: ItemTypes) {
           </Row>
           <Row gutter={10}>
             <Col style={{ fontWeight: '600' }}>Serve:</Col>
-            <Col>{data.weight} pessoas</Col>
+            <Col>{data.amount} pessoas</Col>
           </Row>
           <Row gutter={10}>
             <Col style={{ fontWeight: '600' }}>Quantidade / peso:</Col>
