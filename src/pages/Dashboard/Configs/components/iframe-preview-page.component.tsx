@@ -11,10 +11,6 @@ interface Params {
 export default function IframePreviewPageCompany({ color }: Params) {
   const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
 
-  console.log(
-    '🚀 ~ file: iframe-preview-page.component.tsx:87 ~ IframePreviewPageCompany ~ asUser.name_company?.trim():',
-    asUser.name_company?.replace(/\s+/g, '')
-  );
 
   return (
     <>
@@ -81,7 +77,7 @@ export default function IframePreviewPageCompany({ color }: Params) {
               placeItems: 'center',
               textDecoration: 'underline',
             }}
-            to={`/${asUser.name_company}`}
+            to={`/${asUser.name_company?.replace(' ', '%20')}`}
             target="_blank"
           >
             <Row style={{ marginTop: '20px' }}>
@@ -95,8 +91,8 @@ export default function IframePreviewPageCompany({ color }: Params) {
                     color: '#47a1e6',
                   }}
                 >
-                  www.smartdelivery.com/
-                  {asUser.name_company}
+                  {'https://projeto-delivery-web.onrender.com/' +
+                    asUser.name_company?.replace(' ', '%20')}
                 </Typography.Title>
               </Tag>
             </Row>
