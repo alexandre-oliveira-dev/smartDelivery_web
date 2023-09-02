@@ -1,5 +1,5 @@
 import { Button, Card, Divider, Row, Tag, Typography } from "antd";
-import React from "react";
+
 
 const section: React.CSSProperties = {
   width: "100%",

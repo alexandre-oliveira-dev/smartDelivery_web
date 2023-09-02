@@ -9,7 +9,7 @@ import {
   Spin,
   Typography,
 } from 'antd';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 import FormItem from 'antd/es/form/FormItem';
 import { Options } from '../options-categoria-menu';

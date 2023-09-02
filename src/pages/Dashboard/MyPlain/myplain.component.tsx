@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import Title from '../components/Title';
 import NavBarComponent from '../components/navbarComponent';
 import { Button, Card, Col, Row, Skeleton, Tag, Typography } from 'antd';

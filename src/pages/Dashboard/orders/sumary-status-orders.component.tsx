@@ -1,5 +1,5 @@
 import { Card, Col, Divider, Row, Tag, Typography } from 'antd';
-import React from 'react';
+
 
 export default function SumaryStatusOrdersComponent() {
   return (

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import NavBarComponent from '../components/navbarComponent';
 import Title from '../components/Title';
 import './style.css';
@@ -40,7 +40,7 @@ export default function Dashboard() {
       title: 'Ordem',
       align: 'left',
       key: 'index',
-      render(item, rec, index: number) {
+      render(_item, _rec, index: number) {
         return <p># {orders.findIndex((i: number) => i === index) + 2}</p>;
       },
     },
@@ -48,7 +48,7 @@ export default function Dashboard() {
       title: 'cliente',
       dataIndex: 'client',
       key: 'client',
-      render(text, rec, indexx) {
+      render(_text, rec, _indexx) {
         return <p>{rec?.client?.name}</p>;
       },
     },
@@ -59,9 +59,9 @@ export default function Dashboard() {
         </Row>
       ),
       dataIndex: 'order',
-      render(text, rec, indexx) {
+      render(_text, _rec, indexx) {
         return orders
-          .filter((item, index) => index === indexx)
+          .filter((_item, index) => index === indexx)
           .map(
             (item) =>
               item.map((i: { item: string; qtd: number }) => (
@@ -108,7 +108,7 @@ export default function Dashboard() {
       title: 'Telefone',
       dataIndex: 'client',
       key: 'client',
-      render(text, rec, indexx) {
+      render(_text, rec, _indexx) {
         return <Typography.Text copyable>{rec?.client?.phone}</Typography.Text>;
       },
     },
@@ -146,7 +146,7 @@ export default function Dashboard() {
     },
     {
       title: 'Ações',
-      render: (text, rec, index) => {
+      render: (_text, rec, _index) => {
         return (
           rec.status !== OrdersStatus.Cancelado && (
             <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
@@ -179,7 +179,7 @@ export default function Dashboard() {
     {
       title: 'cliente',
       key: 'client',
-      render(text, rec, indexx) {
+      render(_text, rec, _indexx) {
         return (
           <Typography.Text
             style={{ display: 'flex', width: 'max-content', maxWidth: '200px' }}
@@ -191,9 +191,9 @@ export default function Dashboard() {
     },
     {
       title: 'Pedido',
-      render(text, rec, indexx) {
+      render(_text, _rec, indexx) {
         return ordersFinished
-          .filter((item, index) => index === indexx)
+          .filter((_item, index) => index === indexx)
           .map(
             (item) =>
               item.map((i: { item: string; qtd: number }) => (
@@ -217,7 +217,7 @@ export default function Dashboard() {
     {
       title: 'Telefone',
       key: 'phone',
-      render(text, rec, indexx) {
+      render(_text, rec, _indexx) {
         return (
           <Typography.Text
             style={{ display: 'flex', width: 'max-content' }}
@@ -278,13 +278,13 @@ export default function Dashboard() {
     {
       title: 'Data',
       key: 'created_at',
-      render(item, rec, index) {
+      render(_item, rec, _index) {
         return dayjs(rec.created_at).format('DD/MM/YYYY');
       },
     },
     {
       title: 'Ações',
-      render(item, rec, index) {
+      render(_item, rec, _index) {
         return (
           <>
             <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>

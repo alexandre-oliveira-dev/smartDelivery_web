@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
-import NavBarComponent from "../components/navbarComponent";
-import "../styleGlobalDash.css";
+import { useContext } from 'react';
+import NavBarComponent from '../components/navbarComponent';
+import '../styleGlobalDash.css';
 import { Row, Spin, Typography } from 'antd';
 import {
   Chart,

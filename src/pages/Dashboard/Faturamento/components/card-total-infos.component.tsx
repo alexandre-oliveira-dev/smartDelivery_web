@@ -1,5 +1,5 @@
 import { Card, Col, Row, Typography } from 'antd';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 
 export default function CardTotalInfosComponent() {

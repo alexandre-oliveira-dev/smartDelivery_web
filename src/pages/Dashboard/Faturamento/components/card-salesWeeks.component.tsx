@@ -1,6 +1,6 @@
 import { Card, Col, Typography } from 'antd';
 import { ChartOptions } from 'chart.js';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Line } from 'react-chartjs-2';
 import { DashContext } from '../../../../context/dashboard.context';
 

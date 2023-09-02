@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, {
+import {
   SetStateAction,
   createContext,
   useMemo,
@@ -11,8 +11,6 @@ import { api } from '../services/api';
 import { RegisterValues } from '../pages/Register';
 import {
   NumberParam,
-  QueryParamConfig,
-  SetQuery,
   StringParam,
   useQueryParams,
   withDefault,

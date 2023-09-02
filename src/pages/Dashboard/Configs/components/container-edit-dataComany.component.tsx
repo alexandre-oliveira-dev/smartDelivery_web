@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import '../style.css';
 import {
   Button,
@@ -127,7 +127,7 @@ const ContainerEditDataCompany = () => {
   }
   function handleRemoveDays(index: number) {
     setDaysAndWeeks(
-      daysAndWeeks.filter((i: string, position: number) => position !== index)
+      daysAndWeeks.filter((_i: string, position: number) => position !== index)
     );
   }
 

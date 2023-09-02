@@ -1,5 +1,5 @@
 import { Row, Typography } from "antd";
-import React from "react";
+
 import "../style.css";
 
 export default function SectionAsksQuestions() {

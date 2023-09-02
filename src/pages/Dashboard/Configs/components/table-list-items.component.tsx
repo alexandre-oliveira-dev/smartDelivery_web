@@ -1,5 +1,5 @@
-import React, { useContext,useState } from "react";
-import { DashContext } from "../../../../context/dashboard.context";
+import { useContext, useState } from 'react';
+import { DashContext } from '../../../../context/dashboard.context';
 import { Button, Col, Input, Row, Select, Table, Tag, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { FiEdit, FiSearch, FiTrash } from 'react-icons/fi';

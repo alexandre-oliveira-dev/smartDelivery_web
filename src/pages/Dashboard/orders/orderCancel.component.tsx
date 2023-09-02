@@ -1,5 +1,5 @@
 import { Button, Modal, Row, Typography } from 'antd';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { MdWarning } from 'react-icons/md';
 import { api } from '../../../services/api';
 import { OrdersStatus } from '../../../types';

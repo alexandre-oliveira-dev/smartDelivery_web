@@ -1,5 +1,4 @@
-import React from "react";
-import "../style.css";
+import '../style.css';
 import { Button, Col, Row, Typography } from 'antd';
 import { FiInfo } from 'react-icons/fi';
 

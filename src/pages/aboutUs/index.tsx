@@ -1,7 +1,6 @@
-import React from "react";
-import Header from "../../components/Header";
-import { Button, Col, Row, Typography } from "antd";
-import { BsMailbox, BsPhone } from "react-icons/bs";
+import Header from '../../components/Header';
+import { Button, Col, Row, Typography } from 'antd';
+import { BsMailbox, BsPhone } from 'react-icons/bs';
 import { DashProvider } from '../../context/dashboard.context';
 import './style.css';
 import ilustration from '../../assets/sobrenos.jpg';

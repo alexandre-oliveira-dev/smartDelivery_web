@@ -1,5 +1,5 @@
 import { Button, Col, Divider, Input, Row, Spin, Tag, Typography } from 'antd';
-import React, { useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import '../style.css';
 import { DashContext } from '../../../../context/dashboard.context';
 import IframePreviewPageCompany from './iframe-preview-page.component';

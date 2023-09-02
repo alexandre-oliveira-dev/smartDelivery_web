@@ -1,5 +1,5 @@
 import { Col, Modal, Row, Tag, Typography } from 'antd';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { DashContext } from '../../../context/dashboard.context';
 
 interface Props {

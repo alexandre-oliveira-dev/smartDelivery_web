@@ -1,5 +1,5 @@
 import { Button, Card, Col, Row, Spin, Tag, Typography } from "antd";
-import React, { useContext, useState } from "react";
+import { useContext, useState } from 'react';
 import "./style.css";
 import { DashContext } from "../../../context/dashboard.context";
 import { api } from "../../../services/api";

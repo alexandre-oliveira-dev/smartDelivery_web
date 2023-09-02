@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import "./style.css";
+import { useContext } from 'react';
+import './style.css';
 import { Button, Image, Row, Typography } from 'antd';
 import { DashContext } from '../../context/dashboard.context';
 import ModalLogin from './modal-login.component';
@@ -42,7 +42,10 @@ export default function Header() {
           </button>
           <button>Ajuda</button>
         </div>
-        <div className="responsiveBtnsareaLogin" style={{ display: 'flex', alignItems: 'center' }}>
+        <div
+          className="responsiveBtnsareaLogin"
+          style={{ display: 'flex', alignItems: 'center' }}
+        >
           <div
             style={{
               position: 'relative',

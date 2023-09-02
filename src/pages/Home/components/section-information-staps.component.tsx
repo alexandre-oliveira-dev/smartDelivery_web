@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
-import "../style.css";
+import '../style.css';
 import { Tag, Typography } from 'antd';
-import { DashContext } from '../../../context/dashboard.context';
 import { Link } from 'react-router-dom';
 
 export default function SectionInformationStaps() {
-  const { setOpenModal } = useContext(DashContext);
 
   return (
     <section className="section3">
@@ -39,7 +36,11 @@ export default function SectionInformationStaps() {
           <h2>
             Personalize seu espaço online e obtenha seu link de compartilhamento
             do seu delivery, para divulgar e mandar para seus clientes, ex:{' '}
-            <Tag className="responsiveTag" style={{ fontSize: '15px' }} color="blue">
+            <Tag
+              className="responsiveTag"
+              style={{ fontSize: '15px' }}
+              color="blue"
+            >
               https://smartdelivery.com/nomedoseurestaurante
             </Tag>
           </h2>

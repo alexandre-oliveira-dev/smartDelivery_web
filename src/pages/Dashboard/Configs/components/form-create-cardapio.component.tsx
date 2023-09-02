@@ -11,7 +11,7 @@ import {
   Tag,
   Typography,
 } from 'antd';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 import { Options } from '../options-categoria-menu';
 import { FiTrash } from 'react-icons/fi';
@@ -210,7 +210,7 @@ export default function FormCreateCardapio() {
                         onClick={() => {
                           setDatacardapio(
                             datacardapio.filter(
-                              (i: ItemsofMenutypes, ind: number) =>
+                              (_i: ItemsofMenutypes, ind: number) =>
                                 ind !== index
                             )
                           );
@@ -231,7 +231,7 @@ export default function FormCreateCardapio() {
                                 onChange: (value: any) => {
                                   const currentData: ItemsofMenutypes =
                                     datacardapio?.filter(
-                                      (item: any, ind: number) => ind === index
+                                      (_item: any, ind: number) => ind === index
                                     )[0];
                                   let fieldUpdate = {
                                     item: value,
@@ -261,7 +261,7 @@ export default function FormCreateCardapio() {
                                 onChange: (value: any) => {
                                   const currentData: ItemsofMenutypes =
                                     datacardapio?.filter(
-                                      (item: any, ind: number) => ind === index
+                                      (_item: any, ind: number) => ind === index
                                     )[0];
                                   let fieldUpdate = {
                                     item: currentData.item,
@@ -293,7 +293,7 @@ export default function FormCreateCardapio() {
                                 onChange: (value: any) => {
                                   const currentData: ItemsofMenutypes =
                                     datacardapio?.filter(
-                                      (item: any, ind: number) => ind === index
+                                      (_item: any, ind: number) => ind === index
                                     )[0];
                                   let fieldUpdate = {
                                     item: currentData.item,
@@ -323,7 +323,7 @@ export default function FormCreateCardapio() {
                                 onChange: (value: any) => {
                                   const currentData: ItemsofMenutypes =
                                     datacardapio?.filter(
-                                      (item: any, ind: number) => ind === index
+                                      (_item: any, ind: number) => ind === index
                                     )[0];
                                   let fieldUpdate = {
                                     item: currentData.item,
@@ -364,7 +364,7 @@ export default function FormCreateCardapio() {
                               onChange: (value: any) => {
                                 const currentData: ItemsofMenutypes =
                                   datacardapio?.filter(
-                                    (item: any, ind: number) => ind === index
+                                    (_item: any, ind: number) => ind === index
                                   )[0];
                                 let fieldUpdate = {
                                   item: currentData.item,
@@ -393,7 +393,7 @@ export default function FormCreateCardapio() {
                               onChange: (value: any) => {
                                 const currentData: ItemsofMenutypes =
                                   datacardapio?.filter(
-                                    (item: any, ind: number) => ind === index
+                                    (_item: any, ind: number) => ind === index
                                   )[0];
                                 let fieldUpdate = {
                                   item: currentData.item,

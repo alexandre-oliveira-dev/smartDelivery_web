@@ -1,12 +1,12 @@
 import { Card, Col, Typography } from 'antd';
 import { ChartOptions } from 'chart.js';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { Bar } from 'react-chartjs-2';
 import { DashContext } from '../../../../context/dashboard.context';
 import dayjs from 'dayjs';
 
 export default function CardSalesMonthComponent() {
-  const { dataOrdersFinished: datafat, corNavPrev } = useContext(DashContext);
+  const { corNavPrev } = useContext(DashContext);
 
   const card: React.CSSProperties = {};
   const options: ChartOptions = {

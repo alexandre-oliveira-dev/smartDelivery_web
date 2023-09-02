@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import "./style.css";
-import { MdLogout } from "react-icons/md";
-import { api } from "../../../../services/api";
-import { DashContext } from "../../../../context/dashboard.context";
+import { useContext, useEffect, useState } from 'react';
+import './style.css';
+import { MdLogout } from 'react-icons/md';
+import { api } from '../../../../services/api';
+import { DashContext } from '../../../../context/dashboard.context';
 import { Image, Spin, Typography } from 'antd';
 
 import { MdDashboard } from 'react-icons/md';

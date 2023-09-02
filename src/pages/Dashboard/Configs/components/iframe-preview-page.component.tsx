@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 import { Link } from 'react-router-dom';
 import { Col, Image, Row, Tag, Typography } from 'antd';

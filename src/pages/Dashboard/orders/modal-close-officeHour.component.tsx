@@ -1,5 +1,5 @@
 import { Modal, Row, Spin, Typography } from 'antd';
-import React, { useContext, useState } from 'react';
+import { useContext, useState } from 'react';
 import { DashContext } from '../../../context/dashboard.context';
 import { api } from '../../../services/api';
 import { toast } from 'react-toastify';

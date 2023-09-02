@@ -1,4 +1,3 @@
-import React from 'react';
 import { Row } from 'antd';
 import { MdKeyboardDoubleArrowDown } from 'react-icons/md';
 import im2 from '../../../assets/ilu3.png';

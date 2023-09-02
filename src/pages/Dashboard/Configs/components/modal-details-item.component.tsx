@@ -1,5 +1,5 @@
 import { Col, Divider, Modal, Row, Tag } from 'antd';
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 import Typography from 'antd/es/typography';
 

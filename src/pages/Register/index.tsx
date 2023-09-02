@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './style.css';
 import Header from '../../components/Header';
 import {
@@ -118,7 +118,7 @@ export default function Register() {
   function handleRemoveDay(index: number) {
     setDaysAndHors(
       daysAndHors.filter(
-        (i: { day: string; open: string; close: string }, ind: number) =>
+        (_i: { day: string; open: string; close: string }, ind: number) =>
           ind !== index
       )
     );
