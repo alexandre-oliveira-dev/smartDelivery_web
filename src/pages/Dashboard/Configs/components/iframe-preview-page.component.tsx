@@ -91,7 +91,7 @@ export default function IframePreviewPageCompany({ color }: Params) {
                     color: '#47a1e6',
                   }}
                 >
-                  {'https://projeto-delivery-web.onrender.com/' +
+                  {'https://smartdelivery-web.onrender.com/' +
                     asUser.name_company?.replace(' ', '%20')}
                 </Typography.Title>
               </Tag>
