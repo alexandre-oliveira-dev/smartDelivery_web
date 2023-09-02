@@ -12,7 +12,6 @@ import {
 import React, { useContext, useEffect, useState } from 'react';
 import { DashContext } from '../../../../context/dashboard.context';
 import FormItem from 'antd/es/form/FormItem';
-import { Option } from 'antd/es/mentions';
 import { Options } from '../options-categoria-menu';
 import { api } from '../../../../services/api';
 import { toast } from 'react-toastify';
@@ -105,8 +104,12 @@ export default function ModalEditItem({ item }: Params) {
                   id="categoria"
                   placeholder="Digite um titulo novo"
                 >
-                  {Options.map((item: { value: string }) => {
-                    return <Option value={item.value}>{item.value}</Option>;
+                  {Options.map((item: { value: string }, index) => {
+                    return (
+                      <Select.Option key={String(index)} value={item.value}>
+                        {item.value}
+                      </Select.Option>
+                    );
                   })}
                 </Select>
               </FormItem>

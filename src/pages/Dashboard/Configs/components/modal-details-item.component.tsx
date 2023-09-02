@@ -17,7 +17,6 @@ export type ItemTypes = {
 export default function ModalDetailsItem({ data }: ItemTypes) {
   const { openModal, setOpenModal } = useContext(DashContext);
 
-  console.log('==>',data)
   return (
     <>
       <Modal

@@ -1,4 +1,3 @@
-import React from "react";
 import { Switch } from 'react-router-dom';
 import { QueryParamProvider } from 'use-query-params';
 import { ReactRouter5Adapter } from 'use-query-params/adapters/react-router-5';
@@ -15,7 +14,7 @@ import DashboardComponent from '../pages/Dashboard/orders';
 import MyPlaincomponent from '../pages/Dashboard/MyPlain';
 import MainPageComponentIndex from '../ClientVersion_web/src/pages/main';
 import Cart from '../ClientVersion_web/src/pages/cart';
-import DetailsPage from "../ClientVersion_web/src/pages/itemDetails";
+import DetailsPage from '../ClientVersion_web/src/pages/itemDetails';
 import OrdersComponent from '../ClientVersion_web/src/pages/orders';
 
 export default function RouterApp() {

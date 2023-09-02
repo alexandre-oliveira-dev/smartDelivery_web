@@ -10,6 +10,12 @@ interface Params {
 
 export default function IframePreviewPageCompany({ color }: Params) {
   const { asUser, corNavPrev, fileProfile } = useContext(DashContext);
+
+  console.log(
+    '🚀 ~ file: iframe-preview-page.component.tsx:87 ~ IframePreviewPageCompany ~ asUser.name_company?.trim():',
+    asUser.name_company?.replace(/\s+/g, '')
+  );
+
   return (
     <>
       <header
@@ -24,7 +30,13 @@ export default function IframePreviewPageCompany({ color }: Params) {
           paddingRight: '20px',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '10px',
+          }}
+        >
           <Image
             style={{
               borderRadius: '50%',
@@ -83,7 +95,8 @@ export default function IframePreviewPageCompany({ color }: Params) {
                     color: '#47a1e6',
                   }}
                 >
-                  www.smartdelivery.com/{asUser.name_company}
+                  www.smartdelivery.com/
+                  {asUser.name_company}
                 </Typography.Title>
               </Tag>
             </Row>

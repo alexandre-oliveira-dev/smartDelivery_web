@@ -4,7 +4,7 @@ import { Button, Col, Row, Typography } from "antd";
 import { BsMailbox, BsPhone } from "react-icons/bs";
 import { DashProvider } from '../../context/dashboard.context';
 import './style.css';
-const ilustration = require('../../assets/sobrenos.jpg');
+import ilustration from '../../assets/sobrenos.jpg';
 
 const containermain: React.CSSProperties = {
   width: '100%',

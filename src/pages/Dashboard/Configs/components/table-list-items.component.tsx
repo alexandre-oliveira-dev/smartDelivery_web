@@ -5,7 +5,7 @@ import { ColumnsType } from 'antd/es/table';
 import { FiEdit, FiSearch, FiTrash } from 'react-icons/fi';
 import { TbListDetails } from 'react-icons/tb';
 import Card from 'antd/es/card/Card';
-import { useQueryParam, StringParam } from 'use-query-params';
+import { useQueryParams } from 'use-query-params';
 import { Options } from '../options-categoria-menu';
 import ModalDetailsItem from './modal-details-item.component';
 import ModalEditItem from './modal-edit-item.component';
@@ -20,6 +20,7 @@ export default function TableForListItems() {
     setLoadTables,
     setOpenModal,
     setOpenModalEdititem,
+    paramsUrl,
   } = useContext(DashContext);
   const [dataItemDetails, setdataItemDetails] = useState<any>({});
   const [initialValues, setInitialValues] = useState<any>({});
@@ -114,7 +115,7 @@ export default function TableForListItems() {
     },
   ];
 
-  const [, setItem] = useQueryParam('item', StringParam);
+  const [qurey, setQuery] = useQueryParams(paramsUrl);
 
   return (
     <>
@@ -134,7 +135,15 @@ export default function TableForListItems() {
         </Row>
         <Card style={{ width: '90%', marginBottom: '20px' }}>
           <Row justify={'end'}>
-            <Button onClick={() => setItem('')}>Limpar</Button>
+            <Button
+              onClick={() =>
+                setQuery({
+                  item: null,
+                })
+              }
+            >
+              Limpar
+            </Button>
           </Row>
           <Row gutter={[22, 22]}>
             <Col>
@@ -146,8 +155,11 @@ export default function TableForListItems() {
                 prefix={<FiSearch color="silver"></FiSearch>}
                 placeholder={'Pesquisar pelo item'}
                 type="search"
+                value={qurey.item as string}
                 onChange={(event) => {
-                  setItem(event.target.value);
+                  setQuery({
+                    item: event.target.value,
+                  });
                 }}
               ></Input>
             </Col>
@@ -163,7 +175,9 @@ export default function TableForListItems() {
                   }}
                   placeholder="Selecione"
                   onChange={(event) => {
-                    setItem(event);
+                    setQuery({
+                      item: event,
+                    });
                   }}
                 >
                   <>

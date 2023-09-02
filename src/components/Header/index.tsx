@@ -3,7 +3,7 @@ import "./style.css";
 import { Button, Image, Row, Typography } from 'antd';
 import { DashContext } from '../../context/dashboard.context';
 import ModalLogin from './modal-login.component';
-const logo = require('../../assets/logo.png');
+import logo from '../../assets/logo.png';
 
 export default function Header() {
   const { asUser, setOpenModal } = useContext(DashContext);

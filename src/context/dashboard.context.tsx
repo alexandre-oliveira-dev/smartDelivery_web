@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {
   SetStateAction,
   createContext,
@@ -7,6 +9,14 @@ import React, {
 } from 'react';
 import { api } from '../services/api';
 import { RegisterValues } from '../pages/Register';
+import {
+  NumberParam,
+  QueryParamConfig,
+  SetQuery,
+  StringParam,
+  useQueryParams,
+  withDefault,
+} from 'use-query-params';
 
 export interface AsUserPropsTypes {
   backgroundColor: string;
@@ -31,6 +41,12 @@ export interface AsUserPropsTypes {
   daysOfWeeks?: [{ day: string; open: string; close: string }];
 }
 
+const paramsUrl = {
+  item: StringParam,
+  skip: withDefault(NumberParam, 0),
+  take: withDefault(NumberParam, 5),
+};
+
 export interface ContextTypes {
   setFileProfile: React.Dispatch<SetStateAction<string | ArrayBuffer | null>>;
   setCorNav: React.Dispatch<SetStateAction<string>>;
@@ -39,7 +55,6 @@ export interface ContextTypes {
   setOpenModalConfirmPassword: React.Dispatch<SetStateAction<boolean>>;
   setOpenModalDetailsOrders: React.Dispatch<SetStateAction<boolean>>;
   setWarnigsOrderFinished: React.Dispatch<SetStateAction<boolean>>;
-  setSearchParam: React.Dispatch<SetStateAction<string | null>>;
   setPasswordCript: React.Dispatch<SetStateAction<string | null>>;
   setLoadTables: React.Dispatch<SetStateAction<boolean>>;
   asUser: AsUserPropsTypes;
@@ -56,8 +71,8 @@ export interface ContextTypes {
   dataCompany: RegisterValues;
   dataOrders: [];
   dataOrdersFinished: any[];
-  searchParam: string | null;
   passwordCript: string | null;
+  paramsUrl: typeof paramsUrl;
 }
 export const DashContext = createContext<ContextTypes>({} as ContextTypes);
 
@@ -67,7 +82,6 @@ export function DashProvider({ children }: any) {
   );
   const [fileProfile, setFileProfile] = useState(asUser?.imgProfile);
   const [corNavPrev, setCorNav] = useState('');
-  const [searchParam, setSearchParam] = useState<string | null>('');
   const [passwordCript, setPasswordCript] = useState<string | null>('');
   const [load, setLoad] = useState(false);
   const [loadTables, setLoadTables] = useState(false);
@@ -78,12 +92,14 @@ export function DashProvider({ children }: any) {
   const [openModalEditItem, setOpenModalEdititem] = useState(false);
   const [openModalWarnigsOrderFinished, setWarnigsOrderFinished] =
     useState(false);
+
+  //Data queryes
   const [dataCardapio, setDataCardapio] = useState<[]>([]);
   const [dataOrders, setDataOrders] = useState<[]>([]);
   const [dataOrdersFinished, setDataOrdersFinished] = useState<[]>([]);
   const [dataCompany, setDataCompany] = useState({} as RegisterValues);
 
-  const params = new URLSearchParams(window.location.search);
+  const [query] = useQueryParams(paramsUrl);
 
   useMemo(() => {
     setLoad(true);
@@ -98,9 +114,9 @@ export function DashProvider({ children }: any) {
     async function LoadDatacardapioByParamvoid() {
       await api
         .get(
-          `/getallmenu/${asUser?.companyId}?param=${
-            params.get('item') ?? ''
-          }&take=${params.get('take') ?? 100}&skip=${params.get('skip') ?? 0}`
+          `/getallmenu/${asUser?.companyId}?param=${query.item ?? ''}&take=${
+            query.take ?? 100
+          }&skip=${query.skip ?? 0}`
         )
         .then((data) => {
           setDataCardapio(data.data);
@@ -135,7 +151,7 @@ export function DashProvider({ children }: any) {
       LoadOrdersFinished(),
       LoadDataCompany(),
     ]).finally(() => setLoadTables(false));
-  }, [asUser?.companyId, params.get('item')]);
+  }, [asUser?.companyId, query.item]);
 
   return (
     <DashContext.Provider
@@ -149,8 +165,6 @@ export function DashProvider({ children }: any) {
         setOpenModal,
         load,
         dataCardapio,
-        searchParam,
-        setSearchParam,
         loadTables,
         setLoadTables,
         dataOrders,
@@ -166,6 +180,7 @@ export function DashProvider({ children }: any) {
         setOpenModalConfirmPassword,
         openModalDetailsOrders,
         setOpenModalDetailsOrders,
+        paramsUrl,
       }}
     >
       {children}

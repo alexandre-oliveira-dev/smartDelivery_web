@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import Header from '../../components/Header';
@@ -16,6 +17,7 @@ import TabPane from 'antd/es/tabs/TabPane';
 import FormItem from 'antd/es/form/FormItem';
 import { api } from '../../services/api';
 import { DashProvider } from '../../context/dashboard.context';
+import { toast } from 'react-toastify';
 
 export type RegisterValues = {
   name_company: string;
@@ -113,10 +115,10 @@ export default function Register() {
     address: '',
   };
 
-  function handleRemoveDay(index: Number) {
+  function handleRemoveDay(index: number) {
     setDaysAndHors(
       daysAndHors.filter(
-        (i: { day: string; open: string; close: string }, ind: Number) =>
+        (i: { day: string; open: string; close: string }, ind: number) =>
           ind !== index
       )
     );
@@ -153,7 +155,7 @@ export default function Register() {
                 setLoad(false);
               })
               .catch((err) => {
-                alert('ops usuario já existe');
+                toast.error('ops usuario já existe');
                 console.log(err);
                 setLoad(false);
               });
@@ -289,9 +291,9 @@ export default function Register() {
                           style={{ marginBottom: '-6px' }}
                           type="default"
                           onClick={() => {
-                            let dia = form.getFieldValue('day');
-                            let hora = form.getFieldValue('openHors');
-                            let closeHors = form.getFieldValue('closeHors');
+                            const dia = form.getFieldValue('day');
+                            const hora = form.getFieldValue('openHors');
+                            const closeHors = form.getFieldValue('closeHors');
 
                             console.log(JSON.parse(dia));
                             const object = {
@@ -319,6 +321,7 @@ export default function Register() {
                           ) => {
                             return (
                               <Tag
+                                key={index}
                                 color="blue"
                                 onClick={() => handleRemoveDay(index)}
                               >
