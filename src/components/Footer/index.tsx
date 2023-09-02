@@ -1,7 +1,7 @@
 import './style.css';
 import { Col, Row, Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo.png';
+const logo = require('../../assets/logo.png');
 
 export default function Footer() {
   return (

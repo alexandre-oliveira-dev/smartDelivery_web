@@ -1,6 +1,6 @@
 import { Row } from 'antd';
 import { MdKeyboardDoubleArrowDown } from 'react-icons/md';
-import im2 from '../../../assets/ilu3.png';
+const im2 = require('../../../assets/ilu3.png');
 
 export default function SectionIlustration() {
   function handleMoveScrollPage() {
