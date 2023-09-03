@@ -3,7 +3,7 @@ import NavBarComponent from '../components/navbarComponent';
 import Title from '../components/Title';
 import './style.css';
 import '../styleGlobalDash.css';
-import { Table, Button, Typography, Col, Row, Spin, Tag } from 'antd';
+import { Table, Button, Typography, Col, Row, Spin, Tag, Tooltip } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import ModalOrders from './modalOrders.component';
 import { DashContext } from '../../../context/dashboard.context';
@@ -15,6 +15,7 @@ import OrderCancelComponent from './orderCancel.component';
 import { TbListDetails } from 'react-icons/tb';
 import ModalDetailsOrders from './modal-details-order.component';
 import { Orders, OrdersStatus } from '../../../types';
+import { PriceFormater } from '../../../helpers/priceFormater';
 
 export default function Dashboard() {
   const {
@@ -41,7 +42,7 @@ export default function Dashboard() {
       align: 'left',
       key: 'index',
       render(_item, _rec, index: number) {
-        return <p># {orders.findIndex((i: number) => i === index) + 2}</p>;
+        return <p># {index + 1}</p>;
       },
     },
     {
@@ -53,45 +54,12 @@ export default function Dashboard() {
       },
     },
     {
-      title: (
-        <Row>
-          <Typography.Title level={5}>Pedido</Typography.Title>
-        </Row>
-      ),
-      dataIndex: 'order',
-      render(_text, _rec, indexx) {
-        return orders
-          .filter((_item, index) => index === indexx)
-          .map(
-            (item) =>
-              item.map((i: { item: string; qtd: number }) => (
-                <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
-                  <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
-                    <p>{i.qtd}x</p>
-                    <p>{i.item}</p>
-                  </Row>
-                  {item.length > 1 &&
-                    +(
-                      <Tag title={(i.item, String(i.qtd))} color="purple">
-                        {Number(item.length) - 1}
-                        pedido(s)
-                      </Tag>
-                    )}
-                </Row>
-              ))[0]
-          );
-      },
-    },
-    {
       title: 'Valor',
       dataIndex: 'amoutMoney',
       render(rec) {
         return (
-          <Tag color="darkgreen">
-            {parseFloat(rec).toLocaleString('pt-br', {
-              style: 'currency',
-              currency: 'BRL',
-            })}
+          <Tag color="green">
+            {new PriceFormater().formater({ price: rec })}
           </Tag>
         );
       },
@@ -191,26 +159,24 @@ export default function Dashboard() {
     },
     {
       title: 'Pedido',
+      width: '200px',
       render(_text, _rec, indexx) {
         return ordersFinished
           .filter((_item, index) => index === indexx)
-          .map(
-            (item) =>
-              item.map((i: { item: string; qtd: number }) => (
-                <Row style={{ gap: '10px' }}>
-                  <Row style={{ gap: '10px', flexWrap: 'nowrap' }}>
+          .map((item) =>
+            item.map((i: { item: string; qtd: number }) => (
+              <Row key={indexx} style={{ gap: '10px' }}>
+                <Tag color="purple">
+                  <Row
+                    style={{ gap: '10px', flexWrap: 'nowrap', width: '100%' }}
+                  >
                     <p>{i.qtd}x</p>
-                    <p>{i.item}</p>
+
+                    <p style={{ width: 'max-content' }}>{i.item}</p>
                   </Row>
-                  {item.length > 1 &&
-                    +(
-                      <Tag color="purple">
-                        {Number(item.length) - 1}
-                        pedido(s)
-                      </Tag>
-                    )}
-                </Row>
-              ))[0]
+                </Tag>
+              </Row>
+            ))
           );
       },
     },

@@ -63,8 +63,8 @@ export default function Faturamento() {
             ></Title>
             <Typography.Title level={2}>Dashboard</Typography.Title>
 
-            <Row gutter={20}>
-              <CardSalesMonthComponent></CardSalesMonthComponent>
+            <Row gutter={20} style={{ width: '100%' }}>
+              {/* <CardSalesMonthComponent></CardSalesMonthComponent> */}
               <CardSalesWeeksComponent></CardSalesWeeksComponent>
             </Row>
             <CardTotalInfosComponent></CardTotalInfosComponent>

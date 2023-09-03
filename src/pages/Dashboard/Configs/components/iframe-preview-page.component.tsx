@@ -76,6 +76,7 @@ export default function IframePreviewPageCompany({ color }: Params) {
               display: 'grid',
               placeItems: 'center',
               textDecoration: 'underline',
+              textDecorationColor: '#47a1e6',
             }}
             to={`/${asUser.name_company?.replace(' ', '%20')}`}
             target="_blank"
