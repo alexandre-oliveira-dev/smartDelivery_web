@@ -3,6 +3,7 @@ import './style.css';
 import { Button, Image, Row, Typography } from 'antd';
 import { DashContext } from '../../context/dashboard.context';
 import ModalLogin from './modal-login.component';
+import { Link } from 'react-router-dom';
 const logo = require('../../assets/logo.png');
 
 export default function Header() {
@@ -54,13 +55,9 @@ export default function Header() {
             {!asUser ? (
               <Button onClick={() => setOpenModal(true)}>Entrar</Button>
             ) : (
-              <Button
-                onClick={() =>
-                  (window.location.href = `/dashboard/${asUser?.name_company}`)
-                }
-              >
+              <Link to={`/dashboard/${asUser?.name_company}`}>
                 Ir para o dashboard
-              </Button>
+              </Link>
             )}
             <ModalLogin></ModalLogin>
           </div>
