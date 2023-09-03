@@ -18,6 +18,13 @@ export interface PropsCreateOrderFinished {
 export default function ModalCloseOfficeHour({
   data: { amountOrders, amountvalue, companyId, date },
 }: PropsCreateOrderFinished) {
+  console.log(
+    '🚀 ~ file: modal-close-officeHour.component.tsx:21 ~ amountOrders, amountvalue, companyId, date:',
+    amountOrders,
+    amountvalue,
+    companyId,
+    date
+  );
   const { setOpenModal, openModal, dataOrders } = useContext(DashContext);
   const [load, setLoad] = useState(false);
 
@@ -47,9 +54,10 @@ export default function ModalCloseOfficeHour({
         companyId: companyId,
       })
       .then(async () => {
+        toast.success('Expediente fechado com sucesso!');
+        setLoad(false);
         await api.put(`/allordersbystatus`).then(() => {
           setLoad(false);
-          toast.success('Expediente fechado com sucesso!');
           setOpenModal(false);
           setTimeout(() => {
             window.location.reload();

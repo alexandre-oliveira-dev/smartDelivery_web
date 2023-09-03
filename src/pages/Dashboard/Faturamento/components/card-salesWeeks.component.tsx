@@ -6,7 +6,6 @@ import { DashContext } from '../../../../context/dashboard.context';
 
 export default function CardSalesWeeksComponent() {
   const { dataOrdersFinished: datafat, corNavPrev } = useContext(DashContext);
-  const card: React.CSSProperties = {};
   const options: ChartOptions = {
     scales: {
       y: {
@@ -14,10 +13,13 @@ export default function CardSalesWeeksComponent() {
       },
     },
   };
-  console.log(corNavPrev);
   return (
-    <Col>
-      <Card style={card}>
+    <Col style={{ width: '100%', display: 'grid', placeItems: 'center' }}>
+      <Card
+        style={{
+          width: '70%',
+        }}
+      >
         <Typography.Title level={4}>Vendas na Semana</Typography.Title>
         <Line
           options={options as any}

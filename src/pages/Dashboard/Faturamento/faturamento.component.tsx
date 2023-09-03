@@ -15,8 +15,8 @@ import {
 import Title from '../components/Title';
 import { DashContext } from '../../../context/dashboard.context';
 import CardSalesWeeksComponent from './components/card-salesWeeks.component';
-import CardSalesMonthComponent from './components/card-salesMonth.component';
-import CardTotalInfosComponent from './components/card-total-infos.component';
+/* import CardSalesMonthComponent from './components/card-salesMonth.component';
+ */import CardTotalInfosComponent from './components/card-total-infos.component';
 
 Chart.register(
   CategoryScale,
@@ -63,8 +63,8 @@ export default function Faturamento() {
             ></Title>
             <Typography.Title level={2}>Dashboard</Typography.Title>
 
-            <Row gutter={20}>
-              <CardSalesMonthComponent></CardSalesMonthComponent>
+            <Row gutter={20} style={{ width: '100%' }}>
+              {/* <CardSalesMonthComponent></CardSalesMonthComponent> */}
               <CardSalesWeeksComponent></CardSalesWeeksComponent>
             </Row>
             <CardTotalInfosComponent></CardTotalInfosComponent>
