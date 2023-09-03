@@ -3,7 +3,7 @@ import NavBarComponent from '../components/navbarComponent';
 import Title from '../components/Title';
 import './style.css';
 import '../styleGlobalDash.css';
-import { Table, Button, Typography, Col, Row, Spin, Tag, Tooltip } from 'antd';
+import { Table, Button, Typography, Col, Row, Spin, Tag } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import ModalOrders from './modalOrders.component';
 import { DashContext } from '../../../context/dashboard.context';

@@ -15,8 +15,8 @@ import {
 import Title from '../components/Title';
 import { DashContext } from '../../../context/dashboard.context';
 import CardSalesWeeksComponent from './components/card-salesWeeks.component';
-import CardSalesMonthComponent from './components/card-salesMonth.component';
-import CardTotalInfosComponent from './components/card-total-infos.component';
+/* import CardSalesMonthComponent from './components/card-salesMonth.component';
+ */import CardTotalInfosComponent from './components/card-total-infos.component';
 
 Chart.register(
   CategoryScale,
