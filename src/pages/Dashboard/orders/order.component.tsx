@@ -351,9 +351,11 @@ export default function Dashboard() {
                 style={{ width: '90%' }}
                 size="small"
                 dataSource={dataOrders?.filter(
-                  (status: any) =>
-                    status?.status === OrdersStatus.Preparando ||
-                    status?.status === OrdersStatus.Cancelado
+                  (item: Orders) =>
+                    item?.status === OrdersStatus.Preparando ||
+                    (item?.status === OrdersStatus.Cancelado &&
+                      dayjs(item?.created_at).format('DD/MM/YYYY') ===
+                        dayjs(new Date()).format('DD/MM/YYYY'))
                 )}
                 columns={coluns}
                 loading={loadTables}
