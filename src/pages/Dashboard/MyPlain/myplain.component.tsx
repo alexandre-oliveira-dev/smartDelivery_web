@@ -83,11 +83,11 @@ export default function MyPlain() {
                 width: '80%',
               }}
               title={
-                <Row style={{ alignItems: 'center', gap: '20px' }}>
-                  <Col>
+                <Row style={{ alignContent: 'center', gap: '10px' }}>
+                  <span>
                     <Typography.Title level={3}>Status:</Typography.Title>
-                  </Col>
-                  <Col>
+                  </span>
+                  <span>
                     {dataCompany?.isSubiscriber ? (
                       <Tag
                         style={{
@@ -111,7 +111,7 @@ export default function MyPlain() {
                         Inativo
                       </Tag>
                     )}
-                  </Col>
+                  </span>
                 </Row>
               }
             >

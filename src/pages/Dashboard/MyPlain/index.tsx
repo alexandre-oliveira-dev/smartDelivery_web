@@ -1,3 +1,3 @@
-import { DashProvider } from '../../../context/dashboard.context';
+import MyPlain from './myplain.component';
 
-export default DashProvider;
+export default MyPlain;
