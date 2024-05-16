@@ -149,7 +149,7 @@ export function DashProvider({ children }: any) {
       LoadOrdersFinished(),
       LoadDataCompany(),
     ]).finally(() => setLoadTables(false));
-  }, [asUser?.companyId, query.item]);
+  }, [asUser?.companyId, query?.item]);
 
   return (
     <DashContext.Provider

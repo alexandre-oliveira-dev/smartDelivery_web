@@ -11,11 +11,11 @@ import AboutUs from '../pages/aboutUs';
 import ConfigComponent from '../pages/Dashboard/Configs';
 import FaturamentoComponent from '../pages/Dashboard/Faturamento';
 import DashboardComponent from '../pages/Dashboard/orders';
-import MyPlaincomponent from '../pages/Dashboard/MyPlain';
 import MainPageComponentIndex from '../ClientVersion_web/src/pages/main';
 import Cart from '../ClientVersion_web/src/pages/cart';
 import DetailsPage from '../ClientVersion_web/src/pages/itemDetails';
 import OrdersComponent from '../ClientVersion_web/src/pages/orders';
+import MyPlain from '../pages/Dashboard/MyPlain';
 
 export default function RouterApp() {
   return (
@@ -44,7 +44,7 @@ export default function RouterApp() {
           <Route
             exact
             path={'/dashboard/:company/meuPlano'}
-            component={MyPlaincomponent}
+            component={MyPlain}
           ></Route>
           <Route exact path={'/cadastro'} component={Register}></Route>
           <Route exact path={'/sobrenos'} component={AboutUs}></Route>
