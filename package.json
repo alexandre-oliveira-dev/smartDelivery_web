@@ -42,7 +42,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "vercel-build": "git submodule update && echo ola"
+    "vercel-build": "sh ./vercel-build.sh && echo ola"
   },
   "eslintConfig": {
     "extends": [
